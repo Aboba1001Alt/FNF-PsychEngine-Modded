@@ -195,12 +195,6 @@ class HScript extends SScript
 		set('remove', function(obj:FlxBasic, splice:Bool = false) PlayState.instance.remove(obj, splice));
 		
 		set('Math', Math);
-        set('PlayfieldRenderer', modcharting.PlayfieldRenderer);
-        set('ModchartUtil', modcharting.ModchartUtil);
-        set('Modifier', modcharting.Modifier);
-        set('NoteMovement', modcharting.NoteMovement);
-        set('NotePositionData', modcharting.NotePositionData);
-        set('ModchartFile', modcharting.ModchartFile);
 		#end
 	}
 
