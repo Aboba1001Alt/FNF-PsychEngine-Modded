@@ -8,6 +8,11 @@ import states.TitleState;
 
 // Add a variable here and it will get automatically saved
 class SaveVariables {
+	public var lessLag:Bool = false;
+	public var oldSupport:Bool = false;
+	public var noDataClear:Bool = false;
+	public var replayMod:Bool = false;
+	public var moddedSaves:Map<String, Dynamic> = new Map<String, Dynamic>();
 	public var downScroll:Bool = false;
 	public var middleScroll:Bool = false;
 	public var opponentStrums:Bool = true;

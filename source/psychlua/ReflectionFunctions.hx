@@ -16,12 +16,20 @@ class ReflectionFunctions
 	{
 		var lua:State = funk.lua;
 		Lua_helper.add_callback(lua, "getProperty", function(variable:String, ?allowMaps:Bool = false) {
+			if (ClientPrefs.data.oldSupport) {
+				if (variable == "camFollowPos.x") variable = "camGame.scroll.x";
+				else if (variable == "camFollowPos.y") variable = "camGame.scroll.y";
+			}
 			var split:Array<String> = variable.split('.');
 			if(split.length > 1)
 				return LuaUtils.getVarInArray(LuaUtils.getPropertyLoop(split, true, true, allowMaps), split[split.length-1], allowMaps);
 			return LuaUtils.getVarInArray(LuaUtils.getTargetInstance(), variable, allowMaps);
 		});
 		Lua_helper.add_callback(lua, "setProperty", function(variable:String, value:Dynamic, allowMaps:Bool = false) {
+			if (ClientPrefs.data.oldSupport) {
+				if (variable == "camFollowPos.x") variable = "camGame.scroll.x";
+				else if (variable == "camFollowPos.y") variable = "camGame.scroll.y";
+			}
 			var split:Array<String> = variable.split('.');
 			if(split.length > 1) {
 				LuaUtils.setVarInArray(LuaUtils.getPropertyLoop(split, true, true, allowMaps), split[split.length-1], value, allowMaps);
@@ -32,6 +40,15 @@ class ReflectionFunctions
 		});
 		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String, ?allowMaps:Bool = false) {
 			var myClass:Dynamic = Type.resolveClass(classVar);
+			if (ClientPrefs.data.oldSupport) {
+				if (classVar == "ClientPrefs") {
+				    myClass = Type.resolveClass("backend.ClientPrefs");
+				    variable = "data." + variable;
+			    } else if (classVar == "Conductor") myClass = Type.resolveClass("backend.Conductor");
+				else if (classVar == "CustomFadeTransition") myClass = Type.resolveClass("backend.CustomFadeTransition");
+			    else if (classVar == "GameOverSubstate") myClass = Type.resolveClass("substates.GameOverSubstate");
+			    else if (classVar == "PlayState") myClass = Type.resolveClass("states.PlayState");
+			}
 			if(myClass == null)
 			{
 				FunkinLua.luaTrace('getPropertyFromClass: Class $classVar not found', false, false, FlxColor.RED);
@@ -50,6 +67,15 @@ class ReflectionFunctions
 		});
 		Lua_helper.add_callback(lua, "setPropertyFromClass", function(classVar:String, variable:String, value:Dynamic, ?allowMaps:Bool = false) {
 			var myClass:Dynamic = Type.resolveClass(classVar);
+			if (ClientPrefs.data.oldSupport) {
+				if (classVar == "ClientPrefs") {
+				    myClass = Type.resolveClass("backend.ClientPrefs");
+				    variable = "data." + variable;
+			    } else if (classVar == "Conductor") myClass = Type.resolveClass("backend.Conductor");
+				else if (classVar == "CustomFadeTransition") myClass = Type.resolveClass("backend.CustomFadeTransition");
+			    else if (classVar == "GameOverSubstate") myClass = Type.resolveClass("substates.GameOverSubstate");
+			    else if (classVar == "PlayState") myClass = Type.resolveClass("states.PlayState");
+			}
 			if(myClass == null)
 			{
 				FunkinLua.luaTrace('getPropertyFromClass: Class $classVar not found', false, false, FlxColor.RED);
