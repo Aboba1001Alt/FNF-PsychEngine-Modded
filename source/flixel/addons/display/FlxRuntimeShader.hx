@@ -1,6 +1,6 @@
 package flixel.addons.display;
 
-import dashadertools.FlxfixedShaders;
+import dashadertools.Flxfixedshaders;
 import lime.utils.Float32Array;
 import openfl.display.BitmapData;
 import openfl.display.ShaderInput;
@@ -22,7 +22,7 @@ import openfl.display.ShaderParameterType;
  * @see https://github.com/openfl/openfl/blob/develop/src/openfl/utils/_internal/ShaderMacro.hx
  * @see https://dixonary.co.uk/blog/shadertoy
  */
-class FlxRuntimeShader extends FlxfixedShaders
+class FlxRuntimeShader extends Flxfixedshaders
 {
 	#if FLX_DRAW_QUADS
 	// We need to add stuff from FlxGraphicsShader too!
