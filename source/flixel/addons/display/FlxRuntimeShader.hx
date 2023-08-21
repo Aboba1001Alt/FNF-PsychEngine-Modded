@@ -1,6 +1,6 @@
 package flixel.addons.display;
 
-import flixel.system.FlxAssets.FlxShader;
+import dashadertools.FlxFixedShaders;
 import lime.utils.Float32Array;
 import openfl.display.BitmapData;
 import openfl.display.ShaderInput;
@@ -22,7 +22,7 @@ import openfl.display.ShaderParameterType;
  * @see https://github.com/openfl/openfl/blob/develop/src/openfl/utils/_internal/ShaderMacro.hx
  * @see https://dixonary.co.uk/blog/shadertoy
  */
-class FlxRuntimeShader extends FlxShader
+class FlxRuntimeShader extends FlxFixedShaders
 {
 	#if FLX_DRAW_QUADS
 	// We need to add stuff from FlxGraphicsShader too!
@@ -196,7 +196,7 @@ class FlxRuntimeShader extends FlxShader
 	 * @param vertexSource The vertex shader source.
 	 * Note you also need to `initialize()` the shader MANUALLY! It can't be done automatically.
 	 */
-	public function new(fragmentSource:String = null, vertexSource:String = null, glslVersion:Int = 120):Void
+	public function new(fragmentSource:String = null, vertexSource:String = null, glslVersion:Int = 100):Void
 	{
 		_glslVersion = glslVersion;
 
@@ -291,7 +291,11 @@ class FlxRuntimeShader extends FlxShader
 			var gl = __context.gl;
 
 			var precisionHeaders = buildPrecisionHeaders();
-			var versionHeader = '#version ${_glslVersion}\n';
+			#if android
+            var versionHeader = "#version 300 es\n";
+            #else
+            var versionHeader = "#version 120\n";
+            #end
 
 			var vertex = StringTools.replace(glVertexSource, PRAGMA_PRECISION, precisionHeaders);
 			vertex = StringTools.replace(vertex, PRAGMA_VERSION, versionHeader);

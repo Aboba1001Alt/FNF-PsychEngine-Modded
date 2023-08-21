@@ -5,6 +5,11 @@ import objects.Character;
 import psychlua.FunkinLua;
 import psychlua.CustomSubstate;
 
+#if sys
+import sys.FileSystem;
+import sys.io.File;
+#end
+
 #if (HSCRIPT_ALLOWED && SScript >= "3.0.0")
 import tea.SScript;
 class HScript extends SScript
@@ -25,10 +30,23 @@ class HScript extends SScript
 	public static function initHaxeModuleCode(parent:FunkinLua, code:String)
 	{
 		#if (SScript >= "3.0.0")
-		if(parent.hscript == null)
+		var hs:HScript = parent.hscript;
+		if(hs == null)
 		{
 			trace('initializing haxe interp for: ${parent.scriptName}');
 			parent.hscript = new HScript(parent, code);
+		}
+		else
+		{
+			hs.doString(code);
+			@:privateAccess
+			if(hs.parsingExceptions != null && hs.parsingExceptions.length > 0)
+			{
+				@:privateAccess
+				for (e in hs.parsingExceptions)
+					if(e != null)
+						PlayState.instance.addTextToDebug('ERROR ON LOADING (${hs.origin}): ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
+			}
 		}
 		#end
 	}
@@ -36,10 +54,20 @@ class HScript extends SScript
 	public var origin:String;
 	override public function new(?parent:FunkinLua, ?file:String)
 	{
+		var usesClasses = false;
 		if (file == null)
 			file = '';
 	
-		super(file, false, false);
+		#if sys
+		else if (FileSystem.exists(file)) {
+			var fileWithoutComments = ~/(\/[*](?:[^*]|[\r\n]|([*]+([^*\/]|[\r\n])))*[*]+\/|\/\/.*)/gm.replace(File.getContent(file), '');
+			usesClasses = ~/class\s.*\s*{/.match(fileWithoutComments);
+		}
+		#end
+
+		super(null, false, false);
+		classSupport = usesClasses;
+		doFile(file);
 		parentLua = parent;
 		if (parent != null)
 			origin = parent.scriptName;
@@ -61,7 +89,7 @@ class HScript extends SScript
 		set('FlxTimer', flixel.util.FlxTimer);
 		set('FlxTween', flixel.tweens.FlxTween);
 		set('FlxEase', flixel.tweens.FlxEase);
-		set('FlxColor', CustomFlxColor);
+		set('FlxColor', CustomFlxColor.instance);
 		set('PlayState', PlayState);
 		set('Paths', Paths);
 		set('Conductor', Conductor);
@@ -130,7 +158,10 @@ class HScript extends SScript
 				if(libPackage.length > 0)
 					str = libPackage + '.';
 
-				set(libName, Type.resolveClass(str + libName));
+				var c:Dynamic = Type.resolveClass(str + libName);
+				if (c == null)
+					c = Type.resolveEnum(str + libName);
+				set(libName, c);
 			}
 			catch (e:Dynamic) {
 				var msg:String = e.message.substr(0, e.message.indexOf('\n'));
@@ -162,6 +193,14 @@ class HScript extends SScript
 		set('addBehindBF', function(obj:FlxBasic) PlayState.instance.addBehindBF(obj));
 		set('insert', function(pos:Int, obj:FlxBasic) PlayState.instance.insert(pos, obj));
 		set('remove', function(obj:FlxBasic, splice:Bool = false) PlayState.instance.remove(obj, splice));
+		
+		set('Math', Math);
+        set('PlayfieldRenderer', modcharting.PlayfieldRenderer);
+        set('ModchartUtil', modcharting.ModchartUtil);
+        set('Modifier', modcharting.Modifier);
+        set('NoteMovement', modcharting.NoteMovement);
+        set('NotePositionData', modcharting.NotePositionData);
+        set('ModchartFile', modcharting.ModchartFile);
 		#end
 	}
 
@@ -205,7 +244,8 @@ class HScript extends SScript
 		funk.addLocalCallback("runHaxeCode", function(codeToRun:String, ?varsToBring:Any = null, ?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):Dynamic {
 			var retVal:SCall = null;
 			#if (SScript >= "3.0.0")
-			initHaxeModuleCode(funk, codeToRun);
+			initHaxeModule(funk);
+			funk.hscript.doString(codeToRun);
 			if(varsToBring != null)
 			{
 				for (key in Reflect.fields(varsToBring))
@@ -225,8 +265,6 @@ class HScript extends SScript
 					FunkinLua.luaTrace(funk.hscript.origin + ":" + funk.lastCalledFunction + " - " + e, false, false, FlxColor.RED);
 				return null;
 			}
-			else if (funk.hscript.returnValue != null)
-				return funk.hscript.returnValue;
 			#else
 			FunkinLua.luaTrace("runHaxeCode: HScript isn't supported on this platform!", false, false, FlxColor.RED);
 			#end
@@ -257,7 +295,9 @@ class HScript extends SScript
 			else if(libName == null)
 				libName = '';
 
-			var c = Type.resolveClass(str + libName);
+			var c:Dynamic = Type.resolveClass(str + libName);
+			if (c == null)
+				c = Type.resolveEnum(str + libName);
 
 			#if (SScript >= "3.0.3")
 			if (c != null)
@@ -296,47 +336,5 @@ class HScript extends SScript
 		active = false;
 	}
 	#end
-}
-
-class CustomFlxColor
-{
-	public static var TRANSPARENT(default, null):Int = FlxColor.TRANSPARENT;
-	public static var BLACK(default, null):Int = FlxColor.BLACK;
-	public static var WHITE(default, null):Int = FlxColor.WHITE;
-	public static var GRAY(default, null):Int = FlxColor.GRAY;
-
-	public static var GREEN(default, null):Int = FlxColor.GREEN;
-	public static var LIME(default, null):Int = FlxColor.LIME;
-	public static var YELLOW(default, null):Int = FlxColor.YELLOW;
-	public static var ORANGE(default, null):Int = FlxColor.ORANGE;
-	public static var RED(default, null):Int = FlxColor.RED;
-	public static var PURPLE(default, null):Int = FlxColor.PURPLE;
-	public static var BLUE(default, null):Int = FlxColor.BLUE;
-	public static var BROWN(default, null):Int = FlxColor.BROWN;
-	public static var PINK(default, null):Int = FlxColor.PINK;
-	public static var MAGENTA(default, null):Int = FlxColor.MAGENTA;
-	public static var CYAN(default, null):Int = FlxColor.CYAN;
-
-	public static function fromRGB(Red:Int, Green:Int, Blue:Int, Alpha:Int = 255):Int
-	{
-		return cast FlxColor.fromRGB(Red, Green, Blue, Alpha);
-	}
-	public static function fromRGBFloat(Red:Float, Green:Float, Blue:Float, Alpha:Float = 1):Int
-	{	
-		return cast FlxColor.fromRGBFloat(Red, Green, Blue, Alpha);
-	}
-
-	public static function fromHSB(Hue:Float, Sat:Float, Brt:Float, Alpha:Float = 1):Int
-	{	
-		return cast FlxColor.fromHSB(Hue, Sat, Brt, Alpha);
-	}
-	public static function fromHSL(Hue:Float, Sat:Float, Light:Float, Alpha:Float = 1):Int
-	{	
-		return cast FlxColor.fromHSL(Hue, Sat, Light, Alpha);
-	}
-	public static function fromString(str:String):Int
-	{
-		return cast FlxColor.fromString(str);
-	}
 }
 #end
