@@ -13,6 +13,7 @@ class SaveVariables {
 	public var noDataClear:Bool = false;
 	public var replayMod:Bool = false;
 	public var moddedSaves:Map<String, Dynamic> = new Map<String, Dynamic>();
+	public var experimental:Bool = false;
 	public var downScroll:Bool = false;
 	public var middleScroll:Bool = false;
 	public var opponentStrums:Bool = true;
