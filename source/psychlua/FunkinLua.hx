@@ -208,6 +208,19 @@ class FunkinLua {
 
 			return runningScripts;
 		});
+
+		Lua_helper.add_callback(lua, "require", function(filePath:String){
+			var split:Array<String> = variable.split('.');
+			var path:String = "";
+			for (i in 0...split.length) {
+				if (i == split.length - 1) {
+					path = path + split[i] + ".lua";
+				} else {
+					path = path + split[i];
+				}
+			}
+			return LuaL.dostring(lua, "load(" + File.getContent(SUtil.getPath() + path) + ")");
+		});
 		
 		addLocalCallback("setOnScripts", function(varName:String, arg:Dynamic, ?ignoreSelf:Bool = false, ?exclusions:Array<String> = null) {
 			if(exclusions == null) exclusions = [];
