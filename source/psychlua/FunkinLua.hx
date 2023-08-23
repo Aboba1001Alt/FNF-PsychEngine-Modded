@@ -210,7 +210,7 @@ class FunkinLua {
 		});
 
 		Lua_helper.add_callback(lua, "require", function(filePath:String){
-			var split:Array<String> = variable.split('.');
+			var split:Array<String> = filePath.split('.');
 			var path:String = "";
 			for (i in 0...split.length) {
 				if (i == split.length - 1) {

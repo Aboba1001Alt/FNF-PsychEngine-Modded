@@ -70,6 +70,13 @@
       "url": "https://github.com/MaysLastPlay77/extension-androidtools"
     },
     {
+      "name": "discord_rpc",
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/Aidan63/linc_discord-rpc"
+    },
+    {
       "name": "linc_luajit",
       "type": "git",
       "dir": null,
