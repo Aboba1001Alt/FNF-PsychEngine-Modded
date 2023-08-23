@@ -161,12 +161,6 @@ class VisualsUISubState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Less Lag',
-			"Uncheck this if you wanna see your rating and combo!",
-			'lessLag',
-			'bool');
-		addOption(option);
-
 		super();
 		add(notes);
 	}

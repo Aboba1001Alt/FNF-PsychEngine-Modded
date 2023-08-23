@@ -209,7 +209,7 @@ class FunkinLua {
 			return runningScripts;
 		});
 
-        #if android
+        if (ClientPrefs.data.experimental) {
 		Lua_helper.add_callback(lua, "require", function(filePath:String){
 			var split:Array<String> = filePath.split('.');
 			var path:String = "";
@@ -222,7 +222,7 @@ class FunkinLua {
 			}
 			return LuaL.dostring(lua, "load(" + File.getContent(SUtil.getPath() + path) + ")");
 		});
-		#end
+		}
 		
 		addLocalCallback("setOnScripts", function(varName:String, arg:Dynamic, ?ignoreSelf:Bool = false, ?exclusions:Array<String> = null) {
 			if(exclusions == null) exclusions = [];

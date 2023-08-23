@@ -45,12 +45,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Old versions Support !not Done!',
-			"Check this if you wanna have backwards for properties functions!",
-			'oldSupport',
-			'bool');
-		addOption(option);
-
 		var option:Option = new Option('Hitsound Volume',
 			'Funny notes does \"Tick!\" when you hit them."',
 			'hitsoundVolume',
