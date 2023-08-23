@@ -768,7 +768,7 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
-			luaFile = SUtil.getPath() + Paths.getPreloadPath(luaFile);
+			luaFile = Paths.getPreloadPath(luaFile);
 			if(FileSystem.exists(luaFile))
 				doPush = true;
 		}
@@ -803,7 +803,7 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
-			scriptFile = SUtil.getPath() + Paths.getPreloadPath(scriptFile);
+			scriptFile = Paths.getPreloadPath(scriptFile);
 			if(FileSystem.exists(scriptFile))
 				doPush = true;
 		}
@@ -3132,7 +3132,7 @@ class PlayState extends MusicBeatState
 		#if MODS_ALLOWED
 		var luaToLoad:String = Paths.modFolders(luaFile);
 		if(!FileSystem.exists(luaToLoad))
-			luaToLoad = SUtil.getPath() + Paths.getPreloadPath(luaFile);
+			luaToLoad = Paths.getPreloadPath(luaFile);
 		
 		if(FileSystem.exists(luaToLoad))
 		#elseif sys
@@ -3155,7 +3155,7 @@ class PlayState extends MusicBeatState
 	{
 		var scriptToLoad:String = Paths.modFolders(scriptFile);
 		if(!FileSystem.exists(scriptToLoad))
-			scriptToLoad = SUtil.getPath() + Paths.getPreloadPath(scriptFile);
+			scriptToLoad = Paths.getPreloadPath(scriptFile);
 		
 		if(FileSystem.exists(scriptToLoad))
 		{
