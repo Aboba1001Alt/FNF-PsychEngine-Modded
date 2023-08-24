@@ -1133,7 +1133,7 @@ class PlayState extends MusicBeatState
 	{
 		if (ClientPrefs.data.experimental){
 			unspawnNotes = [];
-			notes = [];
+			notes.clear();
 			unspawnNotes = unspawnNotesCopy.copy();
 			setSongTime(time);
 			clearNotesBefore(time);
