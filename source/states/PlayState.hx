@@ -1303,10 +1303,10 @@ class PlayState extends MusicBeatState
 				{
 				daNoteData = Std.int(songNotes[1] % 4);
 				}
-				if (!ClientPrefs.getGameplaySetting('randomMode')) {
+				if (ClientPrefs.getGameplaySetting('randomMode')) {
 				daNoteData = FlxG.random.int(0, 3);
 				}
-				if (!ClientPrefs.getGameplaySetting('flip')) {
+				if (ClientPrefs.getGameplaySetting('flip')) {
 				daNoteData = Std.int(Math.abs((songNotes[1] % 4) - 3));
 				}
 				if (ClientPrefs.getGameplaySetting('stairmode') && !ClientPrefs.getGameplaySetting('wavemode')) {
