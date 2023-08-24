@@ -1132,9 +1132,9 @@ class PlayState extends MusicBeatState
 	public function setTimeTo(time:Float)
 	{
 		if (ClientPrefs.data.experimental){
-			unspawnNotes.clear();
-			notes.clear();
-			unspawnNotes = unspawnNotesCopy.copy();
+			unspawnNotes = [];
+			notes = [];
+			unspawnNotes = unspawnNotesCopy.slice();
 			setSongTime(time);
 			clearNotesBefore(time);
 		}
@@ -1382,7 +1382,7 @@ class PlayState extends MusicBeatState
 				makeEvent(event, i);
 
 		unspawnNotes.sort(sortByTime);
-		unspawnNotesCopy = unspawnNotes.copy();
+		unspawnNotesCopy = unspawnNotes.slice();
 		generatedMusic = true;
 	}
 
