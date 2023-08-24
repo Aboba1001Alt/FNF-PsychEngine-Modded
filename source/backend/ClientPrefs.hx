@@ -11,7 +11,6 @@ class SaveVariables {
 	public var lessLag:Bool = false;
 	public var oldSupport:Bool = false;
 	public var noDataClear:Bool = false;
-	public var replayMod:Bool = false;
 	public var moddedSaves:Map<String, Dynamic> = new Map<String, Dynamic>();
 	public var experimental:Bool = false;
 	public var downScroll:Bool = false;
@@ -79,7 +78,12 @@ class SaveVariables {
 		'instakill' => false,
 		'practice' => false,
 		'botplay' => false,
-		'opponentplay' => false
+		'opponentplay' => false,
+		'flip' => false,
+		'stairmode' => false,
+		'wavemode' => false,
+		'onekey' => false,
+		'randommode' => false
 	];
 
 	public var comboOffset:Array<Int> = [0, 0, 0, 0];

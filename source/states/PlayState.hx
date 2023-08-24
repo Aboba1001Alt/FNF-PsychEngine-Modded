@@ -1231,6 +1231,7 @@ class PlayState extends MusicBeatState
 	}
 
 	var debugNum:Int = 0;
+	var stair:Int = 0;
 	private var noteTypes:Array<String> = [];
 	private var eventsPushed:Array<String> = [];
 	private function generateSong(dataPath:String):Void
@@ -1286,6 +1287,38 @@ class PlayState extends MusicBeatState
 			{
 				var daStrumTime:Float = songNotes[0];
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
+				if (ClientPrefs.data.experimental) {
+				if (!ClientPrefs.getGameplaySetting('randomMode') && !ClientPrefs.getGameplaySetting('flip') && !ClientPrefs.getGameplaySetting('stairmode') && !ClientPrefs.getGameplaySetting('wavemode'))
+				{
+				daNoteData = Std.int(songNotes[1] % 4);
+				}
+				if (!ClientPrefs.getGameplaySetting('randomMode')) {
+				daNoteData = FlxG.random.int(0, 3);
+				}
+				if (!ClientPrefs.getGameplaySetting('flip')) {
+				daNoteData = Std.int(Math.abs((songNotes[1] % 4) - 3));
+				}
+				if (ClientPrefs.getGameplaySetting('stairmode') && !ClientPrefs.getGameplaySetting('wavemode')) {
+				daNoteData = stair % 4;
+				stair++;
+				}
+				if (ClientPrefs.getGameplaySetting('wavemode')) {
+						switch (stair % 6)
+							{
+								case 0 | 1 | 2 | 3:
+									daNoteData = stair % 6;
+								case 4:
+									daNoteData = 2;
+								case 5:
+									daNoteData = 1;
+							}
+				stair++;
+				}
+				if (ClientPrefs.getGameplaySetting('onekey'))
+				{
+				daNoteData = 2;
+				}
+				}
 				var gottaHitNote:Bool = section.mustHitSection;
 
 				if (songNotes[1] > 3)

@@ -72,6 +72,23 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 		var option:GameplayOption = new GameplayOption('Botplay', 'botplay', 'bool', false);
 		optionsArray.push(option);
+
+		if (ClientPrefs.data.experimental) {
+		var option:GameplayOption = new GameplayOption('One Key Mode', 'onekey', 'bool', false);
+		optionsArray.push(option);
+
+		var option:GameplayOption = new GameplayOption('Stairs Mode', 'stairmode', 'bool', false);
+		optionsArray.push(option);
+
+		var option:GameplayOption = new GameplayOption('Wave Mode', 'wavemode', 'bool', false);
+		optionsArray.push(option);
+
+		var option:GameplayOption = new GameplayOption('Flip Mode', 'flip', 'bool', false);
+		optionsArray.push(option);
+
+		var option:GameplayOption = new GameplayOption('Random Mode', 'randomMode', 'bool', false);
+		optionsArray.push(option);
+		}
 	}
 
 	public function getOptionByName(name:String)

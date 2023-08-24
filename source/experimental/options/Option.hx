@@ -26,6 +26,7 @@ class Option
 	public var name:String = 'Unknown';
     public var barVisible:Bool = false;
     public var barValue:Float = 0;
+	public var barText:String = "";
 
 	public function new(name:String, description:String = '', variable:String, type:String = 'bool', ?options:Array<String> = null)
 	{

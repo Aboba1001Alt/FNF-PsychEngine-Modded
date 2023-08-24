@@ -5,6 +5,7 @@ import objects.AttachedText;
 import flixel.addons.transition.FlxTransitionableState;
 import experimental.options.Option;
 import flixel.ui.FlxBar;
+import objects.Alphabet;
 
 class BaseOptionsMenu extends MusicBeatSubstate
 {
@@ -23,6 +24,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	public var rpcTitle:String;
 
     public var bar:FlxBar;
+	public var barText:Alphabet;
 
 	public function new()
 	{
@@ -101,6 +103,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
         bar.visible = false;
         bar.value = 0;
         add(bar);
+
+		barText = new Alphabet(50, 10, "");
+        barText.set_alignment("left");
+		barText.visible = false;
+        add(barText);
 		
 		        #if android
                 addVirtualPad(FULL, A_B_C);
@@ -314,7 +321,12 @@ class BaseOptionsMenu extends MusicBeatSubstate
         if (curOption.barVisible) {
             bar.visible = true;
             bar.value = curOption.barValue;
-        } else bar.visible = false;
+			barText.visible = true;
+			barText.set_text(curOption.barText);
+        } else {
+			bar.visible = false;
+			barText.visible = false;
+		}
 	}
 
 	function reloadCheckboxes() {
