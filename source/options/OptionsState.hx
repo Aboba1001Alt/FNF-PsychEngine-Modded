@@ -43,7 +43,7 @@ class OptionsState extends MusicBeatState
 				removeVirtualPad();
 				#end
 			case 'Experimental':
-				MusicBeatState.switchState(new options.ExperimentalOptions());
+				MusicBeatState.switchState(new experimental.options.ExperimentalOptions());
 			  #if android
 				removeVirtualPad();
 				#end

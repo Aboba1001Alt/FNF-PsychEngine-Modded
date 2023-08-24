@@ -13,6 +13,7 @@ import openfl.display.StageScaleMode;
 import lime.app.Application;
 import states.TitleState;
 import SUtil;
+import experimental.objects.ToastCore;
 
 //crash handler stuff
 #if CRASH_HANDLER
@@ -37,6 +38,7 @@ class Main extends Sprite
 	};
 
 	public static var fpsVar:FPS;
+	public static var toast:ToastCore; // credits go to MAJigsaw77
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -131,6 +133,9 @@ class Main extends Sprite
 		     if (FlxG.game != null)
 			 resetSpriteCache(FlxG.game);
 		});
+
+		toast = new ToastCore();
+		addChild(toast);
 	}
 
 	static function resetSpriteCache(sprite:Sprite):Void {

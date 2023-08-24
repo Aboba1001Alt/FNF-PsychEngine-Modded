@@ -1,4 +1,4 @@
-package options;
+package experimental.options;
 
 import objects.Note;
 import objects.StrumNote;
@@ -16,10 +16,16 @@ class ExperimentalOptions extends BaseOptionsMenu
 		rpcTitle = 'Experimental Options'; //for Discord Rich Presence
 
 		var option:Option = new Option('Experimental',
-			"Uncheck this if you wanna normal fnf psych engine! !not Finished 5%!",
+			"Uncheck this if you wanna normal fnf psych engine! !not Finished!",
 			'experimental',
 			'bool');
 		addOption(option);
+		option.barVisible = true;
+		option.barValue = 5;
+		option.onChange = function(value:Dynamic) {
+			if (value == true) Main.toast.create('Experimental', 0xFFFF0000, 'Disabled');
+			else Main.toast.create('Experimental', 0xFFFF0000, 'Disabled');
+		}
 
 		var option:Option = new Option('Old versions Support !not Done!',
 			"Check this if you wanna have backwards for properties functions!",
