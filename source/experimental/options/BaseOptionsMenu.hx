@@ -104,7 +104,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
         bar.value = 0;
         add(bar);
 
-		barText = new Alphabet(50, 10, "");
+		barText = new Alphabet(80, 10, "");
 		barText.visible = false;
         add(barText);
 		
