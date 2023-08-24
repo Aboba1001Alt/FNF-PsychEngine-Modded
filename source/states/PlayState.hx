@@ -1134,7 +1134,7 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.data.experimental){
 			unspawnNotes = [];
 			notes = [];
-			unspawnNotes = new Array<Note>(unspawnNotesCopy);
+			unspawnNotes = unspawnNotesCopy.copy();
 			setSongTime(time);
 			clearNotesBefore(time);
 		}
@@ -1382,7 +1382,7 @@ class PlayState extends MusicBeatState
 				makeEvent(event, i);
 
 		unspawnNotes.sort(sortByTime);
-		unspawnNotesCopy = new Array<Note>(unspawnNotes);
+		unspawnNotesCopy = unspawnNotes.copy();
 		generatedMusic = true;
 	}
 
