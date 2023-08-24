@@ -224,7 +224,7 @@ class FunkinLua {
 		});
 		addLocalCallback("setTimeTo", function(time:Float) {
 			if (time > 0 && time <= FlxG.sound.music.length) game.setTimeTo(time);
-			else luaTrace('you can't set Time To ${time}');
+			else luaTrace('unable to set Time To ${time}');
 		});
 		}
 		
