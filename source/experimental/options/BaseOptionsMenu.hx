@@ -105,7 +105,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
         add(bar);
 
 		barText = new Alphabet(50, 10, "");
-        barText.set_alignment("left");
 		barText.visible = false;
         add(barText);
 		
