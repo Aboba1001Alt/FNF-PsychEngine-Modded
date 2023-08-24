@@ -1132,6 +1132,8 @@ class PlayState extends MusicBeatState
 	public function setTimeTo(time:Float)
 	{
 		if (ClientPrefs.data.experimental){
+			unspawnNotes.clear();
+			notes.clear();
 			unspawnNotes = unspawnNotesCopy.copy();
 			setSongTime(time);
 			clearNotesBefore(time);
