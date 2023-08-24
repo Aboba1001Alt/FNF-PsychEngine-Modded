@@ -17,7 +17,7 @@ class ExperimentalOptions extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 		option.barVisible = true;
-		option.barValue = 20;
+		option.barValue = 24;
 		option.barText = "Progress: " + option.barValue + "%";
 		option.onChange = function(value:Dynamic) {
 			if (value == true) Main.toast.create('Experimental', 0xFFFF0000, 'Enabled');
