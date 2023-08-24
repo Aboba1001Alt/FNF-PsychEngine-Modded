@@ -5,7 +5,6 @@ import objects.AttachedText;
 import flixel.addons.transition.FlxTransitionableState;
 import experimental.options.Option;
 import flixel.ui.FlxBar;
-import flixel.ui.FlxBarFillDirection;
 
 class BaseOptionsMenu extends MusicBeatSubstate
 {
@@ -96,8 +95,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			updateTextFrom(optionsArray[i]);
 		}
 
-        bar = new FlxBar(0, 75, FlxBarFillDirection.LEFT_TO_RIGHT, 1000, 25, null, "", 0, 100, true);
-        bar.createColoredFilledBar(0xFF0000, true, 0xFFFFFF);
+        bar = new FlxBar(0, 75,  LEFT_TO_RIGHT, 1000, 25, null, "", 0, 100, true);
+        bar.createColoredFilledBar(0xFFFF0000, 0xFFFFFFFF);
         bar.visible = false;
         bar.value = 0;
         add(bar);

@@ -4,7 +4,7 @@ class Option
 {
 	public var child:Alphabet;
 	public var text(get, set):String;
-	public var onChange:Void->Void = null; //Pressed enter (on Bool type options) or pressed/held left/right (on other types)
+	public var onChange: Dynamic -> Void = null; //Pressed enter (on Bool type options) or pressed/held left/right (on other types)
 
 	public var type(get, default):String = 'bool'; //bool, int (or integer), float (or fl), percent, string (or str)
 	// Bool will use checkboxes
