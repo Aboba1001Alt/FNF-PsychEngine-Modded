@@ -80,7 +80,7 @@ class Alphabet extends FlxSpriteGroup
 		}
 	}
 
-	public function set_text(newText:String)
+	private function set_text(newText:String)
 	{
 		newText = newText.replace('\\n', '\n');
 		clearLetters();
@@ -89,6 +89,14 @@ class Alphabet extends FlxSpriteGroup
 		this.text = newText;
 		return newText;
 	}
+
+	public function updateText(newText:String) {
+        newText = newText.replace('\\n', '\n');
+        clearLetters();
+        createLetters(newText);
+        updateAlignment();
+        this.text = newText;
+    }
 
 	public function clearLetters()
 	{

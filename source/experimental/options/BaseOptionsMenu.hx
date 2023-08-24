@@ -321,7 +321,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
             bar.visible = true;
             bar.value = curOption.barValue;
 			barText.visible = true;
-			barText.set_text(curOption.barText);
+			barText.updateText(curOption.barText);
         } else {
 			bar.visible = false;
 			barText.visible = false;
