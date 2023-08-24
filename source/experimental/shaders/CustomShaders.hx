@@ -2,7 +2,7 @@ package experimental.shaders;
 
 // STOLEN FROM HAXEFLIXEL DEMO AND FROM PSYCH ENGINE 0.5.1 WITH SHADERS LOL
 // AND TAKEN FROM https://github.com/MobilePorting/FNF-PsychEngine-Mobile
-import flixel.system.FlxAssets.FlxShader;
+import dashadertools.Flxfixedshaders as FlxShader;
 import openfl.display.BitmapData;
 import openfl.display.Shader;
 import openfl.display.ShaderInput;
