@@ -97,6 +97,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
         bar = new FlxBar(0, 75,  LEFT_TO_RIGHT, 1000, 25, null, "", 0, 100, true);
         bar.createColoredFilledBar(0xFFFF0000, 0xFFFFFFFF);
+		bar.screenCenter(X);
         bar.visible = false;
         bar.value = 0;
         add(bar);

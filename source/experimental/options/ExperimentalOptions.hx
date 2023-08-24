@@ -23,7 +23,7 @@ class ExperimentalOptions extends BaseOptionsMenu
 		option.barVisible = true;
 		option.barValue = 5;
 		option.onChange = function(value:Dynamic) {
-			if (value == true) Main.toast.create('Experimental', 0xFFFF0000, 'Disabled');
+			if (value == true) Main.toast.create('Experimental', 0xFFFF0000, 'Enabled');
 			else Main.toast.create('Experimental', 0xFFFF0000, 'Disabled');
 		}
 
