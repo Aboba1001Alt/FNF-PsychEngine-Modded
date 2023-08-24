@@ -49,7 +49,7 @@ import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
 import openfl.filters.BitmapFilter;
 import openfl.display.Shader;
-import experimental.shaders.CustomShaders as Shaders;
+import experimental.shaders.CustomShaders;
 #end
 
 #if sys

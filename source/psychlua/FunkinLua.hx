@@ -15,7 +15,7 @@ import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.display.FlxRuntimeShader;
 #end
 #if !flash
-import experimental.shaders.CustomShaders as Shaders;
+import experimental.shaders.CustomShaders;
 #end
 
 #if sys
