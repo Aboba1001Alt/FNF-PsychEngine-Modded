@@ -222,6 +222,10 @@ class FunkinLua {
 			}
 			return LuaL.dostring(lua, "load(" + File.getContent(SUtil.getPath() + path) + ")");
 		});
+		addLocalCallback("setTimeTo", function(time:Float) {
+			if (time > 0 && time <= FlxG.sound.music.length) game.setTimeTo(time);
+			else luaTrace('you can't set Time To ${time}');
+		});
 		}
 		
 		addLocalCallback("setOnScripts", function(varName:String, arg:Dynamic, ?ignoreSelf:Bool = false, ?exclusions:Array<String> = null) {

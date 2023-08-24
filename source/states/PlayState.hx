@@ -158,6 +158,7 @@ class PlayState extends MusicBeatState
 
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
+	public var unspawnNotesCopy:Array<Note> = [];
 	public var eventNotes:Array<EventNote> = [];
 
 	public var camFollow:FlxObject;
@@ -1128,6 +1129,15 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	public function setTimeTo(time:Float)
+	{
+		if (ClientPrefs.data.experimental){
+			unspawnNotes = unspawnNotesCopy.copy();
+			setSongTime(time);
+			clearNotesBefore(time);
+		}
+	}
+
 	public function updateScore(miss:Bool = false)
 	{
 		var str:String = ratingName;
@@ -1370,6 +1380,7 @@ class PlayState extends MusicBeatState
 				makeEvent(event, i);
 
 		unspawnNotes.sort(sortByTime);
+		unspawnNotesCopy = unspawnNotes.copy();
 		generatedMusic = true;
 	}
 

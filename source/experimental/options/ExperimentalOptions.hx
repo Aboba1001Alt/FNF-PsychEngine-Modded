@@ -6,10 +6,6 @@ import objects.Alphabet;
 
 class ExperimentalOptions extends BaseOptionsMenu
 {
-	var noteOptionID:Int = -1;
-	var notes:FlxTypedGroup<StrumNote>;
-	var notesTween:Array<FlxTween> = [];
-	var noteY:Float = 90;
 	public function new()
 	{
 		title = 'Experimental Options';
@@ -21,7 +17,7 @@ class ExperimentalOptions extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 		option.barVisible = true;
-		option.barValue = 10;
+		option.barValue = 14;
 		option.onChange = function(value:Dynamic) {
 			if (value == true) Main.toast.create('Experimental', 0xFFFF0000, 'Enabled');
 			else Main.toast.create('Experimental', 0xFFFF0000, 'Disabled');
