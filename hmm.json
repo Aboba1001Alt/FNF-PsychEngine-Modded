@@ -70,11 +70,6 @@
       "url": "https://github.com/MaysLastPlay77/extension-androidtools"
     },
     {
-      "name": "heaps",
-      "type": "haxelib",
-      "version": "1.10.0"
-    },
-    {
       "name": "linc_luajit",
       "type": "git",
       "dir": null,
