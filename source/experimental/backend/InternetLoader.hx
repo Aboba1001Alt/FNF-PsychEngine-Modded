@@ -27,16 +27,16 @@ class InternetLoader
         loader.load(new URLRequest(url));
     }
 
-    public function getTextFromUrl(url: String, callback: String -> String -> Void):Void
+    public function getTextFromUrl(url: String)
     {
-        var http: Http = new Http(url);
+        var http:Http = new Http(url);
         http.onData = function(data: String):Void
         {
-            callback("data", data);
+            return data;
         };
         http.onError = function(error: Dynamic):Void
         {
-            callback("error", error);
+            Main.toast.create('Error', 0xFFFF0000, "there is an error");
         };
         http.request();
     }
