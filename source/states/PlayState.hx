@@ -1146,6 +1146,7 @@ class PlayState extends MusicBeatState
 			unspawnNotes = [];
 			notes.clear();
 			generateNotes();
+			unspawnNotes = unspawnNotesCopy.copy();
 			setSongTime(time);
 			clearNotesBefore(time);
 		}
@@ -1288,6 +1289,7 @@ class PlayState extends MusicBeatState
 		}
 
 		generateNotes();
+		unspawnNotesCopy = unspawnNotes.copy();
 
 		for (event in songData.events) //Event Notes
 			for (i in 0...event[1].length)
@@ -1442,7 +1444,6 @@ class PlayState extends MusicBeatState
 		}
 		
 		unspawnNotes.sort(sortByTime);
-		unspawnNotesCopy = unspawnNotes.copy();
 	}
 
 	// called by every event with the same name
