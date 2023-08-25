@@ -104,6 +104,7 @@ class HScript extends SScript
 		#end
 		set('ShaderFilter', openfl.filters.ShaderFilter);
 		set('StringTools', StringTools);
+		if (ClientPrefs.data.experimental) set('InternetLoader', experimental.backend.InternetLoader);
 
 		// Functions & Variables
 		set('setVar', function(name:String, value:Dynamic)

@@ -25,7 +25,12 @@ import sys.io.File;
 import sys.io.Process;
 #end
 
-class Main extends Sprite
+class Main extends hxd.App {
+	public static function main() {
+        addChild(new Main());
+    }
+}
+class Game extends Sprite
 {
 	var game = {
 		width: 1280, // WINDOW width
@@ -51,7 +56,7 @@ class Main extends Sprite
 	{
 		super();
 
-    SUtil.gameCrashCheck();
+        SUtil.gameCrashCheck();
 		if (stage != null)
 		{
 			init();

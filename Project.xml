@@ -109,11 +109,12 @@
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
 	<haxelib name="SScript" if="HSCRIPT_ALLOWED"/>
 	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/>
-  <haxelib name="extension-androidtools" if="android"/>
+    <haxelib name="extension-androidtools" if="android"/>
 	<haxelib name="discord_rpc" if="desktop"/>
 	<haxelib name="tjson" />
 	<haxedef name="openflPos" />
 	<haxedef name="hscriptPos" />
+	<haxedef name="heaps" />
 
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
@@ -171,8 +172,8 @@
 	<config:android permission="android.permission.ACCESS_NETWORK_STATE" if="android"/>
 	<config:android permission="android.permission.ACCESS_WIFI_STATE" if="android"/>
 	<config:android permission="android.permission.RECORD_AUDIO" if="android"/>
-  <config:android gradle-version="7.5.1" />
-  <config:android gradle-plugin="7.3.1" />
+    <config:android gradle-version="7.5.1" />
+    <config:android gradle-plugin="7.3.1" />
 
 	<!-- _________________________________ Custom _______________________________ -->
 
