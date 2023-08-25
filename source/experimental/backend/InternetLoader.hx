@@ -1,6 +1,5 @@
 package experimental.backend;
 
-import flixel.FlxG;
 import flixel.FlxSprite;
 import openfl.display.Bitmap;
 import openfl.display.Loader;
@@ -8,7 +7,8 @@ import openfl.events.Event;
 import openfl.net.URLRequest;
 import haxe.Http;
 import openfl.media.Sound;
-import flixel.FlxSound;
+import openfl.geom.Point; // Import the correct class for Point
+import flixel.sound.FlxSound; // Import the correct class for FlxSound
 
 class InternetLoader
 {
@@ -18,8 +18,10 @@ class InternetLoader
         loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event: Event)
         {
             var loadedBitmap: Bitmap = cast(loader.content, Bitmap);
-            sprite.makeGraphic(loadedBitmap.width, loadedBitmap.height, 0); // Create a placeholder graphic
-            sprite.pixels.copyPixels(loadedBitmap.bitmapData, loadedBitmap.bitmapData.rect, sprite.pixels.rect); // Copy the loaded image data
+            sprite.makeGraphic(loadedBitmap.width, loadedBitmap.height, 0);
+            // Create a placeholder graphic
+            sprite.pixels.copyPixels(loadedBitmap.bitmapData, loadedBitmap.bitmapData.rect, sprite.pixels.rect);
+            // Copy the loaded image data
         });
         loader.load(new URLRequest(url));
     }
@@ -46,7 +48,7 @@ class InternetLoader
             try
             {
                 var sound: Sound = new Sound();
-                sound.loadCompressedDataFromByteArray(data.getBytes());
+                sound.loadCompressedDataFromByteArray(haxe.io.Bytes.ofString(data)); // Use Bytes.ofString to convert data to Bytes
 
                 var flxSound: FlxSound = new FlxSound();
                 flxSound.loadEmbedded(sound);

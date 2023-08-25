@@ -25,12 +25,7 @@ import sys.io.File;
 import sys.io.Process;
 #end
 
-class Main extends hxd.App {
-	public static function main() {
-        addChild(new Game());
-    }
-}
-class Game extends Sprite
+class Main extends hxd.App
 {
 	var game = {
 		width: 1280, // WINDOW width
