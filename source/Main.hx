@@ -27,7 +27,7 @@ import sys.io.Process;
 
 class Main extends hxd.App {
 	public static function main() {
-        addChild(new Main());
+        addChild(new Game());
     }
 }
 class Game extends Sprite
