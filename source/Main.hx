@@ -25,7 +25,7 @@ import sys.io.File;
 import sys.io.Process;
 #end
 
-class Main extends hxd.App
+class Main extends Sprite
 {
 	var game = {
 		width: 1280, // WINDOW width
