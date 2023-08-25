@@ -30,11 +30,11 @@ class InternetLoader
     public function getTextFromUrl(url: String)
     {
         var http:Http = new Http(url);
-        http.onData = function(data: String):Void
+        http.onData = function(data: String)
         {
             return data;
         };
-        http.onError = function(error: Dynamic):Void
+        http.onError = function(error: Dynamic)
         {
             Main.toast.create('Error', 0xFFFF0000, "there is an error");
         };
