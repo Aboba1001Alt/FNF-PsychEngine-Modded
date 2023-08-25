@@ -13,6 +13,6 @@ class Start extends hxd.App {
         new Main();
     }
     override function update(dt:Float) {
-        fpsText.text = 'FPS: ${Engine.fps}';
+        fpsText.text = 'FPS: ' + Engine.fps;
     }
 }
