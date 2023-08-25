@@ -47,7 +47,7 @@ class InternetLoader
             try
             {
                 var sound: Sound = new Sound();
-                var bytes: ByteArray = openfl.utils.ByteArray.fromBytes(haxe.io.Bytes.ofString(data));
+                var bytes: ByteArray = haxe.io.Bytes.ofString(data).getData(); // Extract the ByteArray from the Bytes object
 
                 sound.loadCompressedDataFromByteArray(bytes);
 
