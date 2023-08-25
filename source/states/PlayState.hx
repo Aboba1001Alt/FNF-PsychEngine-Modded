@@ -1275,11 +1275,6 @@ class PlayState extends MusicBeatState
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
 
-		var noteData:Array<SwagSection>;
-
-		// NEW SHIT
-		noteData = songData.notes;
-
 		var file:String = Paths.json(songName + '/events');
 		#if MODS_ALLOWED
 		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(file)) {
@@ -1313,6 +1308,9 @@ class PlayState extends MusicBeatState
 	}
 
 	function generateNotes() {
+		var songData = SONG;
+		var noteData:Array<SwagSection>;
+		noteData = songData.notes;
 		for (section in noteData)
 		{
 			for (songNotes in section.sectionNotes)
