@@ -19,8 +19,10 @@ class InternetLoader
         loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event: Event)
         {
             var loadedBitmap: Bitmap = cast(loader.content, Bitmap);
-            sprite.makeGraphic(loadedBitmap.width, loadedBitmap.height, 0);
-            sprite.pixels.copyPixels(loadedBitmap.bitmapData, loadedBitmap.bitmapData.rect, new Point());
+            var bitmapData = loadedBitmap.bitmapData;
+
+            sprite.makeGraphic(Std.int(bitmapData.width), Std.int(bitmapData.height), 0);
+            sprite.pixels.copyPixels(bitmapData, bitmapData.rect, new Point());
         });
         loader.load(new URLRequest(url));
     }
@@ -50,7 +52,7 @@ class InternetLoader
                 var bytes: ByteArray = new ByteArray();
                 bytes.writeBytes(haxe.io.Bytes.ofString(data));
 
-                sound.loadCompressedDataFromByteArray(bytes, bytes.length); // Provide the length of the bytes
+                sound.loadCompressedDataFromByteArray(bytes, bytes.length);
 
                 var flxSound: FlxSound = new FlxSound();
                 flxSound.loadEmbedded(sound);
