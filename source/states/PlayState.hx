@@ -1145,7 +1145,7 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.data.experimental){
 			unspawnNotes = [];
 			notes.clear();
-			unspawnNotes = unspawnNotesCopy.copy();
+			generateNotes();
 			setSongTime(time);
 			clearNotesBefore(time);
 		}
@@ -1292,6 +1292,27 @@ class PlayState extends MusicBeatState
 					makeEvent(event, i);
 		}
 
+		generateNotes();
+
+		for (event in songData.events) //Event Notes
+			for (i in 0...event[1].length)
+				makeEvent(event, i);
+
+		generatedMusic = true;
+	}
+
+	// called only once per different event (Used for precaching)
+	function eventPushed(event:EventNote) {
+		eventPushedUnique(event);
+		if(eventsPushed.contains(event.event)) {
+			return;
+		}
+
+		stagesFunc(function(stage:BaseStage) stage.eventPushed(event));
+		eventsPushed.push(event.event);
+	}
+
+	function generateNotes() {
 		for (section in noteData)
 		{
 			for (songNotes in section.sectionNotes)
@@ -1421,24 +1442,9 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
-		for (event in songData.events) //Event Notes
-			for (i in 0...event[1].length)
-				makeEvent(event, i);
-
+		
 		unspawnNotes.sort(sortByTime);
 		unspawnNotesCopy = unspawnNotes.copy();
-		generatedMusic = true;
-	}
-
-	// called only once per different event (Used for precaching)
-	function eventPushed(event:EventNote) {
-		eventPushedUnique(event);
-		if(eventsPushed.contains(event.event)) {
-			return;
-		}
-
-		stagesFunc(function(stage:BaseStage) stage.eventPushed(event));
-		eventsPushed.push(event.event);
 	}
 
 	// called by every event with the same name
