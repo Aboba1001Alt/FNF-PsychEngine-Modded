@@ -108,8 +108,7 @@ class PlayState extends MusicBeatState
 	public var variables:Map<String, Dynamic> = new Map<String, Dynamic>();
 	
     #if HSCRIPT_ALLOWED
-    if (ClientPrefs.data.experimental) {public var hscriptArray:Array<FunkinSScript> = [];}
-    else {public var hscriptArray:Array<HScript> = [];}
+    public var hscriptArray:Array<Dynamic> = [];
     #end
 
 	#if LUA_ALLOWED
