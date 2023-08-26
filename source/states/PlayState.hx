@@ -107,10 +107,10 @@ class PlayState extends MusicBeatState
 	public var gfMap:Map<String, Character> = new Map<String, Character>();
 	public var variables:Map<String, Dynamic> = new Map<String, Dynamic>();
 	
-	#if HSCRIPT_ALLOWED
-	if (ClientPrefs.data.experimental) public var hscriptArray:Array<FunkinSScript> = [];
-	else public var hscriptArray:Array<HScript> = [];
-	#end
+    #if HSCRIPT_ALLOWED
+    if (ClientPrefs.data.experimental) {public var hscriptArray:Array<FunkinSScript> = [];}
+    else {public var hscriptArray:Array<HScript> = [];}
+    #end
 
 	#if LUA_ALLOWED
 	public var modchartTweens:Map<String, FlxTween> = new Map<String, FlxTween>();
@@ -1279,11 +1279,7 @@ class PlayState extends MusicBeatState
 		add(notes);
 
 		var file:String = Paths.json(songName + '/events');
-		#if MODS_ALLOWED
 		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(file)) {
-		#else
-		if (OpenFlAssets.exists(file)) {
-		#end
 			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
 			for (event in eventsData) //Event Notes
 				for (i in 0...event[1].length)
