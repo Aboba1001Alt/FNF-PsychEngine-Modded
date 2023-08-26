@@ -56,14 +56,7 @@ class HScript extends SScript
 	{
 		if (file == null)
 			file = '';
-	
-		#if sys
-		else if (FileSystem.exists(file)) {
-			var fileWithoutComments = ~/(\/[*](?:[^*]|[\r\n]|([*]+([^*\/]|[\r\n])))*[*]+\/|\/\/.*)/gm.replace(File.getContent(file), '');
-			usesClasses = ~/class\s.*\s*{/.match(fileWithoutComments);
-		}
-		#end
-
+			
 		super(null, false, false);
 		doFile(file);
 		parentLua = parent;
