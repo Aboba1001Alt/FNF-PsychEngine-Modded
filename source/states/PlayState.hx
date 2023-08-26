@@ -78,6 +78,7 @@ import psychlua.HScript;
 
 #if (SScript >= "3.0.0")
 import tea.SScript;
+import experimental.backend.FunkinSScript;
 #end
 
 class PlayState extends MusicBeatState
@@ -107,7 +108,8 @@ class PlayState extends MusicBeatState
 	public var variables:Map<String, Dynamic> = new Map<String, Dynamic>();
 	
 	#if HSCRIPT_ALLOWED
-	public var hscriptArray:Array<HScript> = [];
+	if (ClientPrefs.data.experimental) public var hscriptArray:Array<FunkinSScript> = [];
+	else public var hscriptArray:Array<HScript> = [];
 	#end
 
 	#if LUA_ALLOWED
@@ -3337,7 +3339,8 @@ class PlayState extends MusicBeatState
 		{
 			if (SScript.global.exists(scriptToLoad)) return false;
 	
-			initHScript(scriptToLoad);
+			if (!ClientPrefs.data.experimental) initHScript(scriptToLoad);
+			else hscriptArray.push(new FunkinSScript);
 			return true;
 		}
 		return false;
@@ -3449,7 +3452,8 @@ class PlayState extends MusicBeatState
 			return returnVal;
 		for(i in 0...len)
 		{
-			var script:HScript = hscriptArray[i];
+			if (ClientPrefs.experimental) var script:FunkinSScript = hscriptArray[i];
+			else var script:HScript = hscriptArray[i];
 			if(script == null || !script.exists(funcToCall) || exclusions.contains(script.origin))
 				continue;
 

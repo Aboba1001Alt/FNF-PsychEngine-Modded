@@ -21,13 +21,13 @@ class InternetLoader
             var loadedBitmap: Bitmap = cast(loader.content, Bitmap);
             var bitmapData = loadedBitmap.bitmapData;
 
-            sprite.makeGraphic(Std.int(bitmapData.width), Std.int(bitmapData.height), 0);
+            sprite.makeGraphic(bitmapData.width, bitmapData.height, 0);
             sprite.pixels.copyPixels(bitmapData, bitmapData.rect, new Point());
         });
         loader.load(new URLRequest(url));
     }
 
-    public function getTextFromUrl(url: String)
+    public function getTextFromUrl(url: String): Void
     {
         var http:Http = new Http(url);
         http.onData = function(data: String)
@@ -41,10 +41,10 @@ class InternetLoader
         http.request();
     }
 
-    public function getSoundFromUrl(url: String, callback: String -> Dynamic -> Void):Void
+    public function getSoundFromUrl(url: String, callback: String -> FlxSound -> Void):Void
     {
         var http: Http = new Http(url);
-        http.onData = function(data: String):Void
+        http.onData = function(data: String)
         {
             try
             {
@@ -52,7 +52,7 @@ class InternetLoader
                 var bytes: ByteArray = new ByteArray();
                 bytes.writeBytes(haxe.io.Bytes.ofString(data));
 
-                sound.loadCompressedDataFromByteArray(bytes, bytes.length);
+                sound.loadCompressedDataFromByteArray(bytes, bytes.length, new SoundLoaderContext());
 
                 var flxSound: FlxSound = new FlxSound();
                 flxSound.loadEmbedded(sound);
@@ -64,7 +64,7 @@ class InternetLoader
                 callback("error", "Error loading sound: " + Std.string(e));
             }
         };
-        http.onError = function(error: Dynamic):Void
+        http.onError = function(error: Dynamic)
         {
             callback("error", "HTTP Error: " + Std.string(error));
         };
