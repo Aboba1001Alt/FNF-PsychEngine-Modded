@@ -27,12 +27,12 @@ class InternetLoader
         loader.load(new URLRequest(url));
     }
 
-    public function getTextFromUrl(url: String): Void
+    public function getTextFromUrl(url: String, callback: String -> Void): Void
     {
-        var http:Http = new Http(url);
+        var http: Http = new Http(url);
         http.onData = function(data: String)
         {
-            return data;
+            callback(data);
         };
         http.onError = function(error: Dynamic)
         {
@@ -41,7 +41,7 @@ class InternetLoader
         http.request();
     }
 
-    public function getSoundFromUrl(url: String, callback: String -> FlxSound -> Void):Void
+    public function getSoundFromUrl(url: String, callback: FlxSound -> Void):Void
     {
         var http: Http = new Http(url);
         http.onData = function(data: String)
@@ -57,16 +57,16 @@ class InternetLoader
                 var flxSound: FlxSound = new FlxSound();
                 flxSound.loadEmbedded(sound);
 
-                callback("data", flxSound);
+                callback(flxSound);
             }
             catch (e: Dynamic)
             {
-                callback("error", "Error loading sound: " + Std.string(e));
+                callback(null); // Handle error here
             }
         };
         http.onError = function(error: Dynamic)
         {
-            callback("error", "HTTP Error: " + Std.string(error));
+            callback(null); // Handle error here
         };
         http.request();
     }
