@@ -3447,8 +3447,9 @@ class PlayState extends MusicBeatState
 			return returnVal;
 		for(i in 0...len)
 		{
-			if (ClientPrefs.data.experimental) var script:FunkinSScript = hscriptArray[i];
-			else var script:HScript = hscriptArray[i];
+			var script:Dynamic = null;
+			if (ClientPrefs.data.experimental) script = hscriptArray[i];
+			else script = hscriptArray[i];
 			if(script == null || !script.exists(funcToCall) || exclusions.contains(script.origin))
 				continue;
 

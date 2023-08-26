@@ -52,7 +52,7 @@ class InternetLoader
                 var bytes: ByteArray = new ByteArray();
                 bytes.writeBytes(haxe.io.Bytes.ofString(data));
 
-                sound.loadCompressedDataFromByteArray(bytes, bytes.length, new SoundLoaderContext());
+                sound.loadCompressedDataFromByteArray(bytes, bytes.length);
 
                 var flxSound: FlxSound = new FlxSound();
                 flxSound.loadEmbedded(sound);
