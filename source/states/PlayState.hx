@@ -3448,7 +3448,7 @@ class PlayState extends MusicBeatState
 		for(i in 0...len)
 		{
 			var script = hscriptArray[i];
-			if(script == null || !script.exists(funcToCall) || exclusions.contains(script.origin))
+			if(script == null || !script.exists(funcToCall) || exclusions.contains(script.scriptFile))
 				continue;
 
 			var myValue:Dynamic = null;
@@ -3459,7 +3459,7 @@ class PlayState extends MusicBeatState
 				{
 					var e = callValue.exceptions[0];
 					if(e != null)
-						FunkinLua.luaTrace('ERROR (${script.origin}: ${callValue.calledFunction}) - ' + e.message.substr(0, e.message.indexOf('\n')), true, false, FlxColor.RED);
+						FunkinLua.luaTrace('ERROR (${script.scriptFile}: ${callValue.calledFunction}) - ' + e.message.substr(0, e.message.indexOf('\n')), true, false, FlxColor.RED);
 				}
 				else
 				{
