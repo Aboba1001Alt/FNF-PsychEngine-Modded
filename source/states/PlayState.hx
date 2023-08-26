@@ -1147,8 +1147,8 @@ class PlayState extends MusicBeatState
 			unspawnNotes = [];
 			notes.clear();
 			unspawnNotes = unspawnNotesCopy.copy();
-			setSongTime(time);
 			clearNotesBefore(time);
+			setSongTime(time);
 		}
 	}
 
