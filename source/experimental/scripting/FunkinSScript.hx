@@ -34,15 +34,11 @@ final class FunkinSScript extends tea.SScript
 		super(null, preset);
 
 		traces = false;
-		doFile(file);
+		doFile(scriptFile);
 		execute();
-        @:privateAccess
-		if(parsingException != null && parsingException.length > 0)
+		if(parsingException != null)
 		{
-			@:privateAccess
-			for (e in parsingException)
-				if(e != null)
-					PlayState.instance.addTextToDebug('ERROR ON LOADING ($scriptFile): ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
+			PlayState.instance.addTextToDebug('ERROR ON LOADING ($scriptFile): ${parsingException}', FlxColor.RED);
 			destroy();
 		}
         if (exists("onCreate")) call("onCreate");
