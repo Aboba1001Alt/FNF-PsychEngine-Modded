@@ -1,4 +1,4 @@
-package meta.data.scripts;
+package experimental.scripting;
 
 import flixel.FlxG;
 import flixel.FlxBasic;

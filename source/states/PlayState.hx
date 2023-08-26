@@ -78,7 +78,7 @@ import psychlua.HScript;
 
 #if (SScript >= "3.0.0")
 import tea.SScript;
-import experimental.backend.FunkinSScript;
+import experimental.scripting.FunkinSScript;
 #end
 
 class PlayState extends MusicBeatState
