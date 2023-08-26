@@ -54,7 +54,6 @@ class HScript extends SScript
 	public var origin:String;
 	override public function new(?parent:FunkinLua, ?file:String)
 	{
-		var usesClasses = true;
 		if (file == null)
 			file = '';
 	
@@ -66,7 +65,6 @@ class HScript extends SScript
 		#end
 
 		super(null, false, false);
-		classSupport = usesClasses;
 		doFile(file);
 		parentLua = parent;
 		if (parent != null)
