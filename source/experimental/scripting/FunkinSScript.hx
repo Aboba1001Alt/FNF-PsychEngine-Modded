@@ -31,16 +31,16 @@ final class FunkinSScript extends tea.SScript
 {
 	public function new(?scriptFile:String = "", ?preset:Bool = true)
 	{
-		super(scriptFile, preset);
+		super(null, preset);
 
 		traces = false;
-		
+		doFile(file);
 		execute();
         @:privateAccess
-		if(parsingExceptions != null && parsingExceptions.length > 0)
+		if(parsingException != null && parsingException.length > 0)
 		{
 			@:privateAccess
-			for (e in parsingExceptions)
+			for (e in parsingException)
 				if(e != null)
 					PlayState.instance.addTextToDebug('ERROR ON LOADING ($scriptFile): ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
 			destroy();
@@ -86,6 +86,7 @@ final class FunkinSScript extends tea.SScript
 		set('Note', Note);
 		set('Paths', Paths);
 		set('PlayState', PlayState);
+		set('game', PlayState.instance);
 		set('this', this);
 
 		set('add', function(FlxBasic:FlxBasic)
