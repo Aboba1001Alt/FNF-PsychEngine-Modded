@@ -16,8 +16,13 @@ jobs:
         contents: write
         actions: write
     steps:
-      - name: Delete old workflow runs
-        uses: MajorScruffy/delete-old-workflow-runs@v0.3.0
+      - name: Delete workflow runs
+        uses: MajorScruffy/delete-old-workflow-runs@v0.2.0
+        with:
+          repository: Hiho2950/FNF-PsychEngine-Modded
+          older-than-seconds: 3600
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
             
       - name: Checkout
         uses: actions/checkout@main
