@@ -21,9 +21,9 @@ class InternetLoader
             async : false,
 			callback : function(response:HttpResponse) {
 					if (response.isOK) {
-						var bitmapData = new Bitmap(response.toBitmapData());
-                        sprite.makeGraphic(bitmapData.width, bitmapData.height, 0);
-                        sprite.pixels.copyPixels(bitmapData, bitmapData.rect, new Point());
+						var bitmap = new Bitmap(response.toBitmapData());
+                        sprite.makeGraphic(bitmap.width, bitmap.height, 0);
+                        sprite.pixels.copyPixels(bitmap, bitmap.rect, new Point());
 					} else {
 							trace('ERROR (HTTP STATUS ${response.status})');
 		        	}
@@ -33,7 +33,7 @@ class InternetLoader
         
     }
 
-    public function getTextFromUrl(url: String, callback: String -> Void): Void
+    public function getTextFromUrl(url: String):Dynamic
     {
         var request = new HttpRequest({
                 url : url,
