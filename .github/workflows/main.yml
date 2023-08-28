@@ -20,14 +20,6 @@ jobs:
         uses: actions/checkout@main
         with:
           submodules: true
-      
-      - name: Delete workflow runs
-        uses: MajorScruffy/delete-old-workflow-runs@v0.2.0
-        with:
-          repository: Hiho2950/FNF-PsychEngine-Modded
-          older-than-seconds: 3600
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Setup Android NDK
         id: setup-ndk
