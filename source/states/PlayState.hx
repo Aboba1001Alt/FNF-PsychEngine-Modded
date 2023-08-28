@@ -3333,8 +3333,7 @@ class PlayState extends MusicBeatState
 		{
 			if (SScript.global.exists(scriptToLoad)) return false;
 	
-			if (!ClientPrefs.data.experimental) initHScript(scriptToLoad);
-			else hscriptArray.push(new FunkinSScript(scriptToLoad));
+			initHScript(scriptToLoad);
 			return true;
 		}
 		return false;
