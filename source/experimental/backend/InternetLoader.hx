@@ -13,6 +13,7 @@ import flixel.sound.FlxSound;
 
 class InternetLoader
 {
+    public function new() {}
     public function addUrlImage(sprite: FlxSprite, url: String):Void
     {
         var request = new HttpRequest({
