@@ -20,7 +20,7 @@ class InternetLoader
             async : false,
             callback : function(response:HttpResponse) {
                 if (response.isOK) {
-                    var bitmap = new BitmapData(response.toBitmapData()); // Fixed data type
+                    var bitmap = new BitmapData(response.toBitmapData().width, response.toBitmapData().height); // Corrected BitmapData creation
                     sprite.makeGraphic(bitmap.width, bitmap.height, 0);
                     sprite.pixels.copyPixels(bitmap, bitmap.rect, new Point());
                 } else {
@@ -31,7 +31,7 @@ class InternetLoader
         request.send();
     }
 
-    public function getTextFromUrl(url: String):String // Fixed return type
+    public function getTextFromUrl(url: String):String
     {
         var request = new HttpRequest({
             url : url,
