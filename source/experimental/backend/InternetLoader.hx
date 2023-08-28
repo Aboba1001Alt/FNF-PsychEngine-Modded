@@ -1,44 +1,44 @@
 package experimental.backend;
 
 import flixel.FlxSprite;
+import com.akifox.asynchttp.*;
 import openfl.display.Bitmap;
-import openfl.display.Loader;
-import openfl.events.Event;
-import openfl.net.URLRequest;
-import haxe.Http;
-import openfl.media.Sound;
-import openfl.utils.ByteArray;
-import openfl.geom.Point;
-import flixel.sound.FlxSound;
 
 class InternetLoader
 {
     public function addUrlImage(sprite: FlxSprite, url: String):Void
     {
-        var loader: Loader = new Loader();
-        loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event: Event)
-        {
-            var loadedBitmap: Bitmap = cast(loader.content, Bitmap);
-            var bitmapData = loadedBitmap.bitmapData;
-
-            sprite.makeGraphic(bitmapData.width, bitmapData.height, 0);
-            sprite.pixels.copyPixels(bitmapData, bitmapData.rect, new Point());
-        });
-        loader.load(new URLRequest(url));
+        var request = new HttpRequest({
+    		url : url,
+            async : false,
+			callback : function(response:HttpResponse) {
+					if (response.isOK) {
+						var bitmapData = new Bitmap(response.toBitmapData());
+                        sprite.makeGraphic(bitmapData.width, bitmapData.height, 0);
+                        sprite.pixels.copyPixels(bitmapData, bitmapData.rect, new Point());
+					} else {
+							trace('ERROR (HTTP STATUS ${response.status})');
+		        	}
+			}
+		});
+		request.send();
+        
     }
 
     public function getTextFromUrl(url: String, callback: String -> Void): Void
     {
-        var http: Http = new Http(url);
-        http.onData = function(data: String)
-        {
-            callback(data);
-        };
-        http.onError = function(error: Dynamic)
-        {
-            Main.toast.create('Error', 0xFFFF0000, "there is an error");
-        };
-        http.request();
+        var request = new HttpRequest({
+                url : url,
+                callback : function(response:HttpResponse):Void {
+                    if (response.isOK) {
+                        return response.toText();
+                    } else {
+                        return null;
+                    }
+                }  
+        });
+
+        request.send();
     }
 
     public function getSoundFromUrl(url: String, callback: FlxSound -> Void):Void

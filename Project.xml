@@ -111,6 +111,7 @@
 	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/>
     <haxelib name="extension-androidtools" if="android"/>
 	<haxelib name="discord_rpc" if="desktop"/>
+	<haxelib name="akifox-asynchttp" />
 	<haxelib name="tjson" />
 	<haxedef name="openflPos" />
 	<haxedef name="hscriptPos" />
