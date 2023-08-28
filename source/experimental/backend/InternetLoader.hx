@@ -2,8 +2,7 @@ package experimental.backend;
 
 import flixel.FlxSprite;
 import com.akifox.asynchttp.*;
-import openfl.display.Bitmap;
-import openfl.display.Loader;
+import openfl.display.BitmapData; // Fixed import
 import openfl.events.Event;
 import openfl.net.URLRequest;
 import haxe.Http;
@@ -17,33 +16,32 @@ class InternetLoader
     public function addUrlImage(sprite: FlxSprite, url: String):Void
     {
         var request = new HttpRequest({
-    		url : url,
+            url : url,
             async : false,
-			callback : function(response:HttpResponse) {
-					if (response.isOK) {
-						var bitmap = new Bitmap(response.toBitmapData());
-                        sprite.makeGraphic(bitmap.width, bitmap.height, 0);
-                        sprite.pixels.copyPixels(bitmap, bitmap.rect, new Point());
-					} else {
-							trace('ERROR (HTTP STATUS ${response.status})');
-		        	}
-			}
-		});
-		request.send();
-        
+            callback : function(response:HttpResponse) {
+                if (response.isOK) {
+                    var bitmap = new BitmapData(response.toBitmapData()); // Fixed data type
+                    sprite.makeGraphic(bitmap.width, bitmap.height, 0);
+                    sprite.pixels.copyPixels(bitmap, bitmap.rect, new Point());
+                } else {
+                    trace('ERROR (HTTP STATUS ${response.status})');
+                }
+            }
+        });
+        request.send();
     }
 
-    public function getTextFromUrl(url: String):Dynamic
+    public function getTextFromUrl(url: String):String // Fixed return type
     {
         var request = new HttpRequest({
-                url : url,
-                callback : function(response:HttpResponse):Void {
-                    if (response.isOK) {
-                        return response.toText();
-                    } else {
-                        return null;
-                    }
-                }  
+            url : url,
+            callback : function(response:HttpResponse):Void {
+                if (response.isOK) {
+                    return response.toText();
+                } else {
+                    return null;
+                }
+            }  
         });
 
         request.send();
