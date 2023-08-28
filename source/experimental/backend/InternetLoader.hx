@@ -38,9 +38,10 @@ class InternetLoader
             url : url,
             callback : function(response:HttpResponse):Void {
                 if (response.isOK) {
-                    callback(response.toText()); // Invoke the callback
+                    callback(Std.string(response.contentRaw)); // Invoke the callback
                 } else {
-                    callback(null); // Invoke the callback with null in case of error
+                    callback(null);
+                    Main.toast.create('Error:', 0xFFFFFF00, 'You can't connect to it: ${response.status}');
                 }
             }  
         });
