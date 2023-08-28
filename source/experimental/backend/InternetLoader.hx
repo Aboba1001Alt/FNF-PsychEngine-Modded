@@ -41,7 +41,7 @@ class InternetLoader
                     callback(Std.string(response.contentRaw)); // Invoke the callback
                 } else {
                     callback(null);
-                    Main.toast.create('Error:', 0xFFFFFF00, 'You can't connect to it: ${response.status}');
+                    Main.toast.create('Error:', 0xFFFFFF00, 'Unable to connect to it, status: ${response.status}');
                 }
             }  
         });
