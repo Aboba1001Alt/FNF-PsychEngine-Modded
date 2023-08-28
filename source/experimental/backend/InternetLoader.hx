@@ -3,6 +3,14 @@ package experimental.backend;
 import flixel.FlxSprite;
 import com.akifox.asynchttp.*;
 import openfl.display.Bitmap;
+import openfl.display.Loader;
+import openfl.events.Event;
+import openfl.net.URLRequest;
+import haxe.Http;
+import openfl.media.Sound;
+import openfl.utils.ByteArray;
+import openfl.geom.Point;
+import flixel.sound.FlxSound;
 
 class InternetLoader
 {
