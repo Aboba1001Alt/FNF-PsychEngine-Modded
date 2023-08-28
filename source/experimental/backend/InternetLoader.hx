@@ -31,15 +31,15 @@ class InternetLoader
         request.send();
     }
 
-    public function getTextFromUrl(url: String):String
+    public function getTextFromUrl(url: String, callback: String -> Void):Void // Changed return type
     {
         var request = new HttpRequest({
             url : url,
             callback : function(response:HttpResponse):Void {
                 if (response.isOK) {
-                    return response.toText();
+                    callback(response.toText()); // Invoke the callback
                 } else {
-                    return null;
+                    callback(null); // Invoke the callback with null in case of error
                 }
             }  
         });
