@@ -1,7 +1,10 @@
 package experimental.backend;
 
 import flixel.FlxSprite;
-import com.akifox.asynchttp.*;
+import yloader.impl.js.XMLHttpRequestLoader;
+import yloader.valueObject.Parameter;
+import yloader.valueObject.Request;
+import yloader.valueObject.Response;
 import openfl.display.BitmapData; // Fixed import
 import openfl.events.Event;
 import openfl.net.URLRequest;
@@ -16,37 +19,31 @@ class InternetLoader
     public function new() {}
     public function addUrlImage(sprite: FlxSprite, url: String):Void
     {
-        var request = new HttpRequest({
-            url : url,
-            async : false,
-            callback : function(response:HttpResponse) {
-                if (response.isOK) {
-                    var bitmap = new BitmapData(response.toBitmapData().width, response.toBitmapData().height); // Corrected BitmapData creation
-                    sprite.makeGraphic(bitmap.width, bitmap.height, 0);
-                    sprite.pixels.copyPixels(bitmap, bitmap.rect, new Point());
-                } else {
-                    trace('ERROR (HTTP STATUS ${response.status})');
-                }
+        var request = new Request(url);
+
+        var loader = new XMLHttpRequestLoader(request); // or use Loader.create()
+        loader.onResponse = function(response:Response) {
+            if(response.success) {
+        		var bitmap = new BitmapData().fromBytes(response.data); // Corrected BitmapData creation
+                sprite.makeGraphic(bitmap.width, bitmap.height, 0);
+                sprite.pixels.copyPixels(bitmap, bitmap.rect, new Point());
             }
-        });
-        request.send();
+        };
+        loader.load();
     }
 
     public function getTextFromUrl(url: String, callback: String -> Void):Void // Changed return type
     {
-        var request = new HttpRequest({
-            url : url,
-            callback : function(response:HttpResponse):Void {
-                if (response.isOK) {
-                    callback(Std.string(response.contentRaw)); // Invoke the callback
-                } else {
-                    callback(null);
-                    Main.toast.create('Error:', 0xFFFFFF00, 'Unable to connect to it, status: ${response.status}');
-                }
-            }  
-        });
+        var request = new Request(url);
 
-        request.send();
+        var loader = new XMLHttpRequestLoader(request); // or use Loader.create()
+        loader.onResponse = function(response:Response) {
+            if(response.success)
+        		callback(Std.string(response.data));
+        	else
+        		callback(null);
+        };
+        loader.load();
     }
 
     public function getSoundFromUrl(url: String, callback: FlxSound -> Void):Void
