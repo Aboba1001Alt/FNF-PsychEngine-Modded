@@ -105,18 +105,24 @@ class TitleState extends MusicBeatState
 		#if CHECK_FOR_UPDATES
 		if(ClientPrefs.data.checkForUpdates && !closedState) {
 			trace('checking for update');
-			var data:String = null;
-			var loader:experimental.backend.InternetLoader = new experimental.backend.InternetLoader();
-			loader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/FNF-PsychEngine-Modded/main/gitVersion.txt", function(datafromurl:String) {
-				data = datafromurl;
-			});
-			updateVersion = data.split('\n')[0].trim();
-			var curVersion:String = MainMenuState.unknownEngineVersion.trim();
-			trace('version online: ' + updateVersion + ', your version: ' + curVersion);
-			if(updateVersion != curVersion) {
-				trace('versions arent matching!');
-				mustUpdate = true;
+			var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/FNF-PsychEngine-Modded/main/gitVersion.txt");
+
+			http.onData = function (data:String)
+			{
+				updateVersion = data.split('\n')[0].trim();
+				var curVersion:String = MainMenuState.psychEngineVersion.trim();
+				trace('version online: ' + updateVersion + ', your version: ' + curVersion);
+				if(updateVersion != curVersion) {
+					trace('versions arent matching!');
+					mustUpdate = true;
+				}
 			}
+
+			http.onError = function (error) {
+				trace('error: $error');
+			}
+
+			http.request();
 		}
 		#end
 
