@@ -230,7 +230,7 @@ class FunkinLua {
 			else luaTrace('unable to set Time To ${time}');
 		});
 		#if !flash
-		if (ClientPrefs.shaders == true) {
+		if (ClientPrefs.data.shaders == true) {
 			Lua_helper.add_callback(lua, "addChromaticAbberationEffect", function(camera:String, chromeOffset:Float = 0.005) {
 				PlayState.instance.addLuaShaderToCamera(camera, new ChromaticAberrationEffect(chromeOffset));
 			});
