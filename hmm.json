@@ -63,11 +63,6 @@
       "version": null
     },
     {
-      "name": "yloader",
-      "type": "haxelib",
-      "version": "0.0.11"
-    },
-    {
       "name": "extension-androidtools",
       "type": "git",
       "dir": null,
