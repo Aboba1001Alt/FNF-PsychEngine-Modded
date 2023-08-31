@@ -127,7 +127,7 @@ class ClientPrefs {
 		'volume_down'	=> [NUMPADMINUS, MINUS],
 		
 		'debug_1'		=> [SEVEN],
-		'debug_2'		=> [EIGHT]
+		'debug_2'		=> [EIGHT],
 		
 		'space'		=> [SPACE]
 	];
