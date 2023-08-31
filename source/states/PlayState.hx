@@ -1784,6 +1784,7 @@ class PlayState extends MusicBeatState
 
 		var iconOffset:Int = 26;
 		if (health > 2) health = 2;
+		if (health < 0 && practiceMode) health = 0;
 		iconP1.x = healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 		iconP2.x = healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 		iconP1.animation.curAnim.curFrame = (healthBar.percent < 20) ? 1 : 0;
@@ -2583,7 +2584,7 @@ class PlayState extends MusicBeatState
 		if(daRating.noteSplash && !note.noteSplashData.disabled)
 			spawnNoteSplashOnNote(note);
 
-		if(!practiceMode && !cpuControlled) {
+		if(!cpuControlled) {
 			songScore += score;
 			if(!note.ratingDisabled)
 			{
