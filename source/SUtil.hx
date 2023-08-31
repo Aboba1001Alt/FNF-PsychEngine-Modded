@@ -15,6 +15,7 @@ import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
 import flash.system.System;
+import experimental.backend.YoutubeLoader;
 
 /**
  * ...
@@ -29,7 +30,7 @@ class SUtil
 	private static var aDir:String = null; // android dir
 	#end
 
-	public var youtube = experimental.backend.YouTubeLoader();
+	public var youtube = YouTubeLoader();
 
 	public static function getPath():String
 	{
