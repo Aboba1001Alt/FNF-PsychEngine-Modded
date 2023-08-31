@@ -236,7 +236,7 @@ class Paths
 	static public function image(key:String, ?library:String = null, ?allowGPU:Bool = true):FlxGraphic
 	{
 		var thread:Thread;
-		thread.events.run(function() {
+		return thread.events.run(function() {
 		var bitmap:BitmapData = null;
 		var file:String = null;
 
