@@ -25,6 +25,7 @@ import sys.FileSystem;
 import tjson.TJSON as Json;
 
 import sys.thread.Thread;
+import haxe.Future;
 
 #if MODS_ALLOWED
 import backend.Mods;
@@ -236,8 +237,7 @@ class Paths
 	static public function image(key:String, ?library:String = null, ?allowGPU:Bool = true):FlxGraphic
 	{
 		var futureResult:Future<FlxGraphic> = new Future<FlxGraphic>();
-		var thread:Thread;
-		thread.create(function() {
+		var thread:Thread = thread.create(function() {
 		var bitmap:BitmapData = null;
 		var file:String = null;
 
@@ -286,7 +286,6 @@ class Paths
 		futureResult.complete(null);
 	    });
 		var result:FlxGraphic = futureResult.get();
-		thread.dispose();
 		return result;
 	}
 
