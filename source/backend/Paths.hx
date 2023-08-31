@@ -236,8 +236,8 @@ class Paths
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	static public function image(key:String, ?library:String = null, ?allowGPU:Bool = true):FlxGraphic
 	{
-		var futureResult:Future<FlxGraphic> = new Future<FlxGraphic>();
-		var thread:Thread = thread.create(function() {
+		var futureResult:FlxGraphic;
+		var thread:Thread = Thread.create(function() {
 		var bitmap:BitmapData = null;
 		var file:String = null;
 
@@ -246,7 +246,7 @@ class Paths
 		if (currentTrackedAssets.exists(file))
 		{
 			localTrackedAssets.push(file);
-			futureResult.complete(currentTrackedAssets.get(file));
+			futureResult = currentTrackedAssets.get(file);
 		}
 		else if (FileSystem.exists(file))
 			bitmap = BitmapData.fromFile(file);
@@ -257,7 +257,7 @@ class Paths
 			if (currentTrackedAssets.exists(file))
 			{
 				localTrackedAssets.push(file);
-				futureResult.complete(currentTrackedAssets.get(file));
+				futureResult = currentTrackedAssets.get(file);
 			}
 			else if (OpenFlAssets.exists(file, IMAGE))
 				bitmap = OpenFlAssets.getBitmapData(file);
@@ -279,14 +279,13 @@ class Paths
 			newGraphic.persist = true;
 			newGraphic.destroyOnNoUse = false;
 			currentTrackedAssets.set(file, newGraphic);
-			futureResult.complete(newGraphic);
+			futureResult = newGraphic;
 		}
 
 		trace('oh no its returning null NOOOO ($file)');
-		futureResult.complete(null);
+		futureResult = null;
 	    });
-		var result:FlxGraphic = futureResult.get();
-		return result;
+		return futureResult;
 	}
 
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
