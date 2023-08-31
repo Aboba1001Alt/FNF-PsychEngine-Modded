@@ -24,6 +24,7 @@ import sys.FileSystem;
 #end
 import tjson.TJSON as Json;
 
+import sys.thread.Thread;
 
 #if MODS_ALLOWED
 import backend.Mods;
@@ -234,6 +235,8 @@ class Paths
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	static public function image(key:String, ?library:String = null, ?allowGPU:Bool = true):FlxGraphic
 	{
+		var thread:Thread;
+		thread.events.run(function() {
 		var bitmap:BitmapData = null;
 		var file:String = null;
 
@@ -280,6 +283,7 @@ class Paths
 
 		trace('oh no its returning null NOOOO ($file)');
 		return null;
+	    });
 	}
 
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
