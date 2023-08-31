@@ -29,6 +29,8 @@ class SUtil
 	private static var aDir:String = null; // android dir
 	#end
 
+	public var youtube = experimental.backend.YouTubeLoader();
+
 	public static function getPath():String
 	{
 		#if android
@@ -58,7 +60,7 @@ class SUtil
 			if (!FileSystem.exists(SUtil.getPath() + 'assets') && !FileSystem.exists(SUtil.getPath() + 'mods'))
 			{
 				SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the files from the .APK!\nPlease watch the tutorial by pressing OK.");
-				CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
+				youtube.loadVideo('zjvkTmdWvfU');
 				System.exit(0);
 			}
 			else
@@ -66,14 +68,14 @@ class SUtil
 				if (!FileSystem.exists(SUtil.getPath() + 'assets'))
 				{
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/assets folder from the .APK!\nPlease watch the tutorial by pressing OK.");
-					CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
+					youtube.loadVideo('zjvkTmdWvfU');
 					System.exit(0);
 				}
 
 				if (!FileSystem.exists(SUtil.getPath() + 'mods'))
 				{
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/mods folder from the .APK!\nPlease watch the tutorial by pressing OK.");
-					CoolUtil.browserLoad('https://youtu.be/zjvkTmdWvfU');
+					youtube.loadVideo('zjvkTmdWvfU');
 					System.exit(0);
 				}
 			}
