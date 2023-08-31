@@ -63,11 +63,6 @@
       "version": null
     },
     {
-      "name": "extension-youtubeplayer",
-      "type": "haxelib",
-      "version": null
-    },
-    {
       "name": "extension-androidtools",
       "type": "git",
       "dir": null,
