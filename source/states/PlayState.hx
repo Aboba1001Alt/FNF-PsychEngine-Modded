@@ -1305,8 +1305,9 @@ class PlayState extends MusicBeatState
 	}
 
 	function generateNotes(jsondata:SwagSong = null) {
-		if (jsondata == null) var songData = SONG;
-		else var songData = jsondata;
+		var songData:SwagSong = null;
+		if (jsondata == null) songData = SONG;
+		else songData = jsondata;
 		var noteData:Array<SwagSection>;
 		noteData = songData.notes;
 		for (section in noteData)
