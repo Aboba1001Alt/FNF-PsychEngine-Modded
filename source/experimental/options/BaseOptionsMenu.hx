@@ -333,9 +333,4 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			checkbox.daValue = (optionsArray[checkbox.ID].getValue() == true);
 		}
 	}
-
-	override function close() {
-		removeVirtualPad();
-		super.close();
-	}
 }

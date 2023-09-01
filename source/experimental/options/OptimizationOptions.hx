@@ -36,8 +36,12 @@ class OptimizationOptions extends BaseOptionsMenu
 	override function update(elapsed:Float)
 	{
 		if (controls.BACK) {
-			close();
-			openSubState(new ExperimentalOptions());
+			try {
+				FlxTransitionableState.skipNextTransOut = true;
+			    FlxG.resetState();
+			    ClientPrefs.saveSettings();
+			    openSubState(new ExperimentalOptions());
+			} catch(e:Dynamic) lime.app.Application.current.window.alert(e.toString(), "error:");
 		}
 		super.update(elapsed);
 	}
