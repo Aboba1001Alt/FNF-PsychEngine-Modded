@@ -39,9 +39,10 @@ class OptimizationOptions extends BaseOptionsMenu
 	{
 		if (controls.BACK) {
 			try {
-			    FlxG.resetState();
+				close();
+			    //FlxG.resetState();
 			    ClientPrefs.saveSettings();
-			    openSubState(new ExperimentalOptions());
+			    //openSubState(new ExperimentalOptions());
 			} catch(e:Dynamic) lime.app.Application.current.window.alert(e.toString(), "error:");
 		}
 		super.update(elapsed);

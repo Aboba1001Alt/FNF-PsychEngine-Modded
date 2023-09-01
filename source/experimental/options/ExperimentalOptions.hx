@@ -39,7 +39,7 @@ class ExperimentalOptions extends BaseOptionsMenu {
         addOption(option);
         option.onChange = function(value: Dynamic) {
             try {
-			FlxG.resetState();
+			//FlxG.resetState();
 			ClientPrefs.saveSettings();
             openSubState(new OptimizationOptions());
             } catch(e:Dynamic) lime.app.Application.current.window.alert(e.toString(), "error:");
