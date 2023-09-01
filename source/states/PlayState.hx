@@ -1283,7 +1283,7 @@ class PlayState extends MusicBeatState
 					makeEvent(event, i);
 		}
 
-		generateNotes();
+		generateNotes(SONG);
 		unspawnNotesCopy = unspawnNotes.copy();
 
 		for (event in songData.events) //Event Notes
@@ -1304,8 +1304,8 @@ class PlayState extends MusicBeatState
 		eventsPushed.push(event.event);
 	}
 
-	function generateNotes() {
-		var songData = SONG;
+	function generateNotes(?jsondata:SwagSong = SONG) {
+		var songData = jsondata;
 		var noteData:Array<SwagSection>;
 		noteData = songData.notes;
 		for (section in noteData)
