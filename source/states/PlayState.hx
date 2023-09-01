@@ -1304,7 +1304,7 @@ class PlayState extends MusicBeatState
 		eventsPushed.push(event.event);
 	}
 
-	function generateNotes(?jsondata:SwagSong = SONG) {
+	function generateNotes(jsondata:SwagSong = SONG) {
 		var songData = jsondata;
 		var noteData:Array<SwagSection>;
 		noteData = songData.notes;

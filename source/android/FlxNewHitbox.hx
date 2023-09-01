@@ -102,7 +102,7 @@ class FlxNewHitbox extends FlxSpriteGroup
 	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
 	{
 		var hint:FlxButton = new FlxButton(X, Y);
-		hint.makeGraphic(createHintGraphic(Width, Height, 0xFFFFFF));
+		hint.loadGraphic(createHintGraphic(Width, Height, Color));
 		hint.solid = false;
 		hint.immovable = true;
 		hint.scrollFactor.set();
