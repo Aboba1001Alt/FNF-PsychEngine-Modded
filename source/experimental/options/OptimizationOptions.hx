@@ -37,7 +37,7 @@ class OptimizationOptions extends BaseOptionsMenu
 	{
 		if (controls.BACK) {
 			close();
-			backend.MusicBeatState.openSubState(new ExperimentalOptions());
+			openSubState(new ExperimentalOptions());
 		}
 		super.update(elapsed);
 	}

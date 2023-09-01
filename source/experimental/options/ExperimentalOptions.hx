@@ -38,7 +38,7 @@ class ExperimentalOptions extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = function(value:Dynamic) {
 			close();
-			backend.MusicBeatState.openSubState(new OptimizationOptions());
+			openSubState(new OptimizationOptions());
 		}
 
 		super();
