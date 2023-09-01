@@ -150,10 +150,10 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		if(nextAccept <= 0)
 		{
-			var usesCheckbox = true;
-			if(curOption.type != 'bool')
+			var usesCheckbox = false;
+			if(curOption.type == 'bool')
 			{
-				usesCheckbox = false;
+				usesCheckbox = true;
 			}
 
 			if(usesCheckbox)
@@ -229,7 +229,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 						}
 					}
 
-					if(curOption.type != 'string') {
+					if(curOption.type != 'string' && curOption.type != 'functionnal') {
 						holdTime += elapsed;
 					}
 				} else if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
