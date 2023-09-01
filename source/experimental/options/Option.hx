@@ -88,7 +88,7 @@ class Option
 
 	public function getValue():Dynamic
 	{
-		if (variable != null)éSEW return Reflect.getProperty(ClientPrefs.data, variable);
+		if (variable != null) return Reflect.getProperty(ClientPrefs.data, variable);
 		return null;
 	}
 	public function setValue(value:Dynamic)
