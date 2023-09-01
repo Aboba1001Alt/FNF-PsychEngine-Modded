@@ -1,23 +1,35 @@
 package experimental.options;
 
+import flixel.ui.FlxBar;
+import flixel.text.FlxText;
+import flixel.FlxG;
+import flixel.FlxState;
+import flixel.FlxObject;
+import flixel.input.gamepad.FlxGamepad;
+import flixel.input.gamepad.lists.FlxGamepadButtonList;
 import objects.CheckboxThingie;
 import objects.AttachedText;
 import flixel.addons.transition.FlxTransitionableState;
 import experimental.options.Option;
-import flixel.ui.FlxBar;
+import experimental.options.Paths;
+import experimental.options.ClientPrefs;
 import objects.Alphabet;
 
-class BaseOptionsMenu extends MusicBeatSubstate {
+class BaseOptionsMenu extends FlxState {
     private var curOption: Option = null;
     private var curSelected: Int = 0;
     private var optionsArray: Array<Option> = [];
 
-    private var grpOptions: FlxTypedGroup<Alphabet> = new FlxTypedGroup<Alphabet>();
-    private var checkboxGroup: FlxTypedGroup<CheckboxThingie> = new FlxTypedGroup<CheckboxThingie>();
-    private var grpTexts: FlxTypedGroup<AttachedText> = new FlxTypedGroup<AttachedText>();
+    private var grpOptions: FlxGroup = new FlxGroup();
+    private var checkboxGroup: FlxGroup = new FlxGroup();
+    private var grpTexts: FlxGroup = new FlxGroup();
 
     private var descBox: FlxSprite;
     private var descText: FlxText;
+
+    private var holdTime: Float = 0;
+    private var holdValue: Float = 0;
+    private var nextAccept: Int = 0;
 
     public var title: String = 'Options';
     public var rpcTitle: String = 'Options Menu';
@@ -34,13 +46,13 @@ class BaseOptionsMenu extends MusicBeatSubstate {
 
         setupBackground();
 
-        grpOptions = new FlxTypedGroup<Alphabet>();
+        grpOptions = new FlxGroup();
         add(grpOptions);
 
-        grpTexts = new FlxTypedGroup<AttachedText>();
+        grpTexts = new FlxGroup();
         add(grpTexts);
 
-        checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
+        checkboxGroup = new FlxGroup();
         add(checkboxGroup);
 
         setupTitleAndDescription();
