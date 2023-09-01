@@ -5,6 +5,8 @@ import objects.Alphabet;
 import experimental.options.ExperimentalOptions;
 import options.OptionsState;
 
+import flixel.FlxG;
+
 class OptimizationOptions extends BaseOptionsMenu
 {
 	public function new()
@@ -37,7 +39,6 @@ class OptimizationOptions extends BaseOptionsMenu
 	{
 		if (controls.BACK) {
 			try {
-				FlxTransitionableState.skipNextTransOut = true;
 			    FlxG.resetState();
 			    ClientPrefs.saveSettings();
 			    openSubState(new ExperimentalOptions());

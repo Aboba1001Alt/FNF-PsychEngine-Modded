@@ -3,6 +3,8 @@ package experimental.options;
 import objects.Alphabet;
 import experimental.options.OptimizationOptions;
 
+import flixel.FlxG;
+
 class ExperimentalOptions extends BaseOptionsMenu {
     public function new() {
         title = 'Experimental Options';
@@ -37,7 +39,6 @@ class ExperimentalOptions extends BaseOptionsMenu {
         addOption(option);
         option.onChange = function(value: Dynamic) {
             try {
-            FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
 			ClientPrefs.saveSettings();
             openSubState(new OptimizationOptions());
