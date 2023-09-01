@@ -88,12 +88,12 @@ class Option
 
 	public function getValue():Dynamic
 	{
-		if (type != 'functionnal') return Reflect.getProperty(ClientPrefs.data, variable);
+		if (variable != null)éSEW return Reflect.getProperty(ClientPrefs.data, variable);
 		return null;
 	}
 	public function setValue(value:Dynamic)
 	{
-		if (type != 'functionnal') Reflect.setProperty(ClientPrefs.data, variable, value);
+		if (variable != null) Reflect.setProperty(ClientPrefs.data, variable, value);
 	}
 
 	private function get_text()
