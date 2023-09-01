@@ -52,6 +52,8 @@ class Option
 					if(options.length > 0) {
 						defaultValue = options[0];
 					}
+				case 'functionnal':
+				    defaultValue = null;
 			}
 		}
 
@@ -79,7 +81,6 @@ class Option
 
 	public function change()
 	{
-		//nothing lol
 		if(onChange != null) {
 			onChange(getValue());
 		}
@@ -87,11 +88,12 @@ class Option
 
 	public function getValue():Dynamic
 	{
-		return Reflect.getProperty(ClientPrefs.data, variable);
+		if (type != 'functionnal') return Reflect.getProperty(ClientPrefs.data, variable);
+		return null;
 	}
 	public function setValue(value:Dynamic)
 	{
-		Reflect.setProperty(ClientPrefs.data, variable, value);
+		if (type != 'functionnal') Reflect.setProperty(ClientPrefs.data, variable, value);
 	}
 
 	private function get_text()
@@ -114,10 +116,11 @@ class Option
 		var newValue:String = 'bool';
 		switch(type.toLowerCase().trim())
 		{
-			case 'int' | 'float' | 'percent' | 'string': newValue = type;
+			case 'int' | 'float' | 'percent' | 'string | functionnal': newValue = type;
 			case 'integer': newValue = 'int';
 			case 'str': newValue = 'string';
 			case 'fl': newValue = 'float';
+			case 'func': newValue = 'functionnal';
 		}
 		type = newValue;
 		return type;
