@@ -519,6 +519,11 @@ class PlayState extends MusicBeatState
 
 		generateSong(SONG.song);
 
+		if (ClientPrefs.data.nocamGame) {
+			camGame.visible = false;
+		    camGame.active = false;
+		}
+
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollow.setPosition(camPos.x, camPos.y);
 		camPos.put();
@@ -1304,7 +1309,7 @@ class PlayState extends MusicBeatState
 		eventsPushed.push(event.event);
 	}
 
-	function generateNotes(jsondata:SwagSong = null) {
+	function generateNotes(?jsondata:SwagSong = null) {
 		var songData:SwagSong = null;
 		if (jsondata == null) songData = SONG;
 		else songData = jsondata;

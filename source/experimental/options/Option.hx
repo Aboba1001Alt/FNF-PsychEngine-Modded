@@ -52,6 +52,8 @@ class Option
 					if(options.length > 0) {
 						defaultValue = options[0];
 					}
+				case 'functionnal':
+				    defaultValue = null;
 			}
 		}
 
@@ -79,7 +81,6 @@ class Option
 
 	public function change()
 	{
-		//nothing lol
 		if(onChange != null) {
 			onChange(getValue());
 		}

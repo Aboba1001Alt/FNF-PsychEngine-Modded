@@ -12,6 +12,7 @@ class SaveVariables {
 	public var oldSupport:Bool = false;
 	public var noDataClear:Bool = false;
 	public var moddedSaves:Map<String, Dynamic> = new Map<String, Dynamic>();
+	public var nocamGame:Bool = false;
 	public var experimental:Bool = false;
 	public var downScroll:Bool = false;
 	public var middleScroll:Bool = false;

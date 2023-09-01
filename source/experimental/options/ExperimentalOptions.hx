@@ -1,8 +1,9 @@
 package experimental.options;
 
-import objects.Note;
-import objects.StrumNote;
 import objects.Alphabet;
+
+import experimental.options.OptimizationOptions;
+import options.OptionsState;
 
 class ExperimentalOptions extends BaseOptionsMenu
 {
@@ -30,17 +31,15 @@ class ExperimentalOptions extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Less Lag',
-			"Uncheck this if you wanna see your rating and combo!",
-			'lessLag',
-			'bool');
+		var option:Option = new Option('Optimization Options',
+			"Press Enter to enter optimization options",
+			null,
+			'functionnal');
 		addOption(option);
-
-		var option:Option = new Option('Fast Song Loading',
-			"Check this if you wanna load song faster after game over!",
-			'noDataClear',
-			'bool');
-		addOption(option);
+		option.onChange = function(value:Dynamic) {
+			close();
+			OptionsState.openSubState(new OptimizationOptions());
+		}
 
 		super();
 	}	
