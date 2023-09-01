@@ -89,7 +89,7 @@ class Option
 	public function getValue():Dynamic
 	{
 		if (variable != null) return Reflect.getProperty(ClientPrefs.data, variable);
-		return null
+		return null;
 	}
 	public function setValue(value:Dynamic)
 	{
