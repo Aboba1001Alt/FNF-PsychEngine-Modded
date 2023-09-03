@@ -80,6 +80,10 @@ import psychlua.HScript;
 import tea.SScript;
 #end
 
+#if android
+import android.FlxCustomButton;
+#end
+
 class PlayState extends MusicBeatState
 {
 	public static var STRUM_X = 42;
@@ -117,6 +121,9 @@ class PlayState extends MusicBeatState
 	public var modchartSounds:Map<String, FlxSound> = new Map<String, FlxSound>();
 	public var modchartTexts:Map<String, FlxText> = new Map<String, FlxText>();
 	public var modchartSaves:Map<String, FlxSave> = new Map<String, FlxSave>();
+	#if android
+	public var modchartControls:Map<String, FlxButton> = new Map<String, FlxCustomButton>();
+	#end
 	#end
 
 	#if !flash

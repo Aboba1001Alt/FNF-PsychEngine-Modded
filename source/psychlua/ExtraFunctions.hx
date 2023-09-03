@@ -8,6 +8,10 @@ import sys.io.File;
 import flixel.util.FlxSave;
 import openfl.utils.Assets;
 
+#if android
+import android.FlxCustomButton;
+#end
+
 //
 // Things to trivialize some dumb stuff like splitting strings on older Lua
 //
@@ -124,6 +128,45 @@ class ExtraFunctions
 			}
 			return false;
 		});
+
+		#if android
+		Lua_helper.add_callback(lua, "removeAndroidControls", function() {
+			backend.MusicBeatState.androidc.visible = false;
+			backend.MusicBeatState.androidc.active = false;
+		});
+		Lua_helper.add_callback(lua, "addAndroidControls", function() {
+			backend.MusicBeatState.androidc.visible = true;
+			backend.MusicBeatState.androidc.active = true;
+		});
+		Lua_helper.add_callback(lua, "makeLuaButton", function(tag:String,x:Float,y:Float,width:Int,height:Int,color:String) {
+			if (!PlayState.instance.modchartControls.exists(tag)) {
+				var button:FlxCustomButton = new FlxCustomButton();
+				button.createHint(x,y,width,height,backend.CoolUtil.colorFromString(color));
+				PlayState.instance.modchartControls.set(tag,button);
+			}
+		});
+		Lua_helper.add_callback(lua, "buttonJustPressed", function(tag:String) {
+			if (PlayState.instance.modchartControls.exists(tag)) return (PlayState.instance.modchartControls.get(tag).justPressed == true);
+		});
+		Lua_helper.add_callback(lua, "buttonPressed", function(tag:String) {
+			if (PlayState.instance.modchartControls.exists(tag)) return (PlayState.instance.modchartControls.get(tag).pressed == true);
+		});
+		Lua_helper.add_callback(lua, "buttonReleased", function(tag:String) {
+			if (PlayState.instance.modchartControls.exists(tag)) return (PlayState.instance.modchartControls.get(tag).justReleased == true);
+		});
+	    Lua_helper.add_callback(lua, "removeLuaButton", function(tag:String) {
+			if (PlayState.instance.modchartControls.exists(tag)) {
+				PlayState.instance.modchartControls.get(tag).visible = false;
+				PlayState.instance.modchartControls.get(tag).active = false;
+			}
+		});
+		Lua_helper.add_callback(lua, "reactiveLuaButton", function(tag:String) {
+			if (PlayState.instance.modchartControls.exists(tag)) {
+				PlayState.instance.modchartControls.get(tag).visible = true;
+				PlayState.instance.modchartControls.get(tag).active = true;
+			}
+		});
+		#end
 
 		// Save data management
 		Lua_helper.add_callback(lua, "initSaveData", function(name:String, ?folder:String = 'psychenginemods') {
