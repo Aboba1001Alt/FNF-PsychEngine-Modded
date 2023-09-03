@@ -142,6 +142,8 @@ class ExtraFunctions
 			if (!PlayState.instance.modchartControls.exists(tag)) {
 				var button:FlxCustomButton = new FlxCustomButton();
 				button.createHint(x,y,width,height,backend.CoolUtil.colorFromString(color));
+				button.cameras = [PlayState.instance.camModControls];
+				PlayState.instance.add(button);
 				PlayState.instance.modchartControls.set(tag,button);
 			}
 		});
