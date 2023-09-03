@@ -122,7 +122,7 @@ class PlayState extends MusicBeatState
 	public var modchartTexts:Map<String, FlxText> = new Map<String, FlxText>();
 	public var modchartSaves:Map<String, FlxSave> = new Map<String, FlxSave>();
 	#if android
-	public var modchartControls:Map<String, FlxButton> = new Map<String, FlxCustomButton>();
+	public var modchartControls:Map<String, FlxCustomButton> = new Map<String, FlxCustomButton>();
 	#end
 	#end
 
