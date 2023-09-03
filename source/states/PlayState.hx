@@ -842,7 +842,7 @@ class PlayState extends MusicBeatState
 		#if LUA_ALLOWED
 		if(modchartSprites.exists(tag)) return modchartSprites.get(tag);
 		if(text && modchartTexts.exists(tag)) return modchartTexts.get(tag);
-		if(modchartModControls.exists(tag)) return modchartModControls.get(tag);
+		if(modchartControls.exists(tag)) return modchartControls.get(tag);
 		if(variables.exists(tag)) return variables.get(tag);
 		#end
 		return null;
