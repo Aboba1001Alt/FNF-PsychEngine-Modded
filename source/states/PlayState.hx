@@ -3086,7 +3086,7 @@ class PlayState extends MusicBeatState
 
 			if (!note.isSustainNote && !cpuControlled) {
 				songScore += 500 * Std.int(healthGain);
-				combo = Math.min(combo + 1, 9999); // Ensure combo doesn't exceed 9999
+				combo = Std.int(Math.min(combo + 1, 9999)); // Ensure combo doesn't exceed 9999
 				popUpScore(note);
 			}
 
