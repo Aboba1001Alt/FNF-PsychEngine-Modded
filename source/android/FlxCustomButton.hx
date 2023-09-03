@@ -32,7 +32,7 @@ class FlxCustomButton extends FlxButton {
 	public function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
 	{
 		this.x = X;
-        this.Y = Y;
+        this.y = Y;
 		this.loadGraphic(createHintGraphic(Width, Height, Color));
 		this.solid = false;
 		this.immovable = true;

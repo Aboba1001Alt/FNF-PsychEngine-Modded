@@ -147,12 +147,15 @@ class ExtraFunctions
 		});
 		Lua_helper.add_callback(lua, "buttonJustPressed", function(tag:String) {
 			if (PlayState.instance.modchartControls.exists(tag)) return (PlayState.instance.modchartControls.get(tag).justPressed == true);
+			return false;
 		});
 		Lua_helper.add_callback(lua, "buttonPressed", function(tag:String) {
 			if (PlayState.instance.modchartControls.exists(tag)) return (PlayState.instance.modchartControls.get(tag).pressed == true);
+			return false;
 		});
 		Lua_helper.add_callback(lua, "buttonReleased", function(tag:String) {
 			if (PlayState.instance.modchartControls.exists(tag)) return (PlayState.instance.modchartControls.get(tag).justReleased == true);
+			return false;
 		});
 	    Lua_helper.add_callback(lua, "removeLuaButton", function(tag:String) {
 			if (PlayState.instance.modchartControls.exists(tag)) {
