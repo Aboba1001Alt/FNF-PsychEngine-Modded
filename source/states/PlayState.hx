@@ -66,7 +66,7 @@ import sys.io.File;
 
 import objects.Note.EventNote;
 import objects.*;
-import states.stages.objects.*;
+//import states.stages.objects.*;
 
 #if LUA_ALLOWED
 import psychlua.*;
@@ -400,15 +400,7 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
-			case 'stage': new states.stages.StageWeek1(); //Week 1
-			case 'spooky': new states.stages.Spooky(); //Week 2
-			case 'philly': new states.stages.Philly(); //Week 3
-			case 'limo': new states.stages.Limo(); //Week 4
-			case 'mall': new states.stages.Mall(); //Week 5 - Cocoa, Eggnog
-			case 'mallEvil': new states.stages.MallEvil(); //Week 5 - Winter Horrorland
-			case 'school': new states.stages.School(); //Week 6 - Senpai, Roses
-			case 'schoolEvil': new states.stages.SchoolEvil(); //Week 6 - Thorns
-			case 'tank': new states.stages.Tank(); //Week 7 - Ugh, Guns, Stress
+			case 'stage': new states.stages.StageWeek1();
 		}
 
 		if(isPixelStage) {
@@ -3038,101 +3030,94 @@ class PlayState extends MusicBeatState
 
 	function goodNoteHit(note:Note):Void
 	{
-		if (!note.wasGoodHit)
-		{
-			if(cpuControlled && (note.ignoreNote || note.hitCausesMiss)) return;
+		if (note.wasGoodHit) return;
 
-			if (ClientPrefs.data.hitsoundVolume > 0 && !note.hitsoundDisabled)
-				FlxG.sound.play(Paths.sound(note.hitsound), ClientPrefs.data.hitsoundVolume);
+		if (cpuControlled && (note.ignoreNote || note.hitCausesMiss)) return;
 
-			if(note.hitCausesMiss) {
-				noteMiss(note);
-				if(!note.noteSplashData.disabled && !note.isSustainNote)
-					spawnNoteSplashOnNote(note);
+		if (ClientPrefs.data.hitsoundVolume > 0 && !note.hitsoundDisabled) {
+			FlxG.sound.play(Paths.sound(note.hitsound), ClientPrefs.data.hitsoundVolume);
+		}
 
-				if(!note.noMissAnimation)
-				{
-					switch(note.noteType) {
-						case 'Hurt Note': //Hurt note
-							if(boyfriend.animation.getByName('hurt') != null) {
-								boyfriend.playAnim('hurt', true);
-								boyfriend.specialAnim = true;
-							}
-					}
-				}
-
-				note.wasGoodHit = true;
-				if (!note.isSustainNote)
-				{
-					notes.remove(note, true);
-					note.destroy();
-				}
-				return;
+		if (note.hitCausesMiss) {
+			noteMiss(note);
+			if (!note.noteSplashData.disabled && !note.isSustainNote) {
+				spawnNoteSplashOnNote(note);
 			}
-			if(!note.noAnimation) {
+
+			if (!note.noMissAnimation) {
+				switch (note.noteType) {
+					case 'Hurt Note':
+						if (boyfriend.animation.getByName('hurt') != null) {
+							boyfriend.playAnim('hurt', true);
+							boyfriend.specialAnim = true;
+						}
+				}
+			}
+
+			note.wasGoodHit = true;
+			if (!note.isSustainNote) {
+				notes.remove(note, true);
+				note.destroy();
+			}
+		} else {
+			if (!note.noAnimation) {
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.ognoteData))];
 
-				if(note.gfNote)
-				{
-					if(gf != null)
-					{
-						gf.playAnim(animToPlay + note.animSuffix, true);
-						gf.holdTimer = 0;
-					}
-				}
-				else
-				{
+				if (note.gfNote && gf != null) {
+					gf.playAnim(animToPlay + note.animSuffix, true);
+					gf.holdTimer = 0;
+				} else {
 					boyfriend.playAnim(animToPlay + note.animSuffix, true);
 					boyfriend.holdTimer = 0;
 				}
 
-				if(note.noteType == 'Hey!') {
-					if(boyfriend.animOffsets.exists('hey')) {
-						boyfriend.playAnim('hey', true);
-						boyfriend.specialAnim = true;
-						boyfriend.heyTimer = 0.6;
-					}
+				if (note.noteType == 'Hey!' && boyfriend.animOffsets.exists('hey')) {
+					boyfriend.playAnim('hey', true);
+					boyfriend.specialAnim = true;
+					boyfriend.heyTimer = 0.6;
 
-					if(gf != null && gf.animOffsets.exists('cheer')) {
+					if (gf != null && gf.animOffsets.exists('cheer')) {
 						gf.playAnim('cheer', true);
 						gf.specialAnim = true;
 						gf.heyTimer = 0.6;
 					}
 				}
 			}
-			if (!note.isSustainNote && !cpuControlled)
-			{
+
+			if (!note.isSustainNote && !cpuControlled) {
 				songScore += 500 * Std.int(healthGain);
-				combo++;
-				if(combo > 9999) combo = 9999;
+				combo = Math.min(combo + 1, 9999); // Ensure combo doesn't exceed 9999
 				popUpScore(note);
 			}
+
 			health += note.hitHealth * healthGain;
-			if(cpuControlled) {
+
+			if (cpuControlled) {
 				var time:Float = 0.15 / playbackRate;
-				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
+				if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 					time += 0.15;
 				}
 				strumPlayAnim(false, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
 			} else {
 				var spr = playerStrums.members[note.noteData];
-				if(spr != null)
-				{
+				if (spr != null) {
 					spr.playAnim('confirm', true);
 				}
 			}
+
 			note.wasGoodHit = true;
 			vocals.volume = 1;
 
-			var isSus:Bool = note.isSustainNote; //GET OUT OF MY HEAD, GET OUT OF MY HEAD, GET OUT OF MY HEAD
+			var isSus:Bool = note.isSustainNote;
 			var leData:Int = Math.round(Math.abs(note.noteData));
 			var leType:String = note.noteType;
 
 			var result:Dynamic = callOnLuas('goodNoteHit', [notes.members.indexOf(note), leData, leType, isSus]);
-			if(result != FunkinLua.Function_Stop && result != FunkinLua.Function_StopHScript && result != FunkinLua.Function_StopAll) callOnHScript('goodNoteHit', [note]);
+			if (result != FunkinLua.Function_Stop && result != FunkinLua.Function_StopHScript && result != FunkinLua.Function_StopAll) {
+				callOnHScript('goodNoteHit', [note]);
+			}
 
-			if (!note.isSustainNote)
-			{
+			if (!note.isSustainNote) {
 				notes.remove(note, true);
 				note.destroy();
 			}
