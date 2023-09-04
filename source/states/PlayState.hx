@@ -1855,6 +1855,7 @@ class PlayState extends MusicBeatState
 
 			while (unspawnNotes.length > 0 && unspawnNotes[0].strumTime - Conductor.songPosition < time)
 			{
+			    sys.thread.Thread.create(() -> {
 				var dunceNote:Note = unspawnNotes[0];
 				notes.insert(0, dunceNote);
 				dunceNote.spawned = true;
@@ -1864,6 +1865,7 @@ class PlayState extends MusicBeatState
 
 				var index:Int = unspawnNotes.indexOf(dunceNote);
 				unspawnNotes.splice(index, 1);
+				});
 			}
 		}
 
@@ -1893,11 +1895,13 @@ class PlayState extends MusicBeatState
 
 							if(daNote.mustPress)
 							{
+								sys.thread.Thread.create(() -> {
 								if(cpuControlled && !daNote.blockHit && daNote.canBeHit && (daNote.isSustainNote || daNote.strumTime <= Conductor.songPosition))
 									goodNoteHit(daNote);
+								});
 							}
 							else if (daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
-								opponentNoteHit(daNote);
+								sys.thread.Thread.create(() -> { opponentNoteHit(daNote); });
 
 							if(daNote.isSustainNote && strum.sustainReduce) daNote.clipToStrumNote(strum);
 
@@ -2792,8 +2796,10 @@ class PlayState extends MusicBeatState
 
 						// eee jack detection before was not super good
 						if (!notesStopped) {
+							sys.thread.Thread.create(() -> {
 							goodNoteHit(epicNote);
 							pressNotes.push(epicNote);
+							)};
 						}
 
 					}
@@ -2897,6 +2903,7 @@ class PlayState extends MusicBeatState
 			// rewritten inputs???
 			if(notes.length > 0)
 			{
+				sys.thread.Thread.create(() -> {
 				notes.forEachAlive(function(daNote:Note)
 				{
 					// hold note functions
@@ -2904,6 +2911,7 @@ class PlayState extends MusicBeatState
 					&& daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && !daNote.blockHit) {
 						goodNoteHit(daNote);
 					}
+				});
 				});
 			}
 
