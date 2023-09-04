@@ -78,6 +78,10 @@ class LoadingState extends MusicBeatState
 				new FlxTimer().start(fadeTime + MIN_TIME, function(_) introComplete());
 			}
 		);
+
+		#if android
+		addVirtualPad(NONE, A);
+		#end
 	}
 	
 	function checkLoadSong(path:String)
