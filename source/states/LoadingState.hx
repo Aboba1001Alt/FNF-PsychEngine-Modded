@@ -70,7 +70,7 @@ class LoadingState extends MusicBeatState
 				}
 				checkLibrary("shared");
 				if(directory != null && directory.length > 0 && directory != 'shared') {
-					checkLibrary('week_assets');
+					//checkLibrary('week_assets');
 				}
 
 				var fadeTime = 0.5;
