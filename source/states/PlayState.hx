@@ -1895,10 +1895,11 @@ class PlayState extends MusicBeatState
 
 							if(daNote.mustPress)
 							{
+								if(cpuControlled && !daNote.blockHit && daNote.canBeHit && (daNote.isSustainNote || daNote.strumTime <= Conductor.songPosition)) {
 								sys.thread.Thread.create(() -> {
-								if(cpuControlled && !daNote.blockHit && daNote.canBeHit && (daNote.isSustainNote || daNote.strumTime <= Conductor.songPosition))
 									goodNoteHit(daNote);
 								});
+								}
 							}
 							else if (daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
 								sys.thread.Thread.create(() -> { opponentNoteHit(daNote); });
@@ -2903,15 +2904,14 @@ class PlayState extends MusicBeatState
 			// rewritten inputs???
 			if(notes.length > 0)
 			{
-				sys.thread.Thread.create(() -> {
+				
 				notes.forEachAlive(function(daNote:Note)
 				{
 					// hold note functions
 					if (strumsBlocked[daNote.noteData] != true && daNote.isSustainNote && holdArray[daNote.noteData] && daNote.canBeHit
 					&& daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && !daNote.blockHit) {
-						goodNoteHit(daNote);
+						sys.thread.Thread.create(() -> { goodNoteHit(daNote); });
 					}
-				});
 				});
 			}
 
