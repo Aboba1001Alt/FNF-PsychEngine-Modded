@@ -2799,7 +2799,7 @@ class PlayState extends MusicBeatState
 							sys.thread.Thread.create(() -> {
 							goodNoteHit(epicNote);
 							pressNotes.push(epicNote);
-							)};
+							});
 						}
 
 					}
