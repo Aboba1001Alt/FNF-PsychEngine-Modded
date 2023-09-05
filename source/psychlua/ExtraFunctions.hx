@@ -130,6 +130,7 @@ class ExtraFunctions
 		});
 
 		#if android
+		if (ClientPrefs.data.experimental) {
 		Lua_helper.add_callback(lua, "removeAndroidControls", function() {
 			backend.MusicBeatState.androidc.visible = false;
 			backend.MusicBeatState.androidc.active = false;
@@ -171,6 +172,7 @@ class ExtraFunctions
 				PlayState.instance.modchartControls.get(tag).active = true;
 			}
 		});
+		}
 		#end
 
 		// Save data management
