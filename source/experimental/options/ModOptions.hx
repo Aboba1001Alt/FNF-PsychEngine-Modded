@@ -40,7 +40,7 @@ class ModOptions extends BaseOptionsMenu {
 		title = 'Mod Options Menu';
 		rpcTitle = 'Mod Options Menu'; // for Discord Rich Presence
 
-		var modsList:Array = Mods.getModDirectories();
+		var modsList:Array<String> = Mods.getModDirectories();
 
 		for (mod in modsList) {
 		var directory:String = mod + 'options';
