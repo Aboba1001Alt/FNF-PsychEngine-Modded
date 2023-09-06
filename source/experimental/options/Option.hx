@@ -90,7 +90,7 @@ class Option
 	public function getValue():Dynamic
 	{
 		if (!modded && variable != null) return Reflect.getProperty(ClientPrefs.data, variable);
-		if (modded && variable != null) return ClientPrefs.data.moddedSaves.get(variable);
+		if (modded && variable != null && ClientPrefs.data.moddedSaves.exists(variable)) return ClientPrefs.data.moddedSaves.get(variable);
 		return null;
 	}
 	public function setValue(value:Dynamic)
