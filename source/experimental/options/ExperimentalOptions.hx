@@ -2,6 +2,7 @@ package experimental.options;
 
 import objects.Alphabet;
 import experimental.options.OptimizationOptions;
+import experimental.options.ModOptions;
 
 import flixel.FlxG;
 
@@ -41,6 +42,19 @@ class ExperimentalOptions extends BaseOptionsMenu {
             try {
 			ClientPrefs.saveSettings();
             openSubState(new OptimizationOptions());
+            } catch(e:Dynamic) lime.app.Application.current.window.alert(e.toString(), "error:");
+        }
+
+        var option: Option = new Option('Mod Options',
+            "Press Enter to enter mods options",
+            null,
+            'functionnal'
+        );
+        addOption(option);
+        option.onChange = function(value: Dynamic) {
+            try {
+			ClientPrefs.saveSettings();
+            openSubState(new ModOptions());
             } catch(e:Dynamic) lime.app.Application.current.window.alert(e.toString(), "error:");
         }
 

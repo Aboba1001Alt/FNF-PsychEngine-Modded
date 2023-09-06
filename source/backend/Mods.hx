@@ -33,7 +33,8 @@ class Mods
 		'weeks',
 		'fonts',
 		'scripts',
-		'achievements'
+		'achievements',
+		'options'
 	];
 
 	private static var globalMods:Array<String> = [];

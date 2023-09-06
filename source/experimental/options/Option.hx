@@ -27,6 +27,7 @@ class Option
     public var barVisible:Bool = false;
     public var barValue:Float = 0;
 	public var barText:String = "";
+	public var modded:Bool = false;
 
 	public function new(name:String, description:String = '', variable:String, type:String = 'bool', ?options:Array<String> = null)
 	{
@@ -88,12 +89,14 @@ class Option
 
 	public function getValue():Dynamic
 	{
-		if (variable != null) return Reflect.getProperty(ClientPrefs.data, variable);
+		if (!modded && variable != null) return Reflect.getProperty(ClientPrefs.data, variable);
+		if (modded && variable != null) return ClientPrefs.data.moddedSaves.get(variable);
 		return null;
 	}
 	public function setValue(value:Dynamic)
 	{
-		if (variable != null) Reflect.setProperty(ClientPrefs.data, variable, value);
+		if (!modded && variable != null) Reflect.setProperty(ClientPrefs.data, variable, value);
+		if (modded && variable != null) return ClientPrefs.data.moddedSaves.set(variable, value);
 	}
 
 	private function get_text()
