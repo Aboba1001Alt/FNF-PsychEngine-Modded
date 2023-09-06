@@ -43,7 +43,7 @@ class ModOptions extends BaseOptionsMenu {
 		var modsList:Array<String> = Mods.getModDirectories();
 
 		for (mod in modsList) {
-		var directory:String = mod + 'options';
+		var directory:String = mod + '/options/';
 		if (FileSystem.exists(directory)) {
 			for (file in FileSystem.readDirectory(directory)) {
 				var path = haxe.io.Path.join([directory, file]);
