@@ -12,8 +12,6 @@ import game.Note;
 import objects.Note;
 #end
 
-import modcharting.ModchartEditorState;
-
 using StringTools;
 
 class NoteMovement
