@@ -14,7 +14,11 @@ class ReflectionFunctions
 {
 	public static function implement(funk:FunkinLua)
 	{
-		var lua:State = funk.lua;
+		var lua:State = funk.lua;	
+		Lua_helper.add_callback(lua, "getModdedProperty", function(variable:String) {
+			if (ClientPrefs.data.moddedSaves.exists(variable)) return ClientPrefs.data.moddedSaves.get(variable);
+			return null;
+		});
 		Lua_helper.add_callback(lua, "getProperty", function(variable:String, ?allowMaps:Bool = false) {
 			if (ClientPrefs.data.oldSupport) {
 				if (variable == "camFollowPos.x") variable = "camGame.scroll.x";
