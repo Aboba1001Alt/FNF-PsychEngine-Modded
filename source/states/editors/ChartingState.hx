@@ -1858,6 +1858,9 @@ class ChartingState extends MusicBeatState
 				curZoom++;
 				updateZoom();
 			}
+			if (FlxG.keys.justPressed.NINE) {
+				MusicBeatState.switchState(new modcharting.ModchartEditorState());
+			}
 
 			if (FlxG.keys.justPressed.TAB #if mobile || MusicBeatState._virtualpad.buttonCEG.justPressed #end)
 			{

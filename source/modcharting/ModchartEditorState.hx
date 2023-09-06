@@ -785,7 +785,7 @@ class ModchartEditorState extends backend.MusicBeatState
                 #if PSYCH 
                 backend.StageData.loadDirectory(PlayState.SONG);
                 #end
-                LoadingState.loadAndSwitchState(new PlayState());
+                LoadingState.loadAndSwitchState(new states.editors.ChartingState());
             };
             if (hasUnsavedChanges)
             {
