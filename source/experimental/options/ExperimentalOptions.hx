@@ -46,14 +46,16 @@ class ExperimentalOptions extends BaseOptionsMenu {
         }
 
         var option: Option = new Option('Mod Options',
-            "Press Enter to enter mods options",
+            "Press Enter to enter mods options!Not Fixed YET!",
             null,
             'functionnal'
         );
         addOption(option);
         option.onChange = function(value: Dynamic) {
+            try {
 			ClientPrefs.saveSettings();
             openSubState(new ModOptions());
+            } catch(e:Dynamic) lime.app.Application.current.window.alert(e.toString(), "error:");
         }
 
         super();
