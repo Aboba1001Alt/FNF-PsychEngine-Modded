@@ -205,7 +205,7 @@ class ModchartFile
 
 class CustomModifierScript extends tea.SScript
 {
-    public function new(scriptStr:String)
+    public function new(file:String)
     {
         try
         {
@@ -253,27 +253,6 @@ class CustomModifierScript extends tea.SScript
         set('ClientPrefs', backend.ClientPrefs);
         set('ColorSwap', shaders.ColorSwap);
         #end
-
-        
-    }
-    public function call(event:String, args:Array<Dynamic>)
-    {
-        if (interp == null)
-            return;
-        if (interp.variables.exists(event)) //make sure it exists
-        {
-            try
-            {
-                if (args.length > 0)
-                    Reflect.callMethod(null, interp.variables.get(event), args);
-                else
-                    interp.variables.get(event)(); //if function doesnt need an arg
-            }
-            catch(e)
-            {
-                lime.app.Application.current.window.alert(e.message, 'Error on custom mod .hx!');
-            }
-        }
     }
     public function initMod(mod:Modifier)
     {
@@ -284,10 +263,5 @@ class CustomModifierScript extends tea.SScript
         {
             lime.app.Application.current.window.alert(e.message, 'Error on custom mod .hx!');
         }
-    }
-
-    public function destroy()
-    {
-        destroy();
     }
 }

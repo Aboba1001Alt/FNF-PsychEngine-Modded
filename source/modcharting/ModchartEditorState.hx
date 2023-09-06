@@ -336,7 +336,7 @@ class ModchartEditorState extends backend.MusicBeatState
 			PlayState.SONG = Song.loadFromJson('tutorial');
 
 		Conductor.mapBPMChanges(PlayState.SONG);
-		Conductor.changeBPM(PlayState.SONG.bpm);
+		Conductor.set_bpm(PlayState.SONG.bpm);
 
         FlxG.mouse.visible = true;
 
@@ -805,7 +805,7 @@ class ModchartEditorState extends backend.MusicBeatState
         if (curBpmChange.bpm != Conductor.bpm)
         {
             //trace('changed bpm to ' + curBpmChange.bpm);
-            Conductor.changeBPM(curBpmChange.bpm);
+            Conductor.set_bpm(curBpmChange.bpm);
         }
 
 
@@ -980,7 +980,7 @@ class ModchartEditorState extends backend.MusicBeatState
     {
 
         var songData = PlayState.SONG;
-        Conductor.changeBPM(songData.bpm);
+        Conductor.set_bpm(songData.bpm);
 
         if (PlayState.SONG.needsVoices)
         {
@@ -1057,7 +1057,7 @@ class ModchartEditorState extends backend.MusicBeatState
 
 
                 #if PSYCH 
-                var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
+                var swagNote:Note = new Note(daStrumTime, daNoteData, daNoteData, oldNote);
                 swagNote.sustainLength = songNotes[2];
                 swagNote.mustPress = gottaHitNote;
                 swagNote.gfNote = (section.gfSection && (songNotes[1]<4));
@@ -1082,7 +1082,7 @@ class ModchartEditorState extends backend.MusicBeatState
                         oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 
                         #if PSYCH 
-                        var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + (Conductor.stepCrochet / FlxMath.roundDecimal(PlayState.SONG.speed, 2)), daNoteData, oldNote, true);
+                        var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + (Conductor.stepCrochet / FlxMath.roundDecimal(PlayState.SONG.speed, 2)), daNoteData, daNoteData, oldNote, true);
                         sustainNote.mustPress = gottaHitNote;
                         #else 
                         var sustainNote:Note = new Note(daStrumTime + (Std.int(Conductor.stepCrochet) * susNote) + Std.int(Conductor.stepCrochet), daNoteData, oldNote, true, 0, songNotes[4], null, [0], gottaHitNote);
