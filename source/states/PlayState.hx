@@ -84,6 +84,10 @@ import tea.SScript;
 import android.FlxCustomButton;
 #end
 
+import modcharting.ModchartFuncs;
+import modcharting.NoteMovement;
+import modcharting.PlayfieldRenderer;
+
 class PlayState extends MusicBeatState
 {
 	public static var STRUM_X = 42;
@@ -505,7 +509,6 @@ class PlayState extends MusicBeatState
 
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
-		add(grpNoteSplashes);
 
 		if(ClientPrefs.data.timeBarType == 'Song Name')
 		{
@@ -521,6 +524,11 @@ class PlayState extends MusicBeatState
 		playerStrums = new FlxTypedGroup<StrumNote>();
 
 		generateSong(SONG.song);
+
+		playfieldRenderer = new PlayfieldRenderer(strumLineNotes, notes, this);
+		playfieldRenderer.cameras = [camHUD];
+		add(playfieldRenderer);
+		add(grpNoteSplashes);
 
 		if (ClientPrefs.data.nocamGame) {
 			camGame.visible = false;
@@ -654,6 +662,7 @@ class PlayState extends MusicBeatState
 
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
+		ModchartFuncs.loadLuaFunctions();
 		callOnScripts('onCreatePost');
 
 		cacheCountdown();
@@ -989,6 +998,7 @@ class PlayState extends MusicBeatState
 
 			generateStaticArrows(0);
 			generateStaticArrows(1);
+			NoteMovement.getDefaultStrumPos(this);
 			for (i in 0...playerStrums.length) {
 				setOnScripts('defaultPlayerStrumX' + i, playerStrums.members[i].x);
 				setOnScripts('defaultPlayerStrumY' + i, playerStrums.members[i].y);

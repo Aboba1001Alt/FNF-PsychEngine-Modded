@@ -10,6 +10,8 @@ import objects.StrumNote;
 
 import flixel.math.FlxRect;
 
+import flixel.addons.effects.FlxSkewedSprite;
+
 using StringTools;
 
 typedef EventNote = {
@@ -31,8 +33,10 @@ typedef NoteSplashData = {
 	a:Float
 }
 
-class Note extends FlxSprite
+class Note extends FlxSkewedSprite
 {
+    public var mesh:modcharting.SustainStrip = null;
+    public var z:Float = 0;
 	public var extraData:Map<String, Dynamic> = new Map<String, Dynamic>();
 
 	public var strumTime:Float = 0;
