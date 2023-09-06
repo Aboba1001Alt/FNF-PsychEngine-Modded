@@ -9,6 +9,7 @@ import sys.io.File;
 import sys.FileSystem;
 import haxe.Json;
 import experimental.options.Option;
+import backend.Mods;
 
 using StringTools;
 
