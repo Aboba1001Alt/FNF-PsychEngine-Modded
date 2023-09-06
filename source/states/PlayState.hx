@@ -525,9 +525,11 @@ class PlayState extends MusicBeatState
 
 		generateSong(SONG.song);
 
+		try {
 		playfieldRenderer = new PlayfieldRenderer(strumLineNotes, notes, this);
 		playfieldRenderer.cameras = [camHUD];
 		add(playfieldRenderer);
+		}
 		add(grpNoteSplashes);
 
 		if (ClientPrefs.data.nocamGame) {
