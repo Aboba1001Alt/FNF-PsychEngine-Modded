@@ -52,10 +52,8 @@ class ExperimentalOptions extends BaseOptionsMenu {
         );
         addOption(option);
         option.onChange = function(value: Dynamic) {
-            try {
 			ClientPrefs.saveSettings();
             openSubState(new ModOptions());
-            } catch(e:Dynamic) lime.app.Application.current.window.alert(e.toString(), "error:");
         }
 
         super();
