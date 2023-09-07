@@ -173,7 +173,7 @@ class ExtraFunctions
 			}
 		});
 		Lua_helper.add_callback(lua, "runThreadFunction", function(func:Void->Void) {
-			Main.threads.thread.runSafe(function() { func(); });
+			Main.threads.runSafe(function() { func(); });
 		});
 		}
 		#end

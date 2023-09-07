@@ -16,7 +16,7 @@ class ThreadUtil {
 			thread.queue();
 	    } catch(e) {
 			trace(e.message);
-			func();
+			try { func(); }
 		}
 	}
 }
