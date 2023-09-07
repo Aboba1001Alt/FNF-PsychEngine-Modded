@@ -18,14 +18,14 @@ class ExperimentalOptions extends BaseOptionsMenu {
         );
         addOption(option);
         option.barVisible = true;
-        option.barValue = 29;
+        option.barValue = 40;
         option.barText = "Progress: " + option.barValue + "%";
         option.onChange = function(value: Dynamic) {
-            if (value == true) Main.toast.create('Experimental', 0xFFFF0000, 'Enabled');
+            if (value == true) Main.toast.create('Experimental', 0xFFFFC000, 'Enabled');
             else Main.toast.create('Experimental', 0xFFFF0000, 'Disabled');
         }
 
-        var option: Option = new Option('Ultimate ModChart Functions (Not Tested!)',
+        var option: Option = new Option('Ultimate ModChart Functions',
             "Credits to TheZoroForce240 and pull request #47",
             'ultiModchart',
             'bool'
