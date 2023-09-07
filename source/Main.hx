@@ -139,7 +139,6 @@ class Main extends Sprite
 		toast = new ToastCore();
 		addChild(toast);
 		threads = new ThreadUtil(0,4);
-		addChild(threads);
 	}
 
 	static function resetSpriteCache(sprite:Sprite):Void {

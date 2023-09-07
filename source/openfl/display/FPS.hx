@@ -103,7 +103,7 @@ class FPS extends TextField
 
 			text += "\n";
 
-			text += "currentThreads: " + Main.threads.currentThreads + "/" + Main.threads.maxThreads;
+			text += "currentThreads: " + Main.threads.thread.currentThreads + "/" + Main.threads.thread.maxThreads;
 
 			text += "\n";
 		}
