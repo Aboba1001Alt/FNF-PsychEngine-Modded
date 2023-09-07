@@ -11,6 +11,7 @@ class ThreadUtil {
 		try {
 			thread.doWork.add(function(state){
 			    func();
+				threadPool.sendComplete();
 		    });
 	    } catch(e) {
 			trace(e.message);
