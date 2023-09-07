@@ -13,6 +13,7 @@ class ThreadUtil {
 			    func();
 				threadPool.sendComplete();
 		    });
+			threadPool.queue();
 	    } catch(e) {
 			trace(e.message);
 			func();
