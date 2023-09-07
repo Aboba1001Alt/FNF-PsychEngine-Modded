@@ -1,6 +1,5 @@
 package experimental.backend;
 
-#if ALLOW_MULTITHREADING
 class ThreadUtil {
 	/**
 	 * Creates a new Thread with an error handler.
@@ -29,4 +28,3 @@ class ThreadUtil {
 		}
 	}
 }
-#end
