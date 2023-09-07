@@ -237,7 +237,7 @@ class Paths
 	{
 		var bitmap:BitmapData = null;
 		var file:String = null;
-		Main.threads.runSafe(function() {
+
 		#if MODS_ALLOWED
 		file = modsImages(key);
 		if (currentTrackedAssets.exists(file))
@@ -281,7 +281,6 @@ class Paths
 
 		trace('oh no its returning null NOOOO ($file)');
 		return null;
-		});
 	}
 
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
