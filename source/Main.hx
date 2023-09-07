@@ -99,7 +99,10 @@ class Main extends Sprite
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 		#end
 
-	
+		if (ClientPrefs.data.ingameeditor) {
+			flixel.addons.studio.FlxStudio.create();
+		}
+
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
