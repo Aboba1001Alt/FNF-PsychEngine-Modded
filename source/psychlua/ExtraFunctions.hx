@@ -8,6 +8,8 @@ import sys.io.File;
 import flixel.util.FlxSave;
 import openfl.utils.Assets;
 
+import experimental.backend.ThreadUtil;
+
 #if android
 import android.FlxCustomButton;
 #end
@@ -173,7 +175,7 @@ class ExtraFunctions
 			}
 		});
 		Lua_helper.add_callback(lua, "runThreadFunction", function(func:Void->Void) {
-			experimental.backend.ThreadUtil.createSafe(function() { func(); }, false);
+			ThreadUtil.createSafe(function() { func(); }, false);
 		});
 		}
 		#end
