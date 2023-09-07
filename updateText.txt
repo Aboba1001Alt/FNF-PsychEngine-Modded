@@ -1,0 +1,4 @@
+- New Modcharting system by TheZoroForce240
+- I will try to add:
+       - MultiThreading (hard to add on Android cuz it crashes)
+       - Internet Loading (Hard to add for sounds and images i think)
