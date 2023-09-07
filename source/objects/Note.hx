@@ -317,14 +317,12 @@ class Note extends FlxSkewedSprite
 	public function reloadNote(texture:String = '', postfix:String = '') {
 		if(texture == null) texture = '';
 		if(postfix == null) postfix = '';
-		if (ClientPrefs.data.oldSupport) rgbShader.enabled = false;
 
 		var skin:String = texture + postfix;
 		if(texture.length < 1) {
 			skin = PlayState.SONG != null ? PlayState.SONG.arrowSkin : null;
 			if(skin == null || skin.length < 1)
 				skin = defaultNoteSkin + postfix;
-				if (ClientPrefs.data.oldSupport) rgbShader.enabled = true;
 		}
 
 		var animName:String = null;
