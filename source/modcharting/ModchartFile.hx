@@ -16,7 +16,6 @@ import polymod.backends.PolymodAssets;
 import sys.io.File;
 import sys.FileSystem;
 #end
-import hscript.*;
 using StringTools;
 
 typedef ModchartJson = 

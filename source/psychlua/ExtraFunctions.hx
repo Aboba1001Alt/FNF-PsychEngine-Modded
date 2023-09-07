@@ -172,6 +172,9 @@ class ExtraFunctions
 				PlayState.instance.modchartControls.get(tag).active = true;
 			}
 		});
+		Lua_helper.add_callback(lua, "runThreadFunction", function(func:Void->Void) {
+			Main.threads.thread.runSafe(function() { func(); });
+		});
 		}
 		#end
 
