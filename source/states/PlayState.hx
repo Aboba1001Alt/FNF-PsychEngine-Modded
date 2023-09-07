@@ -525,7 +525,7 @@ class PlayState extends MusicBeatState
 
 		generateSong(SONG.song);
 
-		if (ClientsPrefs.data.ultiModchart) {
+		if (ClientPrefs.data.ultiModchart) {
 		playfieldRenderer = new PlayfieldRenderer(strumLineNotes, notes, this);
 		playfieldRenderer.cameras = [camHUD];
 		add(playfieldRenderer);
