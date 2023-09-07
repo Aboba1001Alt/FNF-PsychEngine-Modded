@@ -14,7 +14,6 @@ import lime.app.Application;
 import states.TitleState;
 import SUtil;
 import experimental.objects.ToastCore;
-import experimental.backend.ThreadUtil;
 
 //crash handler stuff
 #if CRASH_HANDLER
@@ -40,7 +39,6 @@ class Main extends Sprite
 
 	public static var fpsVar:FPS;
 	public static var toast:ToastCore; // credits go to MAJigsaw77
-	public static var threads:ThreadUtil;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -137,7 +135,6 @@ class Main extends Sprite
 
 		toast = new ToastCore();
 		addChild(toast);
-		threads = new ThreadUtil(0,4);
 	}
 
 	static function resetSpriteCache(sprite:Sprite):Void {

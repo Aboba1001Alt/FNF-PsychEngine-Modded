@@ -102,10 +102,6 @@ class FPS extends TextField
 			#end
 
 			text += "\n";
-
-			text += "currentThreads: " + Main.threads.thread.currentThreads + "/" + Main.threads.thread.maxThreads;
-
-			text += "\n";
 		}
 
 		cacheCount = currentCount;
