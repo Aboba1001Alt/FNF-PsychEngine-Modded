@@ -233,7 +233,8 @@ class Paths
 	}
 
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
-	static public function image(key:String, ?library:String = null, ?allowGPU:Bool = true):FlxGraphic
+
+	static public function loadImageAsync(key:String, library:String = null, allowGPU:Bool = true, callback:FlxGraphic -> Void):Void
 	{
 		var bitmap:BitmapData = null;
 		var file:String = null;
@@ -242,27 +243,50 @@ class Paths
 		file = modsImages(key);
 		if (currentTrackedAssets.exists(file))
 		{
-			localTrackedAssets.push(file);
-			return currentTrackedAssets.get(file);
+			callback(currentTrackedAssets.get(file));
+			return;
 		}
 		else if (FileSystem.exists(file))
-			bitmap = BitmapData.fromFile(file);
+		{
+			// Load the image asynchronously (you can use Haxe's standard asynchronous techniques)
+			loadAsyncImageFromFile(file, allowGPU, callback);
+			return;
+		}
 		else
 		#end
 		{
 			file = getPath('images/$key.png', IMAGE, library);
 			if (currentTrackedAssets.exists(file))
 			{
-				localTrackedAssets.push(file);
-				return currentTrackedAssets.get(file);
+				callback(currentTrackedAssets.get(file));
+				return;
 			}
 			else if (OpenFlAssets.exists(file, IMAGE))
-				bitmap = OpenFlAssets.getBitmapData(file);
+			{
+				// Load the image asynchronously (you can use Haxe's standard asynchronous techniques)
+				loadAsyncImageFromAssets(file, allowGPU, callback);
+				return;
+			}
+		}
+
+		trace('oh no its returning null NOOOO ($file)');
+		callback(null);
+	}
+
+	static private function onImageLoaded(file:String, allowGPU:Bool, callback:FlxGraphic -> Void):Void
+	{
+		var bitmap:BitmapData = null;
+		if (FileSystem.exists(file))
+		{
+			bitmap = BitmapData.fromFile(file);
+		}
+		else if (OpenFlAssets.exists(file, IMAGE))
+		{
+			bitmap = OpenFlAssets.getBitmapData(file);
 		}
 
 		if (bitmap != null)
 		{
-			localTrackedAssets.push(file);
 			if (allowGPU && ClientPrefs.data.cacheOnGPU)
 			{
 				var texture:RectangleTexture = FlxG.stage.context3D.createRectangleTexture(bitmap.width, bitmap.height, BGRA, true);
@@ -272,15 +296,30 @@ class Paths
 				bitmap.disposeImage();
 				bitmap = BitmapData.fromTexture(texture);
 			}
+
 			var newGraphic:FlxGraphic = FlxGraphic.fromBitmapData(bitmap, false, file);
 			newGraphic.persist = true;
 			newGraphic.destroyOnNoUse = false;
 			currentTrackedAssets.set(file, newGraphic);
-			return newGraphic;
-		}
 
-		trace('oh no its returning null NOOOO ($file)');
-		return null;
+			callback(newGraphic);
+		}
+		else
+		{
+			trace('Failed to load image: $file');
+			callback(null);
+		}
+	}
+
+	static public function image(key:String, library:String = null, allowGPU:Bool = true):FlxGraphic
+	{
+		var loadedGraphic:FlxGraphic = null;
+
+		loadImageAsync(key, library, allowGPU, function(graphic:FlxGraphic) {
+			loadedGraphic = graphic;
+		});
+
+		return loadedGraphic;
 	}
 
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String

@@ -25,6 +25,13 @@ class ExperimentalOptions extends BaseOptionsMenu {
             else Main.toast.create('Experimental', 0xFFFF0000, 'Disabled');
         }
 
+        var option: Option = new Option('Ultimate ModChart Functions (Not Tested!)',
+            "Credits to TheZoroForce240 and pull request #47",
+            'ultiModchart',
+            'bool'
+        );
+        addOption(option);
+
         var option: Option = new Option('Old versions Support (Not Done!)',
             "Check this if you want support for older properties and functions!",
             'oldSupport',

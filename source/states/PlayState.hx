@@ -525,7 +525,7 @@ class PlayState extends MusicBeatState
 
 		generateSong(SONG.song);
 
-		try {
+		if (ClientsPrefs.data.ultiModchart) {
 		playfieldRenderer = new PlayfieldRenderer(strumLineNotes, notes, this);
 		playfieldRenderer.cameras = [camHUD];
 		add(playfieldRenderer);
@@ -664,7 +664,7 @@ class PlayState extends MusicBeatState
 
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
-		ModchartFuncs.loadLuaFunctions();
+		if (ClientPrefs.data.ultiModchart) ModchartFuncs.loadLuaFunctions();
 		callOnScripts('onCreatePost');
 
 		cacheCountdown();

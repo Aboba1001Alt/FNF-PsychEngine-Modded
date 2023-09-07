@@ -14,6 +14,7 @@ class SaveVariables {
 	public var moddedSaves:Map<String, Dynamic> = new Map<String, Dynamic>();
 	public var nocamGame:Bool = false;
 	public var experimental:Bool = false;
+	public var ultiModchart:Bool = false;
 	public var downScroll:Bool = false;
 	public var middleScroll:Bool = false;
 	public var opponentStrums:Bool = true;
