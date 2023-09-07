@@ -5,6 +5,7 @@ class OutdatedState extends MusicBeatState
 	public static var leftState:Bool = false;
 
 	var warnText:FlxText;
+	var updateLog:FlxText;
 	override function create()
 	{
 		super.create();
@@ -12,10 +13,24 @@ class OutdatedState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
+		var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/FNF-PsychEngine-Modded/main/updateText.txt");
+
+		http.onData = function (data:String)
+		{
+			updateLog = data;
+		}
+
+		http.onError = function (error) {
+			trace('error: $error');
+		}
+
+		http.request();
+
 		warnText = new FlxText(0, 0, FlxG.width,
 			"Sup bro, looks like you're running an   \n
 			outdated version of Unknown Engine (" + MainMenuState.unknownEngineVersion + "),\n
 			please update to " + TitleState.updateVersion + "!\n
+			What's new?\n" + updateLog + "\n
 			Press B to proceed anyway.\n
 			\n
 			Thank you for using the Engine!",
