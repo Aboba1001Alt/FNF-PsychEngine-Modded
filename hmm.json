@@ -75,13 +75,6 @@
       "dir": null,
       "ref": "master",
       "url": "https://github.com/Sirox228/linc_luajit"
-    },
-    {
-      "name": "flixel-studio",
-      "type": "git",
-      "dir": null,
-      "ref": "master",
-      "url": "https://github.com/Dovyski/flixel-studio.git"
     }
   ]
 }

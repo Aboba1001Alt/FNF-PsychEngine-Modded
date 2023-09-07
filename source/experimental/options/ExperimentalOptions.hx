@@ -65,13 +65,6 @@ class ExperimentalOptions extends BaseOptionsMenu {
             } catch(e:Dynamic) lime.app.Application.current.window.alert(e.toString(), "error:");
         }
 
-        var option: Option = new Option('FNF in-game editor',
-            "Don't use pls! enabled after restart",
-            'ingameeditor',
-            'bool'
-        );
-        addOption(option);
-
         super();
     }
 }

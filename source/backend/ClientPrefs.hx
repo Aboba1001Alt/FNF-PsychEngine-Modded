@@ -15,7 +15,6 @@ class SaveVariables {
 	public var nocamGame:Bool = false;
 	public var experimental:Bool = false;
 	public var ultiModchart:Bool = false;
-	public var ingameeditor = false;
 	public var downScroll:Bool = false;
 	public var middleScroll:Bool = false;
 	public var opponentStrums:Bool = true;
