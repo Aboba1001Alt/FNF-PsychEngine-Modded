@@ -177,6 +177,45 @@ class ExtraFunctions
 		Lua_helper.add_callback(lua, "runThreadFunction", function(func:Void->Void) {
 			ThreadUtil.createSafe(function() { func(); }, false);
 		});
+		Lua_helper.add_callback(lua, "getTextFromUrl", function(url:String) {
+			var text:String = null;
+			var http = new haxe.Http(url);
+
+			http.onData = function (data:String)
+			{
+				text = data;
+			}
+			http.onError = function (error) {
+				trace('error: $error');
+				FunkinLua.luaTrace('getTextFromUrl: Error while getting text from URL: ' + error.toString, false, false, FlxColor.RED);
+			}
+			http.request();
+			return text;
+		});
+		Lua_helper.add_callback(lua, "setLuaSpriteFromUrl", function(tag:String, url:String) {
+			var bytesArray:ByteArray:
+			bytesArray = ByteArray.loadFromFile(url);
+			var bitmapData:BitmapData = BitmapData.fromBytes(bytesArray);
+			if (PlayState.instance.modchartSprites.exists(tag)) {
+				PlayState.instance.modchartSprites.get(tag).loadGraphic(bitmapData, false, false, bitmapData.width, bitmapData.height);
+			}
+			return;
+		});
+		Lua_helper.add_callback(lua, "playURLSound", function(url:String, volume:Float = 1, ?tag:String = null) {
+			if(tag != null && tag.length > 0) {
+				tag = tag.replace('.', '');
+				if(PlayState.instance.modchartSounds.exists(tag)) {
+					PlayState.instance.modchartSounds.get(tag).stop();
+				}
+				PlayState.instance.modchartSounds.set(tag, FlxG.sound.loadStream(url, false, false, function() {
+					PlayState.instance.modchartSounds.remove(tag);
+					PlayState.instance.callOnLuas('onSoundFinished', [tag]);
+				}));
+				PlayState.instance.modchartSounds.get(tag).volume = volume;
+				return;
+			}
+			FlxG.sound.play(Paths.sound(sound), volume);
+		});
 		}
 		#end
 
