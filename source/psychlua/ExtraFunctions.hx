@@ -196,7 +196,7 @@ class ExtraFunctions
 			return text;
 		});
 		Lua_helper.add_callback(lua, "setLuaSpriteFromUrl", function(tag:String, url:String) {
-			var bytesArray:ByteArray;
+			var bytesArray:Dynamic;
 			bytesArray = ByteArray.loadFromFile(url);
 			var bitmapData:BitmapData = BitmapData.fromBytes(bytesArray);
 			if (PlayState.instance.modchartSprites.exists(tag)) {
@@ -210,11 +210,10 @@ class ExtraFunctions
 				if(PlayState.instance.modchartSounds.exists(tag)) {
 					PlayState.instance.modchartSounds.get(tag).stop();
 				}
-				PlayState.instance.modchartSounds.set(tag, FlxG.sound.loadStream(url, false, false, function() {
+				PlayState.instance.modchartSounds.set(tag, FlxG.sound.stream(url, volume, false, false, function() {
 					PlayState.instance.modchartSounds.remove(tag);
 					PlayState.instance.callOnLuas('onSoundFinished', [tag]);
 				}));
-				PlayState.instance.modchartSounds.get(tag).volume = volume;
 				return;
 			}
 			FlxG.sound.play(Paths.sound(sound), volume);
