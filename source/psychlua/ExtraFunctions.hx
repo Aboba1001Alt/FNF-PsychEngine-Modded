@@ -200,7 +200,7 @@ class ExtraFunctions
 			bytesArray = ByteArray.loadFromFile(url);
 			var bitmapData:BitmapData = BitmapData.fromBytes(bytesArray);
 			if (PlayState.instance.modchartSprites.exists(tag)) {
-				PlayState.instance.modchartSprites.get(tag).loadGraphic(bitmapData, false, false, bitmapData.width, bitmapData.height);
+				PlayState.instance.modchartSprites.get(tag).loadGraphic(bitmapData, false, bitmapData.width, bitmapData.height);
 			}
 			return;
 		});
@@ -216,7 +216,6 @@ class ExtraFunctions
 				}));
 				return;
 			}
-			FlxG.sound.play(Paths.sound(sound), volume);
 		});
 		}
 		#end
