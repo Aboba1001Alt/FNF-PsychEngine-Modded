@@ -228,7 +228,8 @@ class ExtraFunctions
 				sound.loadStream(url, false, false, function() {
 					PlayState.instance.modchartSounds.remove(tag);
 					PlayState.instance.callOnLuas('onSoundFinished', [tag]);
-				}));
+				});
+				sound.voulume = volume;
                 sound.play();
 				PlayState.instance.modchartSounds.set(tag, sound);
 				return;
