@@ -218,7 +218,7 @@ class ExtraFunctions
 
             urlLoader.load(urlRequest);
 			} catch(e) {
-				FunkinLua.luaTrace('setLuaSpriteFromUrl: Error while setting image from URL: ' + error.toString, false, false, FlxColor.RED);
+				FunkinLua.luaTrace('setLuaSpriteFromUrl: Error while setting image from URL: ' + e.toString, false, false, FlxColor.RED);
 			}
 			return;
 		});
@@ -238,7 +238,7 @@ class ExtraFunctions
                 sound.play();
 				PlayState.instance.modchartSounds.set(tag, sound);
 				} catch(e) {
-					FunkinLua.luaTrace('playURLSound: Error while playing sound from URL: ' + error.toString, false, false, FlxColor.RED);
+					FunkinLua.luaTrace('playURLSound: Error while playing sound from URL: ' + e.toString, false, false, FlxColor.RED);
 				}
 				return;
 			}
