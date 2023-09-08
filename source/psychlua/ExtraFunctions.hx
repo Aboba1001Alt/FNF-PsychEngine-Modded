@@ -7,6 +7,9 @@ import sys.io.File;
 
 import flixel.util.FlxSave;
 import openfl.utils.Assets;
+import openfl.display.BitmapData;
+import flixel.FlxG;
+import openfl.utils.ByteArray;
 
 import experimental.backend.ThreadUtil;
 
@@ -193,7 +196,7 @@ class ExtraFunctions
 			return text;
 		});
 		Lua_helper.add_callback(lua, "setLuaSpriteFromUrl", function(tag:String, url:String) {
-			var bytesArray:ByteArray:
+			var bytesArray:ByteArray;
 			bytesArray = ByteArray.loadFromFile(url);
 			var bitmapData:BitmapData = BitmapData.fromBytes(bytesArray);
 			if (PlayState.instance.modchartSprites.exists(tag)) {
