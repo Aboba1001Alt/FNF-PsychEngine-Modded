@@ -969,7 +969,7 @@ class ChartingState extends MusicBeatState
 				}
 				_song.notes[curSec].sectionNotes[i] = note;
 			}
-			updateGrid(false);
+			updateGrid();
 		});
 		var rightSectionNotetype:FlxButton = new FlxButton(leftSectionNotetype.x + 90, leftSectionNotetype.y, "Right Section to Notetype", function()
 		{
@@ -982,7 +982,7 @@ class ChartingState extends MusicBeatState
 				}
 				_song.notes[curSec].sectionNotes[i] = note;
 			}
-			updateGrid(false);
+			updateGrid();
 		});
 
 		tab_group_note.add(new FlxText(10, 10, 0, 'Sustain length:'));
