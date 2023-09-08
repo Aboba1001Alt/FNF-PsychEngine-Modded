@@ -958,9 +958,38 @@ class ChartingState extends MusicBeatState
 		});
 		blockPressWhileScrolling.push(noteTypeDropDown);
 
+		var leftSectionNotetype:FlxButton = new FlxButton(noteTypeDropDown.x, noteTypeDropDown.y + 40, "Left Section to Notetype", function()
+		{
+			for (i in 0..._song.notes[curSec].sectionNotes.length)
+			{
+				var note:Array<Dynamic> = _song.notes[curSec].sectionNotes[i];
+				if (note[1] < 4)
+				{
+				note[3] = noteTypeIntMap.get(currentType);
+				}
+				_song.notes[curSec].sectionNotes[i] = note;
+			}
+			updateGrid(false);
+		});
+		var rightSectionNotetype:FlxButton = new FlxButton(leftSectionNotetype.x + 90, leftSectionNotetype.y, "Right Section to Notetype", function()
+		{
+			for (i in 0..._song.notes[curSec].sectionNotes.length)
+			{
+				var note:Array<Dynamic> = _song.notes[curSec].sectionNotes[i];
+				if (note[1] > 3)
+				{
+				note[3] = noteTypeIntMap.get(currentType);
+				}
+				_song.notes[curSec].sectionNotes[i] = note;
+			}
+			updateGrid(false);
+		});
+
 		tab_group_note.add(new FlxText(10, 10, 0, 'Sustain length:'));
 		tab_group_note.add(new FlxText(10, 50, 0, 'Strum time (in miliseconds):'));
 		tab_group_note.add(new FlxText(10, 90, 0, 'Note type:'));
+		tab_group_note.add(leftSectionNotetype);
+		tab_group_note.add(rightSectionNotetype);
 		tab_group_note.add(stepperSusLength);
 		tab_group_note.add(strumTimeInputText);
 		tab_group_note.add(noteTypeDropDown);
@@ -1908,7 +1937,6 @@ class ChartingState extends MusicBeatState
 					resetSection();
 			}
 
-			#if !android
 			if (FlxG.mouse.wheel != 0)
 			{
 				FlxG.sound.music.pause();
@@ -1934,7 +1962,6 @@ class ChartingState extends MusicBeatState
 					vocals.time = FlxG.sound.music.time;
 				}
 			}
-			#end
 
 			//ARROW VORTEX SHIT NO DEADASS
 			if (FlxG.keys.pressed.W || FlxG.keys.pressed.S #if mobile || MusicBeatState._virtualpad.buttonUp.pressed || MusicBeatState._virtualpad.buttonDown.pressed #end)
