@@ -9,7 +9,14 @@ import flixel.util.FlxSave;
 import openfl.utils.Assets;
 import openfl.display.BitmapData;
 import flixel.FlxG;
+import flixel.sound.FlxSound;
 import openfl.utils.ByteArray;
+import flixel.FlxSprite;
+import openfl.display.Loader;
+import openfl.display.LoaderInfo;
+import openfl.events.Event;
+import openfl.net.URLLoader;
+import openfl.net.URLRequest;
 
 import experimental.backend.ThreadUtil;
 
@@ -196,12 +203,19 @@ class ExtraFunctions
 			return text;
 		});
 		Lua_helper.add_callback(lua, "setLuaSpriteFromUrl", function(tag:String, url:String) {
-			var bytesArray:Dynamic;
-			bytesArray = ByteArray.loadFromFile(url);
-			var bitmapData:BitmapData = BitmapData.fromBytes(bytesArray);
-			if (PlayState.instance.modchartSprites.exists(tag)) {
-				PlayState.instance.modchartSprites.get(tag).loadGraphic(bitmapData, false, bitmapData.width, bitmapData.height);
-			}
+			var imageUrl:String = url;
+
+			var urlLoader:URLLoader = new URLLoader();
+			var urlRequest:URLRequest = new URLRequest(imageUrl);
+
+			urlLoader.addEventListener(Event.COMPLETE, function(event:Event):Void {
+				var imageData:BitmapData = BitmapData.fromBytes(urlLoader.data);
+				if (PlayState.instance.modchartSprites.exists(tag)) {
+				    PlayState.instance.modchartSprites.get(tag).loadGraphic(imageData, false, imageData.width, imageData.height);
+			    }
+			});
+
+            urlLoader.load(urlRequest);
 			return;
 		});
 		Lua_helper.add_callback(lua, "playURLSound", function(url:String, volume:Float = 1, ?tag:String = null) {
@@ -210,10 +224,13 @@ class ExtraFunctions
 				if(PlayState.instance.modchartSounds.exists(tag)) {
 					PlayState.instance.modchartSounds.get(tag).stop();
 				}
-				PlayState.instance.modchartSounds.set(tag, FlxG.sound.stream(url, volume, false, false, function() {
+				var sound:FlxSound = new FlxSound();
+				sound.loadStream(url, false, false, function() {
 					PlayState.instance.modchartSounds.remove(tag);
 					PlayState.instance.callOnLuas('onSoundFinished', [tag]);
 				}));
+                sound.play();
+				PlayState.instance.modchartSounds.set(tag, sound);
 				return;
 			}
 		});
