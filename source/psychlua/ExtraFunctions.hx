@@ -204,6 +204,7 @@ class ExtraFunctions
 		});
 		Lua_helper.add_callback(lua, "setLuaSpriteFromUrl", function(tag:String, url:String) {
 			var imageUrl:String = url;
+			try {
 
 			var urlLoader:URLLoader = new URLLoader();
 			var urlRequest:URLRequest = new URLRequest(imageUrl);
@@ -216,10 +217,14 @@ class ExtraFunctions
 			});
 
             urlLoader.load(urlRequest);
+			} catch(e) {
+				FunkinLua.luaTrace('setLuaSpriteFromUrl: Error while setting image from URL: ' + error.toString, false, false, FlxColor.RED);
+			}
 			return;
 		});
 		Lua_helper.add_callback(lua, "playURLSound", function(url:String, volume:Float = 1, ?tag:String = null) {
 			if(tag != null && tag.length > 0) {
+				try {
 				tag = tag.replace('.', '');
 				if(PlayState.instance.modchartSounds.exists(tag)) {
 					PlayState.instance.modchartSounds.get(tag).stop();
@@ -229,9 +234,12 @@ class ExtraFunctions
 					PlayState.instance.modchartSounds.remove(tag);
 					PlayState.instance.callOnLuas('onSoundFinished', [tag]);
 				});
-				sound.voulume = volume;
+				sound.volume = volume;
                 sound.play();
 				PlayState.instance.modchartSounds.set(tag, sound);
+				} catch(e) {
+					FunkinLua.luaTrace('playURLSound: Error while playing sound from URL: ' + error.toString, false, false, FlxColor.RED);
+				}
 				return;
 			}
 		});
