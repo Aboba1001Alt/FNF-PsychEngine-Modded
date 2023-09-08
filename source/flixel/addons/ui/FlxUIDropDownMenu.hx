@@ -431,7 +431,6 @@ class FlxUIDropDownMenu extends FlxUIGroup implements IFlxUIWidget implements IF
 		#if FLX_MOUSE
 		if (dropPanel.visible)
 		{
-    #if android //thanks gamerbross -saw
 			if(list.length > 1 && canScroll) 
 			{
 				for (swipe in FlxG.swipes)
@@ -456,10 +455,6 @@ class FlxUIDropDownMenu extends FlxUIGroup implements IFlxUIWidget implements IF
 						}
 					}
 				}
-			}
-			#else
-			if(list.length > 1 && canScroll) 
-			{
 				if(FlxG.mouse.wheel > 0 || FlxG.keys.justPressed.UP) 
 				{
 					// Go up
@@ -479,7 +474,6 @@ class FlxUIDropDownMenu extends FlxUIGroup implements IFlxUIWidget implements IF
 			{
 				showList(false);
 			}
-		#end
 		}
 		#end
 	}
