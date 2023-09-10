@@ -39,11 +39,13 @@ class AdditionnalStageData {
             for (spriteData in jsondata.sprites) {
                 var sprite:SpriteData = cast spriteData;
                 var leSprite:ModchartSprite = new ModchartSprite(sprite.x, sprite.y);
-                if(!sprite.animated && sprite.image != null)
+
+                // Set default values for optional fields
+                if (sprite.image != null)
                 {
                     leSprite.loadGraphic(Paths.image(sprite.image));
                 }
-                if(sprite.animated)
+                if (sprite.animated)
                 {
                     LuaUtils.loadFrames(leSprite, sprite.image, "sparrow");
                     if (sprite.animToPlay != null) {
@@ -56,9 +58,9 @@ class AdditionnalStageData {
                     leSprite.updateHitbox();
                 }
                 if (sprite.angle != null) leSprite.angle = sprite.angle;
-                if (sprite.front != null && !sprite.front) {
+                if (!sprite.front) {
                     game.insert(game.members.indexOf(LuaUtils.getLowestCharacterGroup()), leSprite);
-                } else if (sprite.front != null && !sprite.front) {
+                } else {
                     game.add(leSprite);
                 }
                 if (sprite.order != null) game.insert(sprite.order, leSprite);
