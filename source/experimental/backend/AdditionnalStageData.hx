@@ -14,22 +14,27 @@ typedef SpriteData = {
     var name:String;
     var x:Int;
     var y:Int;
+    var angle:Bool;
     var animated:Bool;
     var image:String;
     var animToPlay:String;
     var scale:Array<Int>;
-    var sroll:Array<Int>;
+    var scroll:Array<Int>;
     var front:Bool;
     var order:Int;
 }
 
+typedef jsonData = {
+    var sprites:Array<SpriteData>;
+}
+
 class AdditionnalStageData {
-    public function loadStage(name:String) {
+    public static function loadStage(name:String) {
         var game:PlayState = PlayState.instance;
 
         var modPath = Paths.modFolders('stages/' + name + '-stage.json');
         if (FileSystem.exists(modPath)) {
-            var jsondata = haxe.Json.parse(modPath);
+            var jsondata = cast haxe.Json.parse(modPath);
 
             for (spriteData in jsondata.sprites) {
                 var sprite:SpriteData = cast spriteData;
@@ -41,7 +46,7 @@ class AdditionnalStageData {
                 if(sprite.animated)
                 {
                     LuaUtils.loadFrames(leSprite, sprite.image, "sparrow");
-                    if (sprite.animToPLay != null) {
+                    if (sprite.animToPay != null) {
                         leSprite.animation.addByPrefix(sprite.animToPlay, sprite.animToPlay, 24, true);
                     }
                 }
