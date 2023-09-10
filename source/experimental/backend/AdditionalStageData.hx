@@ -21,7 +21,7 @@ typedef SpriteData = {
     @:optional var animToPlay:String;
     @:optional var scale:Array<Int>;
     @:optional var scroll:Array<Int>;
-    var front:Bool?;
+    var front:Bool;
     @:optional var order:Int;
 }
 
