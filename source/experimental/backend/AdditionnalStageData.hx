@@ -24,7 +24,7 @@ typedef SpriteData = {
     var order:Int;
 }
 
-typedef jsonData = {
+typedef JsonData = {
     var sprites:Array<SpriteData>;
 }
 
@@ -34,7 +34,7 @@ class AdditionnalStageData {
 
         var modPath = Paths.modFolders('stages/' + name + '-stage.json');
         if (FileSystem.exists(modPath)) {
-            var jsondata = cast haxe.Json.parse(modPath);
+            var jsondata:JsonData = cast haxe.Json.parse(modPath);
 
             for (spriteData in jsondata.sprites) {
                 var sprite:SpriteData = cast spriteData;
