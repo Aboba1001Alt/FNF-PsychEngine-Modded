@@ -14,7 +14,7 @@ typedef SpriteData = {
     var name:String;
     var x:Int;
     var y:Int;
-    var angle:Bool;
+    var angle:Int;
     var animated:Bool;
     var image:String;
     var animToPlay:String;
@@ -46,7 +46,7 @@ class AdditionnalStageData {
                 if(sprite.animated)
                 {
                     LuaUtils.loadFrames(leSprite, sprite.image, "sparrow");
-                    if (sprite.animToPay != null) {
+                    if (sprite.animToPlay != null) {
                         leSprite.animation.addByPrefix(sprite.animToPlay, sprite.animToPlay, 24, true);
                     }
                 }
