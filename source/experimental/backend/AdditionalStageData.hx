@@ -21,7 +21,7 @@ typedef SpriteData = {
     @:optional var animToPlay:String;
     @:optional var scale:Array<Int>;
     @:optional var scroll:Array<Int>;
-    var front:Bool;
+    var front:Bool?;
     @:optional var order:Int;
 }
 
@@ -55,11 +55,8 @@ class AdditionalStageData {
                     leSprite.updateHitbox();
                 }
                 if (sprite.angle != null) leSprite.angle = sprite.angle;
-                if (sprite.front != null && !sprite.front) {
-                    game.insert(game.members.indexOf(LuaUtils.getLowestCharacterGroup()), leSprite);
-                } else if (sprite.front != null && sprite.front) {
-                    game.add(leSprite);
-                }
+                if (sprite.front) game.add(leSprite);
+                else game.insert(game.members.indexOf(LuaUtils.getLowestCharacterGroup()), leSprite);
                 if (sprite.order != null) game.insert(sprite.order, leSprite);
                 game.modchartSprites.set(sprite.name, leSprite);
             }
