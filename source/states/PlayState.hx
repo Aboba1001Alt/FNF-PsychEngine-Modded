@@ -88,6 +88,8 @@ import modcharting.ModchartFuncs;
 import modcharting.NoteMovement;
 import modcharting.PlayfieldRenderer;
 
+import experimental.backend.AdditionnalStageData;
+
 class PlayState extends MusicBeatState
 {
 	public static var STRUM_X = 42;
@@ -444,6 +446,8 @@ class PlayState extends MusicBeatState
 					initHScript(folder + file);
 			}
 		#end
+
+		if (ClientPrefs.data.experimental) AdditionnalStageData.loadStage(curStage);
 
 		// STAGE SCRIPTS
 		#if LUA_ALLOWED

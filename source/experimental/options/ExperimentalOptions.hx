@@ -62,7 +62,6 @@ class ExperimentalOptions extends BaseOptionsMenu {
         );
         addOption(option);
         option.onChange = function(value: Dynamic) {
-            try {
 			ClientPrefs.saveSettings();
             var mods:Array<String> = Mods.getModDirectories();
             mods.insert(0, 'Global');
@@ -73,7 +72,6 @@ class ExperimentalOptions extends BaseOptionsMenu {
 			    }
 		    }
             openSubState(new ModOptions(mods));
-            } catch(e:Dynamic) lime.app.Application.current.window.alert(e.toString(), "error:");
         }
 
         super();
