@@ -447,7 +447,7 @@ class PlayState extends MusicBeatState
 			}
 		#end
 
-		if (ClientPrefs.data.experimental) AdditionalStageData.loadStage(curStage);
+		if (ClientPrefs.data.experimental) var stageTest = new AdditionalStageData(curStage);
 
 		// STAGE SCRIPTS
 		#if LUA_ALLOWED

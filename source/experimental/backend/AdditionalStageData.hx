@@ -30,7 +30,7 @@ typedef JsonData = {
 }
 
 class AdditionalStageData {
-    public function loadStage(name:String) {
+    public function new(name:String) {
         var game:PlayState = PlayState.instance;
 
         var modPath = "stages/" + name + "-stage.json"; // Fixed path concatenation
