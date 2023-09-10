@@ -88,7 +88,7 @@ import modcharting.ModchartFuncs;
 import modcharting.NoteMovement;
 import modcharting.PlayfieldRenderer;
 
-import experimental.backend.AdditionnalStageData;
+import experimental.backend.AdditionalStageData;
 
 class PlayState extends MusicBeatState
 {
@@ -447,7 +447,7 @@ class PlayState extends MusicBeatState
 			}
 		#end
 
-		if (ClientPrefs.data.experimental) AdditionnalStageData.loadStage(curStage);
+		if (ClientPrefs.data.experimental) AdditionalStageData.loadStage(curStage);
 
 		// STAGE SCRIPTS
 		#if LUA_ALLOWED
