@@ -6,6 +6,7 @@ import sys.FileSystem;
 #else
 import openfl.utils.Assets;
 #end
+
 import tjson.TJSON as Json;
 import psychlua.*;
 import states.PlayState;
@@ -14,39 +15,35 @@ typedef SpriteData = {
     var name:String;
     var x:Int;
     var y:Int;
-    var angle:Int;
+    @:optional var angle:Int;
     var animated:Bool;
     var image:String;
-    var animToPlay:String;
-    var scale:Array<Int>;
-    var scroll:Array<Int>;
+    @:optional var animToPlay:String;
+    @:optional var scale:Array<Int>;
+    @:optional var scroll:Array<Int>;
     var front:Bool;
-    var order:Int;
+    @:optional var order:Int;
 }
 
 typedef JsonData = {
     var sprites:Array<SpriteData>;
 }
 
-class AdditionnalStageData {
-    public static function loadStage(name:String) {
+class AdditionalStageData {
+    public function loadStage(name:String) {
         var game:PlayState = PlayState.instance;
 
-        var modPath = Paths.modFolders('stages/' + name + '-stage.json');
+        var modPath = "stages/" + name + "-stage.json"; // Fixed path concatenation
         if (FileSystem.exists(modPath)) {
-            var jsondata:JsonData = cast haxe.Json.parse(modPath);
+            var jsonData:JsonData = cast haxe.Json.parse(File.getContent(modPath));
 
-            for (spriteData in jsondata.sprites) {
+            for (spriteData in jsonData.sprites) {
                 var sprite:SpriteData = cast spriteData;
                 var leSprite:ModchartSprite = new ModchartSprite(sprite.x, sprite.y);
-
-                // Set default values for optional fields
-                if (sprite.image != null)
-                {
+                if (!sprite.animated && sprite.image != null) {
                     leSprite.loadGraphic(Paths.image(sprite.image));
                 }
-                if (sprite.animated)
-                {
+                if (sprite.animated) {
                     LuaUtils.loadFrames(leSprite, sprite.image, "sparrow");
                     if (sprite.animToPlay != null) {
                         leSprite.animation.addByPrefix(sprite.animToPlay, sprite.animToPlay, 24, true);
@@ -58,9 +55,9 @@ class AdditionnalStageData {
                     leSprite.updateHitbox();
                 }
                 if (sprite.angle != null) leSprite.angle = sprite.angle;
-                if (!sprite.front) {
+                if (sprite.front != null && !sprite.front) {
                     game.insert(game.members.indexOf(LuaUtils.getLowestCharacterGroup()), leSprite);
-                } else {
+                } else if (sprite.front != null && sprite.front) {
                     game.add(leSprite);
                 }
                 if (sprite.order != null) game.insert(sprite.order, leSprite);
