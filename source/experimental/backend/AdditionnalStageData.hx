@@ -31,7 +31,7 @@ class AdditionnalStageData {
         if (FileSystem.exists(modPath)) {
             var jsondata = haxe.Json.parse(modPath);
 
-            for (spriteData in jsondata.sprites.) {
+            for (spriteData in jsondata.sprites) {
                 var sprite:SpriteData = cast spriteData;
                 var leSprite:ModchartSprite = new ModchartSprite(sprite.x, sprite.y);
                 if(!sprite.animated && sprite.image != null)
