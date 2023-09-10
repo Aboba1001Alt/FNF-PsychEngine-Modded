@@ -1,4 +1,4 @@
-package backend;
+package experimental.backend;
 
 #if MODS_ALLOWED
 import sys.io.File;
@@ -18,7 +18,7 @@ typedef SpriteData = {
     var image:String;
     var animToPlay:String;
     var scale:Array<Int>;
-    var scale:Array<Int>;
+    var sroll:Array<Int>;
     var front:Bool;
     var order:Int;
 }
