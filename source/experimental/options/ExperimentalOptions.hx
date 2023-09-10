@@ -4,6 +4,9 @@ import objects.Alphabet;
 import experimental.options.OptimizationOptions;
 import experimental.options.ModOptions;
 
+import backend.Paths;
+import backend.Mods;
+
 import flixel.FlxG;
 
 class ExperimentalOptions extends BaseOptionsMenu {
@@ -61,7 +64,15 @@ class ExperimentalOptions extends BaseOptionsMenu {
         option.onChange = function(value: Dynamic) {
             try {
 			ClientPrefs.saveSettings();
-            openSubState(new ModOptions());
+            var mods:Array<String> = Mods.getModDirectories();
+            mods.insert(0, 'Global');
+
+            for (mod in mods) {
+                if (!Paths.optionsExist(mod == 'Global' ? '' : mod)) {
+                    mods.remove(mod);
+			    }
+		    }
+            openSubState(new ModOptions(mods));
             } catch(e:Dynamic) lime.app.Application.current.window.alert(e.toString(), "error:");
         }
 

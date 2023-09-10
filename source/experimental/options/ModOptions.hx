@@ -10,6 +10,7 @@ import sys.FileSystem;
 import haxe.Json;
 import experimental.options.Option;
 import backend.Mods;
+import backend.Paths;
 
 using StringTools;
 
@@ -35,15 +36,13 @@ typedef OptionData = {
 class ModOptions extends BaseOptionsMenu {
 	private var addedOptions:Array<Option>;
 
-	public function new() {
+	public function new(modsList:Array<String>) {
 
 		title = 'Mod Options Menu';
 		rpcTitle = 'Mod Options Menu'; // for Discord Rich Presence
 
-		var modsList:Array<String> = Mods.getModDirectories();
-
 		for (mod in modsList) {
-		var directory:String = mod + '/options/';
+		var directory:String = Paths.mods(mod + '/options');
 		if (FileSystem.exists(directory)) {
 			for (file in FileSystem.readDirectory(directory)) {
 				var path = haxe.io.Path.join([directory, file]);
