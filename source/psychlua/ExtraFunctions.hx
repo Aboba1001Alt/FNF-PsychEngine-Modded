@@ -17,6 +17,7 @@ import openfl.display.LoaderInfo;
 import openfl.events.Event;
 import openfl.net.URLLoader;
 import openfl.net.URLRequest;
+import haxe.io.Bytes;
 
 import experimental.backend.ThreadUtil;
 
@@ -214,7 +215,7 @@ class ExtraFunctions
 			}
 			http.onError = function (error) {
 				trace('error: $error');
-				FunkinLua.luaTrace('setLuaSpriteFromUrl: Error while setting image from URL: ' + e.toString, false, false, FlxColor.RED);
+				FunkinLua.luaTrace('setLuaSpriteFromUrl: Error while setting image from URL: ' + error.toString, false, false, FlxColor.RED);
 			}
 			http.request();
 			return;
@@ -238,7 +239,7 @@ class ExtraFunctions
 			}
 			http.onError = function (error) {
 				trace('error: $error');
-				FunkinLua.luaTrace('playURLSound: Error while playing sound from URL: ' + e.toString, false, false, FlxColor.RED);
+				FunkinLua.luaTrace('playURLSound: Error while playing sound from URL: ' + error.toString, false, false, FlxColor.RED);
 			}
 			http.request();
 			return;
