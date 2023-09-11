@@ -32,12 +32,25 @@ class HealthIcon extends FlxSprite
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-face'; //Prevents crash from missing icon
 			
 			var graphic = Paths.image(name, allowGPU);
+			var animNum = 2;
+			var animArray = [0,1];
+			if (graphic.width > 300) {
+				animNum = 3;
+				animArray = [0,1,2];
+			} else if (graphic.width < 300) { 
+				animNum = 1;
+				animArray = [0];
+			} else {
+				animNum = 2;
+				animArray = [0,1];
+			}
+			var widthIcon = graphic.width / 2;
 			loadGraphic(graphic, true, Math.floor(graphic.width / 2), Math.floor(graphic.height));
 			iconOffsets[0] = (width - 150) / 2;
 			iconOffsets[1] = (height - 150) / 2;
 			updateHitbox();
 
-			animation.add(char, [0, 1], 0, false, isPlayer);
+			animation.add(char, animArray, 0, false, isPlayer);
 			animation.play(char);
 			this.char = char;
 
