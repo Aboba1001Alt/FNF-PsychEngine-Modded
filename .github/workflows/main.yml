@@ -43,6 +43,7 @@ jobs:
         uses: actions/cache/restore@main
         with:
           path: |
+            .hxcpp/
             .haxelib/
             export/release/android/haxe/
             export/release/android/obj/
@@ -100,6 +101,7 @@ jobs:
         uses: actions/cache/save@main
         with:
           path: |
+            .hxcpp/
             .haxelib/
             export/release/android/haxe/
             export/release/android/obj/
