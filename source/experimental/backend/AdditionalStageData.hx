@@ -33,7 +33,7 @@ class AdditionalStageData {
     public function new(name:String) {
         var game:PlayState = PlayState.instance;
 
-        var modPath = "stages/" + name + "-stage.json"; // Fixed path concatenation
+        var modPath = Paths.mods("stages/" + name + "-stage.json");
         if (FileSystem.exists(modPath)) {
             var jsonData:JsonData = cast haxe.Json.parse(File.getContent(modPath));
 
