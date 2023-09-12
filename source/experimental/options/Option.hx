@@ -29,7 +29,7 @@ class Option
 	public var barText:String = "";
 	public var modded:Bool = false;
 
-	public function new(name:String, description:String = '', variable:String, type:String = 'bool', ?options:Array<String> = null ?modded:Bool = false)
+	public function new(name:String, description:String = '', variable:String, type:String = 'bool', ?options:Array<String> = null ,?modded:Bool = false)
 	{
 		this.name = name;
 		this.description = description;
