@@ -1,4 +1,4 @@
 - New Modcharting system by TheZoroForce240
-- I will try to add:
-       - MultiThreading (hard to add on Android cuz it crashes)
-       - Text Internet Loading (Done!)
+- MultiThreading on makeing sprites but you need how to use it correctlyn (or the game will be bugged)
+- Text Internet Loading
+- New Modding options
