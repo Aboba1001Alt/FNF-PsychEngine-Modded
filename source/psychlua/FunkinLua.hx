@@ -1059,6 +1059,7 @@ class FunkinLua {
 				}
 				game.modchartSprites.set(tag, leSprite);
 				leSprite.active = true;
+				game.callOnLuas('onThreadTaskFinish', [tag]);
 			});
 		});
 		Lua_helper.add_callback(lua, "makeAnimatedLuaSprite", function(tag:String, ?image:String = null, ?x:Float = 0, ?y:Float = 0, ?spriteType:String = "sparrow") {
@@ -1068,6 +1069,18 @@ class FunkinLua {
 
 			LuaUtils.loadFrames(leSprite, image, spriteType);
 			game.modchartSprites.set(tag, leSprite);
+		});
+
+		Lua_helper.add_callback(lua, "makeThreadedAnimatedLuaSprite", function(tag:String, ?image:String = null, ?x:Float = 0, ?y:Float = 0, ?spriteType:String = "sparrow") {
+			tag = tag.replace('.', '');
+			LuaUtils.resetSpriteTag(tag);
+			sys.thread.Thread.create(function() {
+				var leSprite:ModchartSprite = new ModchartSprite(x, y);
+
+				LuaUtils.loadFrames(leSprite, image, spriteType);
+				game.modchartSprites.set(tag, leSprite);
+				game.callOnLuas('onThreadTaskFinish', [tag]);
+			});
 		});
 
 		Lua_helper.add_callback(lua, "makeGraphic", function(obj:String, width:Int = 256, height:Int = 256, color:String = 'FFFFFF') {

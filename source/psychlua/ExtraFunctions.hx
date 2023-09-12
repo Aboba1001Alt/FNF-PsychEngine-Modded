@@ -141,8 +141,8 @@ class ExtraFunctions
 			return false;
 		});
 
-		#if android
 		if (ClientPrefs.data.experimental) {
+		#if android
 		Lua_helper.add_callback(lua, "removeAndroidControls", function() {
 			backend.MusicBeatState.androidc.visible = false;
 			backend.MusicBeatState.androidc.active = false;
@@ -184,8 +184,9 @@ class ExtraFunctions
 				PlayState.instance.modchartControls.get(tag).active = true;
 			}
 		});
+		#end
 		Lua_helper.add_callback(lua, "runThreadFunction", function(func:Void->Void) {
-			ThreadUtil.createSafe(function() { func(); }, false);
+			sys.thread.Thread.create(function() { func(); });
 		});
 		Lua_helper.add_callback(lua, "getTextFromUrl", function(url:String) {
 			var text:String = null;
@@ -242,7 +243,6 @@ class ExtraFunctions
 			return;
 		});
 		}
-		#end
 
 		// Save data management
 		Lua_helper.add_callback(lua, "initSaveData", function(name:String, ?folder:String = 'psychenginemods') {
