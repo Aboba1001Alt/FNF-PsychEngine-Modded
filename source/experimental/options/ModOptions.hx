@@ -52,9 +52,8 @@ class ModOptions extends BaseOptionsMenu {
 					var defVal:Dynamic = null;
 					defVal = defVal == null ? defVal = jsonFile.defaultValue : defVal;
 
-					var option:Option = new Option(jsonFile.name, jsonFile.description, jsonFile.saveKey, jsonFile.type, jsonFile.options);
+					var option:Option = new Option(jsonFile.name, jsonFile.description, jsonFile.saveKey, jsonFile.type, jsonFile.options, true);
 					option.defaultValue = defVal;
-					option.modded = true;
 
 					option.displayFormat = quickTernary(jsonFile.displayFormat, '%v');
 

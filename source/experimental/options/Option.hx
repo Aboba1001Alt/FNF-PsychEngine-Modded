@@ -29,12 +29,13 @@ class Option
 	public var barText:String = "";
 	public var modded:Bool = false;
 
-	public function new(name:String, description:String = '', variable:String, type:String = 'bool', ?options:Array<String> = null)
+	public function new(name:String, description:String = '', variable:String, type:String = 'bool', ?options:Array<String> = null ?modded:Bool = false)
 	{
 		this.name = name;
 		this.description = description;
 		this.variable = variable;
 		this.type = type;
+		this.modded = modded;
 		this.defaultValue = Reflect.getProperty(ClientPrefs.defaultData, variable);
 		this.options = options;
 
