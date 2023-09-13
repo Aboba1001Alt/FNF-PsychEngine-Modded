@@ -185,8 +185,8 @@ class ExtraFunctions
 			}
 		});
 		#end
-		Lua_helper.add_callback(lua, "runThreadFunction", function(func:Void->Void) {
-			sys.thread.Thread.create(function() { func(); });
+		Lua_helper.add_callback(lua, "runThreadedFunction", function(func:Void->Void) {
+			experimental.backend.ThreadUtil.createSafe(function() { func(); });
 		});
 		Lua_helper.add_callback(lua, "getTextFromUrl", function(url:String) {
 			var text:String = null;
