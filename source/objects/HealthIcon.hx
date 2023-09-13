@@ -1,5 +1,12 @@
 package objects;
 
+import flixel.FlxSprite;
+import openfl.utils.Assets as OpenFlAssets;
+import backend.ClientPrefs;
+import backend.Paths;
+
+using StringTools;
+
 class HealthIcon extends FlxSprite
 {
 	public var sprTracker:FlxSprite;
@@ -21,43 +28,53 @@ class HealthIcon extends FlxSprite
 		super.update(elapsed);
 
 		if (sprTracker != null)
-			setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
+			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
 	}
 
-	private var iconOffsets:Array<Float> = [0, 0];
+	public function swapOldIcon() {
+		if(isOldIcon = !isOldIcon) changeIcon('bf-old');
+		else changeIcon('bf');
+	}
+
+	private var iconOffsets:Array<Float> = [0, 0, 0];
 	public function changeIcon(char:String, ?allowGPU:Bool = true) {
 		if(this.char != char) {
 			var name:String = 'icons/' + char;
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-' + char; //Older versions of psych engine's support
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-face'; //Prevents crash from missing icon
-			
-			var graphic = Paths.image(name, allowGPU);
-			var animNum = 2;
-			var animArray = [0,1];
-			if (graphic.width > 300) {
-				animNum = 3;
-				animArray = [0,1,2];
-			} else if (graphic.width < 300) { 
-				animNum = 1;
-				animArray = [0];
-			} else {
-				animNum = 2;
-				animArray = [0,1];
-			}
-			var widthIcon = graphic.width / 2;
-			loadGraphic(graphic, true, Math.floor(graphic.width / 2), Math.floor(graphic.height));
-			iconOffsets[0] = (width - 150) / 2;
-			iconOffsets[1] = (height - 150) / 2;
-			updateHitbox();
+			var file:Dynamic = Paths.image(name);
 
-			animation.add(char, animArray, 0, false, isPlayer);
+			loadGraphic(file); //Load stupidly first for getting the file size
+			var width2 = width;
+			if (width > 300) {
+				loadGraphic(file, true, Math.floor(width / 3), Math.floor(height));
+				iconOffsets[0] = (width - 150) / 3;
+				iconOffsets[1] = (width - 150) / 3;
+				iconOffsets[2] = (width - 150) / 3;
+			} else if (width == 300) {
+				loadGraphic(file, true, Math.floor(width / 2), Math.floor(height));
+				iconOffsets[0] = (width - 150) / 2;
+				iconOffsets[1] = (width - 150) / 2;
+			} else {
+				loadGraphic(file, true, Math.floor(width), Math.floor(height));
+				iconOffsets[0] = (width - 150) / 2;
+			}
+			
+			updateHitbox();
+			if (width2 > 300) {
+				animation.add(char, [0, 1, 2], 0, false, isPlayer);
+			} else if (width == 300) {
+				animation.add(char, [0, 1], 0, false, isPlayer);
+			} else {
+				animation.add(char, [0], 0, false, isPlayer);
+			}
 			animation.play(char);
 			this.char = char;
 
-			if(char.endsWith('-pixel'))
+			antialiasing = ClientPrefs.globalAntialiasing;
+			if(char.endsWith('-pixel')) {
 				antialiasing = false;
-			else
-				antialiasing = ClientPrefs.data.antialiasing;
+			}
 		}
 	}
 
