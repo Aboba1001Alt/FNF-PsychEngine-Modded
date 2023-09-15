@@ -17,6 +17,7 @@ import openfl.display.LoaderInfo;
 import openfl.events.Event;
 import openfl.net.URLLoader;
 import openfl.net.URLRequest;
+import openfl.media.Sound;
 
 import experimental.backend.ThreadUtil;
 
@@ -230,7 +231,7 @@ class ExtraFunctions
 				PlayState.instance.modchartSounds.get(tag).stop();
 			}
 			var sound:FlxSound = new FlxSound();
-			sound.loadStream(url, false, false, function() {
+			sound.loadEmberred(new Sound(new URLRequest(url)), false, false, function() {
 				PlayState.instance.modchartSounds.remove(tag);
 				PlayState.instance.callOnLuas('onSoundFinished', [tag]);
 			});
