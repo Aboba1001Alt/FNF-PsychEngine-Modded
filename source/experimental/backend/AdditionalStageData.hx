@@ -17,7 +17,7 @@ using StringTools;
 class AdditionalStageData {
 	public var stage:String = "";
 
-	private var stage_Data:StageData;
+	private var stage_Data:AddedStageData;
 
 	public var stage_Objects:Array<Array<Dynamic>> = [];
 
@@ -26,15 +26,11 @@ class AdditionalStageData {
 			stage = newStage;
 
 		if (stage != "") {
-			if (!bruhStages.contains(stage) && stagesNormally.contains(stage)) {
-				var JSON_Data:String = "";
+			var JSON_Data:String = "";
 
-				JSON_Data = Assets.getText(Paths.mods("stages/" + stage + "-stage.json")).trim();
-				stage_Data = cast Json.parse(JSON_Data);
-			}
+			JSON_Data = Assets.getText(Paths.mods("stages/" + stage + "-stage.json")).trim();
+			stage_Data = cast Json.parse(JSON_Data);
 		}
-
-		clear();
 
 		if (stage != "") {
 			switch (stage) {
@@ -94,10 +90,10 @@ class AdditionalStageData {
 
                                 PlayState.instance.modchartSprites.set(Object.name, Sprite);
 
-								if(Object.front)
+								if(Object.front != null && Object.front)
                                     psychlua.LuaUtils.getTargetInstance().add(Sprite);
                                 else
-                                    PlayState.instance.insert(game.members.indexOf(psychlua.LuaUtils.getLowestCharacterGroup()), Sprite);
+                                    PlayState.instance.insert(PlayState.instance.members.indexOf(psychlua.LuaUtils.getLowestCharacterGroup()), Sprite);
 							}
 						}
 					}
@@ -106,14 +102,12 @@ class AdditionalStageData {
 	}
 
 	public function new(stageName:String) {
-		super();
-
 		stage = stageName;
 		updateStage();
 	}
 }
 
-typedef StageData = {
+typedef AddedStageData = {
 	var objects:Array<StageObject>;
 }
 
@@ -130,6 +124,7 @@ typedef StageObject = {
 	var object_Name:Null<String>;
 	var layer:Null<String>; // default is bg, but fg is possible
 	var alpha:Null<Float>;
+    var front:Null<Bool>;
 	var updateHitbox:Null<Bool>;
 	// Image Info //
 	var file_Name:String;
