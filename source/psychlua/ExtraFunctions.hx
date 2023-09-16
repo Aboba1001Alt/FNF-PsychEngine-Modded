@@ -231,7 +231,7 @@ class ExtraFunctions
 				PlayState.instance.modchartSounds.get(tag).stop();
 			}
 			var sound:FlxSound = new FlxSound();
-			sound.loadEmberred(new Sound(new URLRequest(url)), false, false, function() {
+			sound.loadEmbedded(new Sound(new URLRequest(url)), false, false, function() {
 				PlayState.instance.modchartSounds.remove(tag);
 				PlayState.instance.callOnLuas('onSoundFinished', [tag]);
 			});
