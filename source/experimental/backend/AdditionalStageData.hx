@@ -11,6 +11,8 @@ import flixel.system.FlxSound;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
+import sys.io.File;
+import sys.FileSystem;
 
 using StringTools;
 
@@ -25,10 +27,13 @@ class AdditionalStageData {
 		if (newStage != null)
 			stage = newStage;
 
+        var modPath = Paths.modFolders('stages/' + stage + '-stage.json');
+        if (FileSystem.exists(modPath)) {
+
 		if (stage != "") {
 			var JSON_Data:String = "";
 
-			JSON_Data = File.getContent(Paths.mods("stages/" + stage + "-stage.json"));
+			JSON_Data = File.getContent(modPath);
 			stage_Data = cast Json.parse(JSON_Data);
 		}
 
@@ -99,6 +104,7 @@ class AdditionalStageData {
 					}
 			}
 		}
+        }
 	}
 
 	public function new(stageName:String) {
