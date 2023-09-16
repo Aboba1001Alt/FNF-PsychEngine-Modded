@@ -13,27 +13,27 @@
     {
       "name": "flixel",
       "type": "haxelib",
-      "version": "5.2.2"
+      "version": null
     },
     {
       "name": "flixel-addons",
       "type": "haxelib",
-      "version": "3.0.2"
+      "version": null
     },
     {
       "name": "flixel-tools",
       "type": "haxelib",
-      "version": "1.5.1"
+      "version": null
     },
     {
       "name": "flixel-ui",
       "type": "haxelib",
-      "version": "2.5.0"
+      "version": null
     },
     {
       "name": "hxcpp",
       "type": "haxelib",
-      "version": "4.2.1"
+      "version": null
     },
     {
       "name": "tjson",
