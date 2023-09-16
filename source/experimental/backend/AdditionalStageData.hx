@@ -54,8 +54,8 @@ class AdditionalStageData {
 								Sprite.antialiasing = Object.antialiased;
 								Sprite.scrollFactor.set(Object.scroll_Factor[0], Object.scroll_Factor[1]);
 
-								if (Object.object_Name != null && Object.object_Name != "")
-									stage_Objects.push([Object.object_Name, Sprite, Object]);
+								if (Object.name != null && Object.name != "")
+									stage_Objects.push([Object.name, Sprite, Object]);
 								else {
 									stage_Objects.push(["undefinedSprite" + null_Object_Name_Loop, Sprite, Object]);
 									null_Object_Name_Loop++;
@@ -127,8 +127,7 @@ typedef StageObject = {
 
 	var color:Array<Int>;
 	var uses_Frame_Width:Bool;
-	var object_Name:Null<String>;
-	var layer:Null<String>; // default is bg, but fg is possible
+	var layer:Null<String>;
 	var alpha:Null<Float>;
     var front:Null<Bool>;
 	var updateHitbox:Null<Bool>;

@@ -1,4 +1,1 @@
-- New Modcharting system by TheZoroForce240
-- MultiThreading on making sprites but you need how to use it correctly (or the game will be bugged)
-- Text Internet Loading
-- New Modding options
+- New Stage system (Stage Editor?) (credits:LeatherEngine but edited)
