@@ -1,6 +1,6 @@
 package experimental.backend;
 
-import utilities.CoolUtil;
+import backend.CoolUtil;
 import lime.utils.Assets;
 import haxe.Json;
 import flixel.util.FlxColor;
@@ -105,7 +105,7 @@ class AdditionalStageData {
 		}
 	}
 
-	override public function new(stageName:String) {
+	public function new(stageName:String) {
 		super();
 
 		stage = stageName;
@@ -137,4 +137,13 @@ typedef StageObject = {
 	// Animations //
 	var animations:Array<CharacterAnimation>;
 	var start_Animation:String;
+}
+
+typedef CharacterAnimation =
+{
+	var name:String;
+	var animation_name:String;
+	var indices:Null<Array<Int>>;
+	var fps:Int;
+	var looped:Bool;
 }
