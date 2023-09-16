@@ -1,65 +1,140 @@
 package experimental.backend;
 
-#if MODS_ALLOWED
-import sys.io.File;
-import sys.FileSystem;
-#else
-import openfl.utils.Assets;
-#end
-
-import tjson.TJSON as Json;
-import psychlua.*;
+import utilities.CoolUtil;
+import lime.utils.Assets;
+import haxe.Json;
+import flixel.util.FlxColor;
+import flixel.math.FlxPoint;
 import states.PlayState;
+import flixel.util.FlxTimer;
+import flixel.system.FlxSound;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.group.FlxGroup;
 
-typedef SpriteData = {
-    var name:String;
-    var x:Int;
-    var y:Int;
-    @:optional var angle:Int;
-    var animated:Bool;
-    var image:String;
-    @:optional var animToPlay:String;
-    @:optional var scale:Array<Int>;
-    @:optional var scroll:Array<Int>;
-    var front:Bool;
-    @:optional var order:Int;
-}
-
-typedef JsonData = {
-    var sprites:Array<SpriteData>;
-}
+using StringTools;
 
 class AdditionalStageData {
-    public function new(name:String) {
-        var game:PlayState = PlayState.instance;
+	public var stage:String = "";
 
-        var modPath = Paths.mods("stages/" + name + "-stage.json");
-        if (FileSystem.exists(modPath)) {
-            var jsonData:JsonData = cast haxe.Json.parse(File.getContent(modPath));
+	private var stage_Data:StageData;
 
-            for (spriteData in jsonData.sprites) {
-                var sprite:SpriteData = cast spriteData;
-                var leSprite:ModchartSprite = new ModchartSprite(sprite.x, sprite.y);
-                if (!sprite.animated && sprite.image != null) {
-                    leSprite.loadGraphic(Paths.image(sprite.image));
-                }
-                if (sprite.animated) {
-                    LuaUtils.loadFrames(leSprite, sprite.image, "sparrow");
-                    if (sprite.animToPlay != null) {
-                        leSprite.animation.addByPrefix(sprite.animToPlay, sprite.animToPlay, 24, true);
-                    }
-                }
-                if (sprite.scroll != null) leSprite.scrollFactor.set(sprite.scroll[0], sprite.scroll[1]);
-                if (sprite.scale != null) {
-                    leSprite.scale.set(sprite.scale[0], sprite.scale[1]);
-                    leSprite.updateHitbox();
-                }
-                if (sprite.angle != null) leSprite.angle = sprite.angle;
-                if (sprite.front) game.add(leSprite);
-                else game.insert(game.members.indexOf(LuaUtils.getLowestCharacterGroup()), leSprite);
-                if (sprite.order != null) game.insert(sprite.order, leSprite);
-                game.modchartSprites.set(sprite.name, leSprite);
-            }
-        }
-    }
+	public var stage_Objects:Array<Array<Dynamic>> = [];
+
+	public function updateStage(?newStage:String) {
+		if (newStage != null)
+			stage = newStage;
+
+		if (stage != "") {
+			if (!bruhStages.contains(stage) && stagesNormally.contains(stage)) {
+				var JSON_Data:String = "";
+
+				JSON_Data = Assets.getText(Paths.mods("stages/" + stage + "-stage.json")).trim();
+				stage_Data = cast Json.parse(JSON_Data);
+			}
+		}
+
+		clear();
+
+		if (stage != "") {
+			switch (stage) {
+				// CUSTOM SHIT
+				default:
+					{
+						if (stage_Data != null) {
+							var null_Object_Name_Loop:Int = 0;
+
+							for (Object in stage_Data.objects) {
+								var Sprite = new psychlua.ModchartSprite(Object.position[0], Object.position[1]);
+
+								if (Object.color != null && Object.color != [])
+									Sprite.color = FlxColor.fromRGB(Object.color[0], Object.color[1], Object.color[2]);
+
+								Sprite.antialiasing = Object.antialiased;
+								Sprite.scrollFactor.set(Object.scroll_Factor[0], Object.scroll_Factor[1]);
+
+								if (Object.object_Name != null && Object.object_Name != "")
+									stage_Objects.push([Object.object_Name, Sprite, Object]);
+								else {
+									stage_Objects.push(["undefinedSprite" + null_Object_Name_Loop, Sprite, Object]);
+									null_Object_Name_Loop++;
+								}
+
+								if (Object.is_Animated) {
+									Sprite.frames = Paths.getSparrowAtlas(stage + "/" + Object.file_Name);
+
+									for (Animation in Object.animations) {
+										var Anim_Name = Animation.name;
+
+										if (Animation.indices == null) {
+											Sprite.animation.addByPrefix(Anim_Name, Animation.animation_name, Animation.fps, Animation.looped);
+										} else if (Animation.indices.length == 0) {
+											Sprite.animation.addByPrefix(Anim_Name, Animation.animation_name, Animation.fps, Animation.looped);
+										} else {
+											Sprite.animation.addByIndices(Anim_Name, Animation.animation_name, Animation.indices, "", Animation.fps,
+												Animation.looped);
+										}
+									}
+
+									if (Object.start_Animation != "" && Object.start_Animation != null && Object.start_Animation != "null")
+										Sprite.animation.play(Object.start_Animation);
+								} else
+									Sprite.loadGraphic(Paths.image(stage + "/" + Object.file_Name));
+
+								if (Object.uses_Frame_Width)
+									Sprite.setGraphicSize(Std.int(Sprite.frameWidth * Object.scale));
+								else
+									Sprite.setGraphicSize(Std.int(Sprite.width * Object.scale));
+
+								if (Object.updateHitbox || Object.updateHitbox == null)
+									Sprite.updateHitbox();
+
+								if (Object.alpha != null)
+									Sprite.alpha = Object.alpha;
+
+                                PlayState.instance.modchartSprites.set(Object.name, Sprite);
+
+								if(Object.front)
+                                    psychlua.LuaUtils.getTargetInstance().add(Sprite);
+                                else
+                                    PlayState.instance.insert(game.members.indexOf(psychlua.LuaUtils.getLowestCharacterGroup()), Sprite);
+							}
+						}
+					}
+			}
+		}
+	}
+
+	override public function new(stageName:String) {
+		super();
+
+		stage = stageName;
+		updateStage();
+	}
+}
+
+typedef StageData = {
+	var objects:Array<StageObject>;
+}
+
+typedef StageObject = {
+	// General Sprite Object Data //
+    var name:String;
+	var position:Array<Float>;
+	var scale:Float;
+	var antialiased:Bool;
+	var scroll_Factor:Array<Float>;
+
+	var color:Array<Int>;
+	var uses_Frame_Width:Bool;
+	var object_Name:Null<String>;
+	var layer:Null<String>; // default is bg, but fg is possible
+	var alpha:Null<Float>;
+	var updateHitbox:Null<Bool>;
+	// Image Info //
+	var file_Name:String;
+	var is_Animated:Bool;
+	// Animations //
+	var animations:Array<CharacterAnimation>;
+	var start_Animation:String;
 }
