@@ -58,7 +58,7 @@ class HealthIcon extends FlxSprite
 			} else {
 				loadGraphic(file, true, Math.floor(width), Math.floor(height));
 				iconOffsets[0] = 0;
-				iconOffsets[1] = 0;
+				iconOffsets[1] = -150;
 			}
 			
 			updateHitbox();
