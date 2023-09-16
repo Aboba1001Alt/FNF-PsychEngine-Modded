@@ -28,7 +28,7 @@ class AdditionalStageData {
 		if (stage != "") {
 			var JSON_Data:String = "";
 
-			JSON_Data = Assets.getText(Paths.mods("stages/" + stage + "-stage.json")).trim();
+			JSON_Data = File.getContent(Paths.mods("stages/" + stage + "-stage.json"));
 			stage_Data = cast Json.parse(JSON_Data);
 		}
 
