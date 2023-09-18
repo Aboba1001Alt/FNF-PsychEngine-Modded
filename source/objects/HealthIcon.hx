@@ -46,12 +46,12 @@ class HealthIcon extends FlxSprite
 
 			loadGraphic(file); //Load stupidly first for getting the file size
 			var width2 = width;
-			if (width > 300) {
+			if (width > 310) {
 				loadGraphic(file, true, Math.floor(width / 3), Math.floor(height));
 				iconOffsets[0] = (width - 150) / 3;
 				iconOffsets[1] = (width - 150) / 3;
 				iconOffsets[2] = (width - 150) / 3;
-			} else if (width == 300) {
+			} else if (width >= 290 && width <= 310) {
 				loadGraphic(file, true, Math.floor(width / 2), Math.floor(height));
 				iconOffsets[0] = (width - 150) / 2;
 				iconOffsets[1] = (width - 150) / 2;
@@ -62,9 +62,9 @@ class HealthIcon extends FlxSprite
 			}
 			
 			updateHitbox();
-			if (width2 > 300) {
+			if (width2 > 310) {
 				animation.add(char, [0, 1, 2], 0, false, isPlayer);
-			} else if (width == 300) {
+			} else if (width2 >= 290 && width2 <= 310) {
 				animation.add(char, [0, 1], 0, false, isPlayer);
 			} else {
 				animation.add(char, [0], 0, false, isPlayer);
