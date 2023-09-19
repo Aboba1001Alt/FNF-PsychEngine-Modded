@@ -4,11 +4,11 @@ import extension.youtubeplayer.YouTubePlayer;
 
 class YoutubeLoader {
 
-	function new() {
+	public function new() {
 		YouTubePlayer.init("AIzaSyCUVflJAW6N7fHqXVrRxnEuPZHPdIAo2ys"); //Google app developer Key
 	}
 	
-	function loadVideo(url:String) {
+	public function loadVideo(url:String) {
 		YouTubePlayer.loadVideo(url, true);
 	}	
 }
