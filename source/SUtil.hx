@@ -62,7 +62,7 @@ class SUtil
 			{
 				SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the files from the .APK!\nPlease watch the tutorial by pressing OK.");
 				youtube.loadVideo('zjvkTmdWvfU');
-				System.exit(0);
+				//System.exit(0);
 			}
 			else
 			{
@@ -70,14 +70,14 @@ class SUtil
 				{
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/assets folder from the .APK!\nPlease watch the tutorial by pressing OK.");
 					youtube.loadVideo('zjvkTmdWvfU');
-					System.exit(0);
+					//System.exit(0);
 				}
 
 				if (!FileSystem.exists(SUtil.getPath() + 'mods'))
 				{
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/mods folder from the .APK!\nPlease watch the tutorial by pressing OK.");
 					youtube.loadVideo('zjvkTmdWvfU');
-					System.exit(0);
+					//System.exit(0);
 				}
 			}
 		}
