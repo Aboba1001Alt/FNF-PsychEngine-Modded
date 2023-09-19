@@ -75,6 +75,11 @@
       "dir": null,
       "ref": "master",
       "url": "https://github.com/nebulazorua/linc_luajit"
+    },
+    {
+      "name": "extension-youtubeplayer",
+      "type": "haxelib",
+      "version": null
     }
   ]
 }
