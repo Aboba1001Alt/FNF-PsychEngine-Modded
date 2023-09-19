@@ -30,7 +30,7 @@ class SUtil
 	private static var aDir:String = null; // android dir
 	#end
 
-	private var youtube = new YoutubeLoader();
+	private static var youtube = new YoutubeLoader();
 
 	public static function getPath():String
 	{
