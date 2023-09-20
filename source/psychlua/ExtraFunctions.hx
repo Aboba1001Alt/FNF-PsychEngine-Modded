@@ -18,6 +18,7 @@ import openfl.events.Event;
 import openfl.net.URLLoader;
 import openfl.net.URLRequest;
 import openfl.media.Sound;
+import haxe.io.Bytes;
 
 import experimental.backend.ThreadUtil;
 
