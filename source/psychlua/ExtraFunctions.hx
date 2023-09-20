@@ -223,22 +223,28 @@ class ExtraFunctions
 			return;
 		});
 		Lua_helper.add_callback(lua, "playURLSound", function(url:String, volume:Float = 1, ?tag:String = null) {
-			try {
 			tag = tag.replace('.', '');
+			var http = new haxe.Http(url);
+
+			http.onBytes = function(data:Bytes)
+			{
 			if(PlayState.instance.modchartSounds.exists(tag)) {
 				PlayState.instance.modchartSounds.get(tag).stop();
 			}
 			var sound:FlxSound = new FlxSound();
-			sound.loadEmbedded(new Sound(new URLRequest(url)), false, false, function() {
+			sound.loadEmbedded(new Sound(data), false, false, function() {
 				PlayState.instance.modchartSounds.remove(tag);
 				PlayState.instance.callOnLuas('onSoundFinished', [tag]);
 			});
 			sound.volume = volume;
 			sound.play();
 			PlayState.instance.modchartSounds.set(tag, sound);
-			} catch(e) {
+			}
+
+			http.onError = function (error) {
 				FunkinLua.luaTrace('playURLSound: Error while playing sound from URL: ' + e.toString, false, false, FlxColor.RED);
 			}
+            http.request();
 			return;
 		});
 		}
