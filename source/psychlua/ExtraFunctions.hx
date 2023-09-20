@@ -205,9 +205,6 @@ class ExtraFunctions
 			return text;
 		});
 		Lua_helper.add_callback(lua, "setLuaSpriteFromUrl", function(tag:String, url:String) {
-			var imageUrl:String = url;
-			try {
-
 			var http = new haxe.Http(url);
 
 			http.onBytes = function(data:Bytes)
