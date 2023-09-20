@@ -208,20 +208,20 @@ class ExtraFunctions
 			var imageUrl:String = url;
 			try {
 
-			var urlLoader:URLLoader = new URLLoader();
-			var urlRequest:URLRequest = new URLRequest(imageUrl);
+			var http = new haxe.Http(url);
 
-			urlLoader.addEventListener(Event.COMPLETE, function(event:Event):Void {
-				var imageData:BitmapData = BitmapData.fromBytes(urlLoader.data);
+			http.onBytes = function(data:Bytes)
+			{
+				var imageData:BitmapData = BitmapData.fromBytes(data);
 				if (PlayState.instance.modchartSprites.exists(tag)) {
 				    PlayState.instance.modchartSprites.get(tag).loadGraphic(imageData, false, imageData.width, imageData.height);
 			    }
-			});
+			};
 
-            urlLoader.load(urlRequest);
-			} catch(e) {
-				FunkinLua.luaTrace('setLuaSpriteFromUrl: Error while setting image from URL: ' + e.toString, false, false, FlxColor.RED);
+			http.onError = function (error) {
+				FunkinLua.luaTrace('setLuaSpriteFromUrl: Error while setting image from URL: ' + error.toString, false, false, FlxColor.RED);
 			}
+            http.request();
 			return;
 		});
 		Lua_helper.add_callback(lua, "playURLSound", function(url:String, volume:Float = 1, ?tag:String = null) {
