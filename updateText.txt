@@ -1,1 +1,2 @@
 - New Stage system (Stage Editor?) (credits:LeatherEngine but edited)
+- added full Internet lua Functions (Online Mod Loader Coming soon!)

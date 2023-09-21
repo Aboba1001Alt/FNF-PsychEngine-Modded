@@ -51,7 +51,7 @@ class SaveVariables {
 	public var hitboxmode:String = 'New';
 	public var hitboxExtend:Bool = false;
 	public var hitboxLocation:String = 'Bottom';
-	public var hitboxalpha:Float = 0.2; //someone request this lol
+	public var hitboxalpha:Float = 1; //someone request this lol
 	public var VirtualPadAlpha:Float = 0.75;
 	public var VirtualPadSPACE:Array<Float> = [FlxG.width - 44 * 3, FlxG.height - 45 * 3];
 
