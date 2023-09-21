@@ -1146,7 +1146,7 @@ class PlayState extends MusicBeatState
 				daNote.ignoreNote = true;
 
 				unspawnNotes.remove(daNote);
-				daNote.destroy();
+				daNote.destroyNote();
 			}
 			--i;
 		}
@@ -1161,7 +1161,7 @@ class PlayState extends MusicBeatState
 				daNote.ignoreNote = true;
 
 				notes.remove(daNote, true);
-				daNote.destroy();
+				daNote.destroyNote();
 			}
 			--i;
 		}
@@ -1943,7 +1943,7 @@ class PlayState extends MusicBeatState
 								daNote.visible = false;
 
 								notes.remove(daNote, true);
-								daNote.destroy();
+								daNote.destroyNote();
 							}
 						});
 					}
@@ -2570,7 +2570,7 @@ class PlayState extends MusicBeatState
 			daNote.visible = false;
 
 			notes.remove(daNote, true);
-			daNote.destroy();
+			daNote.destroyNote();
 		}
 		unspawnNotes = [];
 		eventNotes = [];
@@ -2817,7 +2817,7 @@ class PlayState extends MusicBeatState
 						for (doubleNote in pressNotes) {
 							if (Math.abs(doubleNote.strumTime - epicNote.strumTime) < 1) {
 								notes.remove(doubleNote, true);
-								doubleNote.destroy();
+								doubleNote.destroyNote();
 							} else
 								notesStopped = true;
 						}
@@ -2967,7 +2967,7 @@ class PlayState extends MusicBeatState
 		notes.forEachAlive(function(note:Note) {
 			if (daNote != note && daNote.mustPress && daNote.noteData == note.noteData && daNote.isSustainNote == note.isSustainNote && Math.abs(daNote.strumTime - note.strumTime) < 1) {
 				notes.remove(note, true);
-				note.destroy();
+				note.destroyNote();
 			}
 		});
 		
@@ -3069,7 +3069,7 @@ class PlayState extends MusicBeatState
 		if (!note.isSustainNote)
 		{
 			notes.remove(note, true);
-			note.destroy();
+			note.destroyNote();
 		}
 	}
 
@@ -3102,7 +3102,7 @@ class PlayState extends MusicBeatState
 			note.wasGoodHit = true;
 			if (!note.isSustainNote) {
 				notes.remove(note, true);
-				note.destroy();
+				note.destroyNote();
 			}
 		} else {
 			if (!note.noAnimation) {
@@ -3164,7 +3164,7 @@ class PlayState extends MusicBeatState
 
 			if (!note.isSustainNote) {
 				notes.remove(note, true);
-				note.destroy();
+				note.destroyNote();
 			}
 		}
 	}

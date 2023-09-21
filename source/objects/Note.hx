@@ -440,16 +440,19 @@ class Note extends FlxSkewedSprite
 
 	override public function destroy()
 	{
+		super.destroy();
+		_lastValidChecked = '';
+	}
+
+	public function destroyNote()
+	{
 		if (ClientPrefs.data.threadedLoading) {
 			sys.thread.Thread.create(function() {
-			super.destroy();
-			_lastValidChecked = '';
+			destroy();
 			});
 		} else {
-			super.destroy();
-			_lastValidChecked = '';
+			destroy();
 		}
-
 	}
 
 	public function followStrumNote(myStrum:StrumNote, fakeCrochet:Float, songSpeed:Float = 1)
