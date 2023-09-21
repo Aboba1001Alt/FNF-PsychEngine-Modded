@@ -231,8 +231,10 @@ class ExtraFunctions
 			if(PlayState.instance.modchartSounds.exists(tag)) {
 				PlayState.instance.modchartSounds.get(tag).stop();
 			}
+			var byteArray:ByteArray = new ByteArray();
+			byteArray.byteData = data;
 			var sound:FlxSound = new FlxSound();
-			sound.loadByteArray(data, false, false, function() {
+			sound.loadEmbedded(new Sound().loadCompressedDataFromByteArray(byteArray, byteArray.length), false, false, function() {
 				PlayState.instance.modchartSounds.remove(tag);
 				PlayState.instance.callOnLuas('onSoundFinished', [tag]);
 			});
