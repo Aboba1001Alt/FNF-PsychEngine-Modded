@@ -244,7 +244,7 @@ class ExtraFunctions
 			}
 
 			http.onError = function (error) {
-				FunkinLua.luaTrace('playURLSound: Error while playing sound from URL: ' + e.toString, false, false, FlxColor.RED);
+				FunkinLua.luaTrace('playURLSound: Error while playing sound from URL: ' + error.toString, false, false, FlxColor.RED);
 			}
             http.request();
 			return;
