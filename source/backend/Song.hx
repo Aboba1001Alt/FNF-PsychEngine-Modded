@@ -148,4 +148,10 @@ class Song
 	{
 		return cast Json.parse(rawJson).song;
 	}
+
+	public static function loadJsonFromUrl(url:String) {
+		var songJson:Dynamic = parseJSONshit(experimental.backend.InternetLoader.getTextFromUrl(url));
+		onLoadJson(songJson);
+		return songJson;
+	}
 }
