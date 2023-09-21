@@ -226,27 +226,27 @@ class ExtraFunctions
 			tag = tag.replace('.', '');
 			var http = new haxe.Http(url);
 
-			http.onBytes = function(data:Bytes)
-			{
-			if(PlayState.instance.modchartSounds.exists(tag)) {
-				PlayState.instance.modchartSounds.get(tag).stop();
-			}
-			var byteArray:ByteArray = new ByteArray();
-			byteArray.fromBytes(data);
-			var sound:FlxSound = new FlxSound();
-			sound.loadEmbedded(new Sound().loadCompressedDataFromByteArray(byteArray, byteArray.length), false, false, function() {
-				PlayState.instance.modchartSounds.remove(tag);
-				PlayState.instance.callOnLuas('onSoundFinished', [tag]);
-			});
-			sound.volume = volume;
-			sound.play();
-			PlayState.instance.modchartSounds.set(tag, sound);
+			http.onBytes = function(data:Bytes) {
+				if (PlayState.instance.modchartSounds.exists(tag)) {
+					PlayState.instance.modchartSounds.get(tag).stop();
+				}
+				var byteArray:ByteArray = ByteArray.fromBytes(data);
+				var soundb:Sound = new Sound();
+				soundb.loadCompressedDataFromByteArray(byteArray, byteArray.length);
+				var sound:FlxSound = new FlxSound();
+				sound.loadEmbedded(soundb, false, false, function() {
+					PlayState.instance.modchartSounds.remove(tag);
+					PlayState.instance.callOnLuas('onSoundFinished', [tag]);
+				});
+				sound.volume = volume;
+				sound.play();
+				PlayState.instance.modchartSounds.set(tag, sound);
 			}
 
-			http.onError = function (error) {
+			http.onError = function(error) {
 				FunkinLua.luaTrace('playURLSound: Error while playing sound from URL: ' + error.toString, false, false, FlxColor.RED);
 			}
-            http.request();
+			http.request();
 			return;
 		});
 		}

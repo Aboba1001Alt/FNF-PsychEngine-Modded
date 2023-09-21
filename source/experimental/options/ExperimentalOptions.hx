@@ -21,7 +21,7 @@ class ExperimentalOptions extends BaseOptionsMenu {
         );
         addOption(option);
         option.barVisible = true;
-        option.barValue = 40;
+        option.barValue = 50;
         option.barText = "Progress: " + option.barValue + "%";
         option.onChange = function(value: Dynamic) {
             if (value == true) Main.toast.create('Experimental', 0xFFFFC000, 'Enabled');
@@ -38,6 +38,13 @@ class ExperimentalOptions extends BaseOptionsMenu {
         var option: Option = new Option('Old versions Support (Not Done!)',
             "Check this if you want support for older properties and functions!",
             'oldSupport',
+            'bool'
+        );
+        addOption(option);
+
+        var option: Option = new Option('Threading Loading',
+            "A test to make game faster",
+            'threadedLoading',
             'bool'
         );
         addOption(option);

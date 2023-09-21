@@ -13,7 +13,7 @@ class SaveVariables {
 	public var noDataClear:Bool = false;
 	public var moddedSaves:Map<String, Dynamic> = new Map<String, Dynamic>();
 	public var nocamGame:Bool = false;
-	public var threadedImageLoading:Bool = false;
+	public var threadedLoading:Bool = false;
 	public var experimental:Bool = false;
 	public var ultiModchart:Bool = false;
 	public var downScroll:Bool = false;
