@@ -82,6 +82,11 @@
       "dir": null,
       "ref": "master",
       "url": "https://github.com/Hiho2950/extension-youtubeplayer"
+    },
+    {
+      "name": "flixel-window",
+      "type": "haxelib",
+      "version": null
     }
   ]
 }
