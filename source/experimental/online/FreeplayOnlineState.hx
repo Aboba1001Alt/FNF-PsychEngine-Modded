@@ -24,7 +24,7 @@ import states.editors.ChartingState;
 import substates.GameplayChangersSubstate;
 import substates.ResetScoreSubState;
 
-import experimental.backend;
+import experimental.backend.InternetLoader;
 
 using StringTools;
 
