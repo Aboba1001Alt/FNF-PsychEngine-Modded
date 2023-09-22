@@ -40,6 +40,5 @@ class InternetLoader {
         }
 
         http.request();
-        return null;
     }
 }
