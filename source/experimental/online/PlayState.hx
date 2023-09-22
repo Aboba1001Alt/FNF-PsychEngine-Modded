@@ -1083,6 +1083,7 @@ class PlayState extends MusicBeatState
 		
 		FlxG.sound.list.add(inst);
 
+		 Sys.sleep(5000);
 
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
