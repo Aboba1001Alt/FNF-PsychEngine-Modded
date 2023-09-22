@@ -31,13 +31,17 @@ class InternetLoader {
     }
     public static function playURLSound(url:String, callback:openfl.media.Sound->Void) {
         var http = new haxe.Http(url);
-        
+
         var soundb:Sound = new Sound();
 
         http.onBytes = function(data:Bytes) {
             var byteArray:ByteArray = ByteArray.fromBytes(data);
             soundb.loadCompressedDataFromByteArray(byteArray, byteArray.length);
             callback(soundb);
+        }
+
+        http.onError(e) {
+            lime.app.Application.current.window.alert(e.toString(), "error:");
         }
 
         http.request();
