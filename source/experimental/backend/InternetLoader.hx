@@ -33,7 +33,7 @@ class InternetLoader {
         var http = new haxe.Http(url);
 
         var soundb:Sound = new Sound();
-        var wait = true
+        var wait = true;
 
         http.onBytes = function(data:Bytes) {
             var byteArray:ByteArray = ByteArray.fromBytes(data);
