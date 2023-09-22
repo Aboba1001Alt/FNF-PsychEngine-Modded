@@ -447,9 +447,8 @@ class Note extends FlxSkewedSprite
 	public function destroyNote()
 	{
 		if (ClientPrefs.data.threadedLoading) {
-			sys.thread.Thread.create(function() {
-			destroy();
-			});
+			active = false;
+			visible = false;
 		} else {
 			destroy();
 		}
