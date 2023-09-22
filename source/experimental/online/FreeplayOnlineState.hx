@@ -28,7 +28,7 @@ import states.PlayState;
 
 using StringTools;
 
-class FreeplayState extends MusicBeatState
+class FreeplayOnlineState extends MusicBeatState
 {
 	var songs:Array<SongMetadata> = [];
 
@@ -48,18 +48,11 @@ class FreeplayState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
-		var isDebug:Bool = false;
-
-		#if debug
-		isDebug = true;
-		addSong('Test', 1, 'bf-pixel');
-		#end
-
-		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
+		var initSonglist = CoolUtil.coolTextFile(InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/MusicList.txt"));
 
 		for (i in 0...initSonglist.length)
 		{
-			songs.push(new SongMetadata(initSonglist[i], 1, 'gf'));
+			songs.push(new SongMetadata(initSonglist[i]));
 		}
 
 		if (FlxG.sound.music != null)
@@ -89,6 +82,10 @@ class FreeplayState extends MusicBeatState
 		changeSelection();
 
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
+
+		#if mobile
+		addVirtualPad(FULL, A_B);
+		#end
 
 		super.create();
 	}
@@ -122,25 +119,19 @@ class FreeplayState extends MusicBeatState
 		if (FlxG.mouse.wheel != 0)
 			changeSelection(-Math.round(FlxG.mouse.wheel / 4));
 
-		if (controls.UI_LEFT_P)
-			changeDiff(-1);
-		if (controls.UI_RIGHT_P)
-			changeDiff(1);
-
 		if (controls.BACK)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			FlxG.switchState(new MainMenuState());
+			FlxG.switchState(new states.MainMenuState());
 		}
 
 		if (accepted)
 		{
-			PlayState.SONG = Song.loadFromUrl(songs[curSelected].songName.toLowerCase());
+			PlayState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
 			PlayState.isStoryMode = false;
-			PlayState.storyDifficulty = curDifficulty;
 
 			trace('CUR WEEK' + PlayState.storyWeek);
-			LoadingState.loadAndSwitchState(new PlayState());
+			LoadingState.loadAndSwitchState(new experimental.online.PlayState());
 		}
 	}
 
