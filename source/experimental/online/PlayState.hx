@@ -1083,8 +1083,6 @@ class PlayState extends MusicBeatState
 		var songData = SONG;
 		Conductor.bpm = songData.bpm;
 
-		 Sys.sleep(5000);
-
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
 
