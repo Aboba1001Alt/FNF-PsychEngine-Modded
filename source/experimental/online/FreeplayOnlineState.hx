@@ -48,7 +48,7 @@ class FreeplayOnlineState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
-		var initSonglist = CoolUtil.coolTextFile(InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/MusicList.txt"));
+		var initSonglist = CoolUtil.listFromString(InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/MusicList.txt"));
 
 		for (i in 0...initSonglist.length)
 		{
