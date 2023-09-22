@@ -33,15 +33,22 @@ class InternetLoader {
         var http = new haxe.Http(url);
 
         var soundb:Sound = new Sound();
+        var wait = true
 
         http.onBytes = function(data:Bytes) {
             var byteArray:ByteArray = ByteArray.fromBytes(data);
             soundb.loadCompressedDataFromByteArray(byteArray, byteArray.length);
+            wait = false;
             callback(soundb);
         }
 
-        http.onError(e) {
+        http.onError = function(e) {
             lime.app.Application.current.window.alert(e.toString(), "error:");
+            wait = false;
+        }
+
+        while (wait == true) {
+            Sys.sleep(500);
         }
 
         http.request();
