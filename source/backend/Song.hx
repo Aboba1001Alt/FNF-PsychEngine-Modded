@@ -21,7 +21,7 @@ typedef SwagSong =
 
 	var player1:String;
 	var player2:String;
-	var gfVersion:String;
+	var gfVersion:Null<String>;
 	var stage:String;
 
 	@:optional var gameOverChar:String;
@@ -149,9 +149,9 @@ class Song
 		return cast Json.parse(rawJson).song;
 	}
 
-	public static function loadJsonFromUrl(songName:String) {
+	public static function loadJsonFromUrl(songName:String):SwagSong {
 		var songJson:Dynamic = parseJSONshit(experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/data/" + songName + "/" + songName + ".json"));
-		onLoadJson(songJson);
+		//onLoadJson(songJson);
 		return songJson;
 	}
 }
