@@ -1073,20 +1073,15 @@ class PlayState extends MusicBeatState
 		curSong = songData.song;
 
 		vocals = new FlxSound();
-		InternetLoader.playURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + curSong + "/Voices.ogg", function(soundb:openfl.media.Sound) {
-			if (songData.needsVoices) {
-			    vocals.loadEmbedded(soundb);
-		    } 
+		if (songData.needsVoices) InternetLoader.setURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + curSong + "/Voices.ogg", vocals);
 
-		    vocals.pitch = playbackRate;
-		    FlxG.sound.list.add(vocals);	
-		});
+		vocals.pitch = playbackRate;
+		FlxG.sound.list.add(vocals);
 
-
-        InternetLoader.playURLSound("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + curSong + "/Inst.ogg", function(soundb:openfl.media.Sound) {
-		    inst = new FlxSound().loadEmbedded(soundb);
-		    FlxG.sound.list.add(inst);
-		});
+        inst = new FlxSound()
+        InternetLoader.setURLSound("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + curSong + "/Inst.ogg", inst);
+		
+		FlxG.sound.list.add(inst);
 
 
 		notes = new FlxTypedGroup<Note>();

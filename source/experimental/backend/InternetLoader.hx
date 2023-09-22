@@ -29,28 +29,21 @@ class InternetLoader {
         http.request();
         return;
     }
-    public static function playURLSound(url:String, callback:openfl.media.Sound->Void) {
+    public static function setURLSound(url:String, sound:FlxSound) {
         var http = new haxe.Http(url);
 
         var soundb:Sound = new Sound();
-        var wait = true;
 
         http.onBytes = function(data:Bytes) {
             var byteArray:ByteArray = ByteArray.fromBytes(data);
             soundb.loadCompressedDataFromByteArray(byteArray, byteArray.length);
-            wait = false;
+            sound.loadEmbedded(sounbd);
             callback(soundb);
         }
 
         http.onError = function(e) {
             lime.app.Application.current.window.alert(e.toString(), "error:");
-            wait = false;
         }
         http.request();
-        while (wait == true) {
-            Sys.sleep(500);
-        }
-
-        
     }
 }
