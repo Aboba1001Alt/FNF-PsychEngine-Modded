@@ -139,7 +139,7 @@ class FreeplayOnlineState extends MusicBeatState
 			} catch(e:String) {
 				Main.toast.create('Error', 0xFFFF0000, 'while loading song:' + songs[curSelected].songName.toLowerCase());
 			}
-
+			FlxG.sound.music.volume = 0;
 		}
 	}
 
