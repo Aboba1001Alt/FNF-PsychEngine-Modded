@@ -46,11 +46,11 @@ class InternetLoader {
             lime.app.Application.current.window.alert(e.toString(), "error:");
             wait = false;
         }
-
+        http.request();
         while (wait == true) {
             Sys.sleep(500);
         }
 
-        http.request();
+        
     }
 }
