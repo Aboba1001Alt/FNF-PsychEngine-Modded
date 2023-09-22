@@ -1103,7 +1103,7 @@ class PlayState extends MusicBeatState
 		curSong = songData.song;
 
 		vocals = new FlxSound();
-		if (songData.needsVoices) vocals.loadEmbedded(InternetLoader.playURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + songData.song + "/Voices.ogg");
+		if (songData.needsVoices) vocals.loadEmbedded(InternetLoader.playURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + songData.song + "/Voices.ogg"));
 
 		vocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);

@@ -24,7 +24,7 @@ import states.editors.ChartingState;
 import substates.GameplayChangersSubstate;
 import substates.ResetScoreSubState;
 
-import states.PlayState;
+import experimental.backend;
 
 using StringTools;
 
@@ -69,7 +69,7 @@ class FreeplayOnlineState extends MusicBeatState
 
 		for (i in 0...songs.length)
 		{
-			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].songName, true, false);
+			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].songName, true);
 			songText.isMenuItem = true;
 			songText.targetY = i;
 			grpSongs.add(songText);
