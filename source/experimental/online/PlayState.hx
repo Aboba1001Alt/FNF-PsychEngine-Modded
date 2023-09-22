@@ -318,6 +318,19 @@ class PlayState extends MusicBeatState
 		MusicBeatState.androidc.visible = false;
 		#end
 
+		curSong = songData.song;
+
+		vocals = new FlxSound();
+		if (songData.needsVoices) InternetLoader.setURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + curSong + "/Voices.ogg", vocals);
+
+		vocals.pitch = playbackRate;
+		FlxG.sound.list.add(vocals);
+
+        inst = new FlxSound();
+        InternetLoader.setURLSound("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + curSong + "/Inst.ogg", inst);
+		
+		FlxG.sound.list.add(inst);
+
 		persistentUpdate = true;
 		persistentDraw = true;
 
@@ -1069,19 +1082,6 @@ class PlayState extends MusicBeatState
 
 		var songData = SONG;
 		Conductor.bpm = songData.bpm;
-
-		curSong = songData.song;
-
-		vocals = new FlxSound();
-		if (songData.needsVoices) InternetLoader.setURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + curSong + "/Voices.ogg", vocals);
-
-		vocals.pitch = playbackRate;
-		FlxG.sound.list.add(vocals);
-
-        inst = new FlxSound();
-        InternetLoader.setURLSound("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + curSong + "/Inst.ogg", inst);
-		
-		FlxG.sound.list.add(inst);
 
 		 Sys.sleep(5000);
 
