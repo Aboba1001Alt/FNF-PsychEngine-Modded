@@ -1,5 +1,10 @@
 package experimental.backend;
 
+import openfl.display.BitmapData;
+import openfl.utils.ByteArray;
+import openfl.media.Sound;
+import haxe.io.Bytes;
+
 class InternetLoader {
     public static function getTextFromUrl(url:String) {
         var text:String = "";
