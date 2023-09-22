@@ -318,10 +318,10 @@ class PlayState extends MusicBeatState
 		MusicBeatState.androidc.visible = false;
 		#end
 
-		curSong = songData.song;
+		curSong = SONG.song;
 
 		vocals = new FlxSound();
-		if (songData.needsVoices) InternetLoader.setURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + curSong + "/Voices.ogg", vocals);
+		if (SONG.needsVoices) InternetLoader.setURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + curSong + "/Voices.ogg", vocals);
 
 		vocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);
