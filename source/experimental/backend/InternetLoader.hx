@@ -37,8 +37,7 @@ class InternetLoader {
         http.onBytes = function(data:Bytes) {
             var byteArray:ByteArray = ByteArray.fromBytes(data);
             soundb.loadCompressedDataFromByteArray(byteArray, byteArray.length);
-            sound.loadEmbedded(sounbd);
-            callback(soundb);
+            sound.loadEmbedded(soundb);
         }
 
         http.onError = function(e) {
