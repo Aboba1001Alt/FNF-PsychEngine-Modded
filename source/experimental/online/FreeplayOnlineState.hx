@@ -130,11 +130,16 @@ class FreeplayOnlineState extends MusicBeatState
 
 		if (accepted)
 		{
-			PlayState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
-			PlayState.isStoryMode = false;
+			try {
+			experimental.online.PlayState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
+			experimental.online.PlayState.isStoryMode = false;
 
 			trace('CUR WEEK' + PlayState.storyWeek);
 			LoadingState.loadAndSwitchState(new experimental.online.PlayState());
+			} catch(e:String) {
+				Main.toast.create('Error', 0xFFFF0000, 'while loading song:' + songs[curSelected].songName.toLowerCase());
+			}
+
 		}
 	}
 
