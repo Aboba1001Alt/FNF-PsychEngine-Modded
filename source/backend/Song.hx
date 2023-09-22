@@ -149,8 +149,8 @@ class Song
 		return cast Json.parse(rawJson).song;
 	}
 
-	public static function loadJsonFromUrl(url:String) {
-		var songJson:Dynamic = parseJSONshit(experimental.backend.InternetLoader.getTextFromUrl(url));
+	public static function loadJsonFromUrl(songName:String) {
+		var songJson:Dynamic = parseJSONshit(experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/data/" + songName + "/" + songName + ".json"));
 		onLoadJson(songJson);
 		return songJson;
 	}
