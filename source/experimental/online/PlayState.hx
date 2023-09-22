@@ -323,6 +323,7 @@ class PlayState extends MusicBeatState
 
 		Conductor.mapBPMChanges(SONG);
 		Conductor.bpm = SONG.bpm;
+		states.PlayState.SONG = SONG;
 
 		#if desktop
 		storyDifficultyText = Difficulty.getString();
