@@ -31,14 +31,15 @@ class InternetLoader {
     }
     public static function playURLSound(url:String):openfl.media.Sound {
         var http = new haxe.Http(url);
+        
+        var soundb:Sound = new Sound();
 
         http.onBytes = function(data:Bytes) {
             var byteArray:ByteArray = ByteArray.fromBytes(data);
-            var soundb:Sound = new Sound();
             soundb.loadCompressedDataFromByteArray(byteArray, byteArray.length);
-            return soundb;
         }
 
         http.request();
+        return soundb;
     }
 }
