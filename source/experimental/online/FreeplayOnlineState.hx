@@ -87,7 +87,7 @@ class FreeplayOnlineState extends MusicBeatState
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
 
 		#if mobile
-		addVirtualPad(FULL, A_B);
+		addVirtualPad(FULL, A_B_C);
 		#end
 
 		super.create();
@@ -98,6 +98,8 @@ class FreeplayOnlineState extends MusicBeatState
 		songs.push(new SongMetadata(songName));
 	}
 
+	var instPlaying:Int = -1;
+	public static var vocals:FlxSound = null;
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
@@ -122,6 +124,29 @@ class FreeplayOnlineState extends MusicBeatState
 		if (FlxG.mouse.wheel != 0)
 			changeSelection(-Math.round(FlxG.mouse.wheel / 4));
 
+		if(FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonX.justPressed #end)
+		{
+			if(instPlaying != curSelected)
+			{
+				destroyFreeplayVocals();
+				FlxG.sound.music.volume = 0;
+                experimental.online.PlayState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
+				if (PlayState.SONG.needsVoices)
+					vocals = new FlxSound().loadEmbedded(InternetLoader.playURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + songData.song + "/Voices.ogg"));
+				else
+					vocals = new FlxSound();
+
+				FlxG.sound.list.add(vocals);
+				FlxG.sound.loadEmbedded(InternetLoader.playURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + songData.song + "/Inst.ogg"), 0.7);
+				FlxG.sound.play();
+				vocals.play();
+				vocals.persist = true;
+				vocals.looped = true;
+				vocals.volume = 0.7;
+				instPlaying = curSelected;
+			}
+		}
+
 		if (controls.BACK)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -141,6 +166,14 @@ class FreeplayOnlineState extends MusicBeatState
 			}
 
 		}
+	}
+
+	public static function destroyFreeplayVocals() {
+		if(vocals != null) {
+			vocals.stop();
+			vocals.destroy();
+		}
+		vocals = null;
 	}
 
 
