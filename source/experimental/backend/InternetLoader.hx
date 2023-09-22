@@ -29,7 +29,7 @@ class InternetLoader {
         http.request();
         return;
     }
-    public static function playURLSound(url:String):flixel.system.FlxSoundAssets {
+    public static function playURLSound(url:String):openfl.media.Sound {
         var http = new haxe.Http(url);
 
         http.onBytes = function(data:Bytes) {
