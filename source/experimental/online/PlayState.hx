@@ -3043,4 +3043,12 @@ class PlayState extends MusicBeatState
 		return false;
 	}
 	#end
+
+	public static function initSongs() {
+		inst = new FlxSound();
+        InternetLoader.setURLSound("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + SONG.song + "/Inst.ogg", inst);
+
+		vocals = new FlxSound();
+		if (SONG.needsVoices) InternetLoader.setURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + SONG.song + "/Voices.ogg", vocals);
+	}
 }
