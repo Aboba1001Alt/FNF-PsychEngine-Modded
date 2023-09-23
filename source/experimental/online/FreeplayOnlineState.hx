@@ -138,35 +138,6 @@ class FreeplayOnlineState extends MusicBeatState
 			experimental.online.PlayState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
 			experimental.online.PlayState.isStoryMode = false;
 
-			var http = new haxe.Http("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + experimental.online.PlayState.SONG.song + "/Inst.ogg");
-
-			http.onBytes = function(data:Bytes) {
-				experimental.online.PlayState.modinst = new Sound();
-				var byteArray:ByteArray = ByteArray.fromBytes(data);
-				experimental.online.PlayState.modinst.loadCompressedDataFromByteArray(byteArray, byteArray.length);
-			}
-
-			http.onError = function(e) {
-				lime.app.Application.current.window.alert(e.toString(), "error:");
-			}
-			http.request(false);
-
-            if (experimental.online.PlayState.SONG.needsVoices) {
-			var http = new haxe.Http("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + experimental.online.PlayState.SONG.song + "/Voices.ogg");
-
-			http.onBytes = function(data:Bytes) {
-				experimental.online.PlayState.modvocals = new Sound();
-				var byteArray:ByteArray = ByteArray.fromBytes(data);
-				experimental.online.PlayState.modvocals.loadCompressedDataFromByteArray(byteArray, byteArray.length);
-			}
-
-			http.onError = function(e) {
-				lime.app.Application.current.window.alert(e.toString(), "error:");
-			}
-
-			http.request(false);
-			}
-
 			trace('CUR WEEK' + PlayState.storyWeek);
 			LoadingState.loadAndSwitchState(new experimental.online.PlayState());
 			} catch(e:String) {

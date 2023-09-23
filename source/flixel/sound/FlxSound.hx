@@ -1,8 +1,10 @@
 package flixel.sound;
 
+import openfl.utils.ByteArray;
+import openfl.media.Sound;
+import haxe.io.Bytes;
 import flash.events.Event;
 import flash.events.IEventDispatcher;
-import flash.media.Sound;
 import flash.media.SoundChannel;
 import flash.media.SoundTransform;
 import flash.net.URLRequest;
@@ -19,9 +21,6 @@ import flixel.system.FlxSoundGroup;
 #end
 
 import openfl.Assets;
-#if flash11
-import flash.utils.ByteArray;
-#end
 #if (openfl >= "8.0.0")
 import openfl.utils.AssetType;
 #end
@@ -405,7 +404,20 @@ class FlxSound extends FlxBasic
 		return init(Looped, AutoDestroy, OnComplete);
 	}
 
-	#if flash11
+	public function loadUrl(url:String, sync = false, Looped:Bool = false, AutoDestroy:Bool = false, ?OnComplete:Void->Void):FlxSound
+	{
+		var http = new haxe.Http(url);
+
+		http.onBytes = function(data:Bytes) {
+			var byteArray:ByteArray = ByteArray.fromBytes(data);
+			return loadByteArray(byteArray, Looped, AutoDestroy, OnComplete);
+		}
+
+		http.request(sync);
+
+		return null;
+	}
+
 	/**
 	 * One of the main setup functions for sounds, this function loads a sound from a ByteArray.
 	 *
@@ -425,7 +437,6 @@ class FlxSound extends FlxBasic
 
 		return init(Looped, AutoDestroy, OnComplete);
 	}
-	#end
 
 	function init(Looped:Bool = false, AutoDestroy:Bool = false, ?OnComplete:Void->Void):FlxSound
 	{

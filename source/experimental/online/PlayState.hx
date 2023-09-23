@@ -147,9 +147,6 @@ class PlayState extends MusicBeatState
 
 	public var spawnTime:Float = 2000;
 
-	public static var modinst:Sound;
-	public static var modvocals:Sound;
-
 	public var vocals:FlxSound;
 	public var inst:FlxSound;
 
@@ -320,10 +317,14 @@ class PlayState extends MusicBeatState
 		curSong = SONG.song;
 
 	    vocals = new FlxSound();
-		if (SONG.needsVoices) vocals.loadEmbedded(modvocals);
+		if (SONG.needsVoices) vocals.loadUrl("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + SONG.song + "/Voices.ogg");
 
 		vocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);
+
+        inst = new FlxSound()
+		inst.loadUrl("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + SONG.song + "/Inst.ogg")
+		FlxG.sound.list.add(inst);
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -1032,7 +1033,7 @@ class PlayState extends MusicBeatState
 		startingSong = false;
 
 		@:privateAccess
-		FlxG.sound.playMusic(modinst, 1, false);
+		FlxG.sound.playMusic(inst._sound, 1, false);
 		FlxG.sound.music.pitch = playbackRate;
 		FlxG.sound.music.onComplete = finishSong.bind();
 		vocals.play();
