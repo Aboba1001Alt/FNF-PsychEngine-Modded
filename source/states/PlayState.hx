@@ -3357,7 +3357,7 @@ class PlayState extends MusicBeatState
 			@:privateAccess
 			if(newScript.parsingException != null)
 			{
-				addTextToDebug('ERROR ON LOADING ($file): ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
+				addTextToDebug('ERROR ON LOADING ($file): ${newScript.parsingException.message.substr(0, newScript.parsingException.message.indexOf('\n'))}', FlxColor.RED);
 				newScript.destroy();
 				return;
 			}
