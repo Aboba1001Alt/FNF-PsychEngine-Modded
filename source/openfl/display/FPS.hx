@@ -82,6 +82,7 @@ class FPS extends TextField
 		if (currentCount != cacheCount /*&& visible*/)
 		{
 			text = "FPS: " + currentFPS;
+			text += "\nTotal FPS: " + Math.round((currentCount + cacheCount) / 2) + " FPS";
 			var memoryMegas:Float = 0;
 			
 			#if openfl

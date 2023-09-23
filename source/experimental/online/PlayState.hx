@@ -147,6 +147,9 @@ class PlayState extends MusicBeatState
 
 	public var spawnTime:Float = 2000;
 
+	public static var modinst:Sound;
+	public static var modvocals:Sound;
+
 	public var vocals:FlxSound;
 	public var inst:FlxSound;
 
@@ -317,41 +320,10 @@ class PlayState extends MusicBeatState
 		curSong = SONG.song;
 
 	    vocals = new FlxSound();
-	    var http = new haxe.Http("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + curSong + "/Voices.ogg");
-
-        http.onBytes = function(data:Bytes) {
-			var soundb:Sound = new Sound();
-            var byteArray:ByteArray = ByteArray.fromBytes(data);
-            soundb.loadCompressedDataFromByteArray(byteArray, byteArray.length);
-            vocals.loadEmbedded(soundb);
-        }
-
-        http.onError = function(e) {
-            lime.app.Application.current.window.alert(e.toString(), "error:");
-        }
-
-        http.request(false);
+		if (SONG.needsVoices) vocals.loadEmbedded(modvocals);
 
 		vocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);
-
-	    inst = new FlxSound();
-	    var http = new haxe.Http("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + curSong + "/Inst.ogg");
-
-        http.onBytes = function(data:Bytes) {
-			var soundb:Sound = new Sound();
-            var byteArray:ByteArray = ByteArray.fromBytes(data);
-            soundb.loadCompressedDataFromByteArray(byteArray, byteArray.length);
-            inst.loadEmbedded(soundb);
-        }
-
-        http.onError = function(e) {
-            lime.app.Application.current.window.alert(e.toString(), "error:");
-        }
-
-        http.request(false);
-
-		FlxG.sound.list.add(inst);
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -1060,7 +1032,7 @@ class PlayState extends MusicBeatState
 		startingSong = false;
 
 		@:privateAccess
-		FlxG.sound.playMusic(inst._sound, 1, false);
+		FlxG.sound.playMusic(modinst, 1, false);
 		FlxG.sound.music.pitch = playbackRate;
 		FlxG.sound.music.onComplete = finishSong.bind();
 		vocals.play();

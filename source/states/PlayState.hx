@@ -991,7 +991,7 @@ class PlayState extends MusicBeatState
 	public function startCountdown()
 	{
 	  #if android
-	  		MusicBeatState.androidc.visible = true;
+	  	if (!cpuControlled) MusicBeatState.androidc.visible = true;
 	  #end
 		if(startedCountdown) {
 			callOnScripts('onStartCountdown');
