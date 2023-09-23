@@ -45,6 +45,9 @@ class FreeplayOnlineState extends MusicBeatState
 	var bg:FlxSprite;
 	var scoreBG:FlxSprite;
 
+	private var inst:FlxSound;
+	private var voices:FlxSound;
+
 	override function create()
 	{
 		#if discord_rpc
@@ -93,6 +96,9 @@ class FreeplayOnlineState extends MusicBeatState
 		#if mobile
 		addVirtualPad(FULL, A_B_C);
 		#end
+
+		inst = new FlxSound();
+		voices = new FlxSound();
 
 		super.create();
 	}
@@ -144,6 +150,19 @@ class FreeplayOnlineState extends MusicBeatState
 				Main.toast.create('Error', 0xFFFF0000, 'while loading song:' + songs[curSelected].songName.toLowerCase());
 			}
 			FlxG.sound.music.volume = 0;
+		}
+		if(FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
+		{
+			FlxG.sound.music.volume = 0;
+			inst.stop();
+			voices.stop();
+			experimental.online.PlayState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
+			inst.loadUrl("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + experimental.online.PlayState.SONG.song + "/Inst.ogg");
+			if (experimental.online.PlayState.SONG.needsVoices) voices.loadUrl("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + experimental.online.PlayState.SONG.song + "/Voices.ogg");
+			inst.volume = 0.7;
+			voices.volume = 1;
+			inst.play();
+			if (experimental.online.PlayState.SONG.needsVoices) voices.play();
 		}
 	}
 
