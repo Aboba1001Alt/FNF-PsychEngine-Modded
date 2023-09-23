@@ -1,4 +1,4 @@
-package objects;
+package experimental.online;
 
 import animateatlas.AtlasFrameMaker;
 
@@ -103,7 +103,7 @@ class CharacterOnline extends FlxSprite
                 http.onBytes = function(data:Bytes)
                 {
                     var imageData:BitmapData = BitmapData.fromBytes(data);
-                    frames = FlxAtlasFrames.fromSparrow(imageData, experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" +  + imageFile + ".xml"));
+                    frames = FlxAtlasFrames.fromSparrow(imageData, experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + imageFile + ".xml"));
                 };
 
                 http.request(false);
