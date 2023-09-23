@@ -133,12 +133,13 @@ class FreeplayOnlineState extends MusicBeatState
 			try {
 			experimental.online.PlayState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
 			experimental.online.PlayState.isStoryMode = false;
-			
-			experimental.online.PlayState.inst = new FlxSound();
-            InternetLoader.setURLSound("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + curSong + "/Inst.ogg", experimental.online.PlayState.inst);
 
-			experimental.online.PlayState.vocals = new FlxSound();
-		    if (experimental.online.PlayState.SONG.needsVoices) InternetLoader.setURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + curSong + "/Voices.ogg", experimental.online.PlayState.vocals);
+			experimental.online.PlayState.inst = new FlxSound();
+            InternetLoader.setURLSound("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + experimental.online.PlayState.SONG.song + "/Inst.ogg", experimental.online.PlayState.inst);
+
+            var vocals = experimental.online.PlayState.vocals;
+			vocals = new FlxSound();
+		    if (experimental.online.PlayState.SONG.needsVoices) InternetLoader.setURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + experimental.online.PlayState.SONG.song + "/Voices.ogg", vocals);
 
 			trace('CUR WEEK' + PlayState.storyWeek);
 			LoadingState.loadAndSwitchState(new experimental.online.PlayState());

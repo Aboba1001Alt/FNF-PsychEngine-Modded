@@ -66,11 +66,6 @@ import sys.io.File;
 
 import objects.Note.EventNote;
 import objects.*;
-//import states.stages.objects.*;
-
-#if (SScript >= "3.0.0")
-import tea.SScript;
-#end
 
 #if android
 import android.FlxCustomButton;
