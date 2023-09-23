@@ -1,6 +1,7 @@
 package experimental.online;
 
 import animateatlas.AtlasFrameMaker;
+import openfl.display.BitmapData;
 
 import flixel.util.FlxSort;
 
