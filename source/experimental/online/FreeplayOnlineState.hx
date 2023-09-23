@@ -134,8 +134,6 @@ class FreeplayOnlineState extends MusicBeatState
 			experimental.online.PlayState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
 			experimental.online.PlayState.isStoryMode = false;
 
-			experimental.online.PlayState.initSongs();
-
 			trace('CUR WEEK' + PlayState.storyWeek);
 			LoadingState.loadAndSwitchState(new experimental.online.PlayState());
 			} catch(e:String) {

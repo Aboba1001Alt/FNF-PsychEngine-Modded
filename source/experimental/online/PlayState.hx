@@ -315,9 +315,41 @@ class PlayState extends MusicBeatState
 
 		curSong = SONG.song;
 
+	    vocals = new FlxSound();
+	    var http = new haxe.Http("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + curSong + "/Voices.ogg");
+
+        http.onBytes = function(data:Bytes) {
+			var soundb:Sound = new Sound();
+            var byteArray:ByteArray = ByteArray.fromBytes(data);
+            soundb.loadCompressedDataFromByteArray(byteArray, byteArray.length);
+            vocals.loadEmbedded(soundb);
+        }
+
+        http.onError = function(e) {
+            lime.app.Application.current.window.alert(e.toString(), "error:");
+        }
+
+        http.request(false);
+
 		vocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);
-		
+
+	    inst = new FlxSound();
+	    var http = new haxe.Http("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + curSong + "/Inst.ogg");
+
+        http.onBytes = function(data:Bytes) {
+			var soundb:Sound = new Sound();
+            var byteArray:ByteArray = ByteArray.fromBytes(data);
+            soundb.loadCompressedDataFromByteArray(byteArray, byteArray.length);
+            inst.loadEmbedded(soundb);
+        }
+
+        http.onError = function(e) {
+            lime.app.Application.current.window.alert(e.toString(), "error:");
+        }
+
+        http.request(false);
+
 		FlxG.sound.list.add(inst);
 
 		persistentUpdate = true;
@@ -3043,12 +3075,4 @@ class PlayState extends MusicBeatState
 		return false;
 	}
 	#end
-
-	public function initSongs() {
-		inst = new FlxSound();
-        InternetLoader.setURLSound("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + SONG.song + "/Inst.ogg", inst);
-
-		vocals = new FlxSound();
-		if (SONG.needsVoices) InternetLoader.setURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + SONG.song + "/Voices.ogg", vocals);
-	}
 }
