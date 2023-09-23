@@ -14,7 +14,7 @@ class InternetLoader {
         {
             text = data;
         }
-        http.request();
+        http.request(false);
         return text;
     }
     public static function setLuaSpriteFromUrl(url:String) {
