@@ -149,6 +149,8 @@ class FreeplayOnlineState extends MusicBeatState
 			} catch(e:String) {
 				Main.toast.create('Error', 0xFFFF0000, 'while loading song:' + songs[curSelected].songName.toLowerCase());
 			}
+			inst.stop();
+			voices.stop();
 			FlxG.sound.music.volume = 0;
 		}
 		if(FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
