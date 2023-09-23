@@ -830,7 +830,7 @@ class PlayState extends MusicBeatState
 	public function startCountdown()
 	{
 	  #if android
-	  		MusicBeatState.androidc.visible = true;
+	  if (!botplay) MusicBeatState.androidc.visible = true;
 	  #end
 		if(startedCountdown) {
 			return false;
