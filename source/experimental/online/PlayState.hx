@@ -77,6 +77,8 @@ import modcharting.PlayfieldRenderer;
 
 import experimental.backend.AdditionalStageData;
 
+import openfl.utils.ByteArray;
+import openfl.media.Sound;
 import haxe.io.Bytes;
 
 class PlayState extends MusicBeatState
@@ -829,7 +831,7 @@ class PlayState extends MusicBeatState
 	public function startCountdown()
 	{
 	  #if android
-	  if (!botplay) MusicBeatState.androidc.visible = true;
+	  if (!cpuControlled) MusicBeatState.androidc.visible = true;
 	  #end
 		if(startedCountdown) {
 			return false;
