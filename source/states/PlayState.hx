@@ -76,8 +76,8 @@ import psychlua.LuaUtils;
 import psychlua.HScript;
 #end
 
-#if (SScript >= "3.0.0")
-import tea.SScript;
+#if (BrewScript)
+import brew.BrewScript;
 #end
 
 #if android
@@ -847,7 +847,7 @@ class PlayState extends MusicBeatState
 		
 		if(doPush)
 		{
-			if(SScript.global.exists(scriptFile))
+			if(BrewScript.global.exists(scriptFile))
 				doPush = false;
 
 			if(doPush) initHScript(scriptFile);
@@ -3341,7 +3341,7 @@ class PlayState extends MusicBeatState
 		
 		if(FileSystem.exists(scriptToLoad))
 		{
-			if (SScript.global.exists(scriptToLoad)) return false;
+			if (BrewScript.global.exists(scriptToLoad)) return false;
 	
 			initHScript(scriptToLoad);
 			return true;
@@ -3366,6 +3366,7 @@ class PlayState extends MusicBeatState
 			}
 
 			hscriptArray.push(newScript);
+			newScript.setSpecialObject(this);
 			if(newScript.exists('onCreate'))
 			{
 				var callValue = newScript.call('onCreate');
@@ -3386,7 +3387,7 @@ class PlayState extends MusicBeatState
 		catch(e)
 		{
 			addTextToDebug('ERROR ($file) - ' + e.message.substr(0, e.message.indexOf('\n')), FlxColor.RED);
-			var newScript:HScript = cast (SScript.global.get(file), HScript);
+			var newScript:HScript = cast (BrewScript.global.get(file), HScript);
 			if(newScript != null)
 			{
 				newScript.destroy();

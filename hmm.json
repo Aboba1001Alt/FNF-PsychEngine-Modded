@@ -58,6 +58,11 @@
       "version": "5.2.0"
     },
     {
+      "name": "BrewScript",
+      "type": "haxelib",
+      "version": null
+    },
+    {
       "name": "hxcpp-debug-server",
       "type": "haxelib",
       "version": null
