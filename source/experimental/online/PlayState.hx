@@ -77,7 +77,7 @@ import modcharting.PlayfieldRenderer;
 
 import experimental.backend.AdditionalStageData;
 
-import experimental.backend.InternetLoader;
+import haxe.io.Bytes;
 
 class PlayState extends MusicBeatState
 {
