@@ -450,6 +450,8 @@ class Note extends FlxSkewedSprite
 			active = false;
 			visible = false;
 		} else {
+			active = false;
+			visible = false;
 			destroy();
 		}
 	}
