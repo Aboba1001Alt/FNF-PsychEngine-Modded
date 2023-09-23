@@ -157,8 +157,8 @@ class FreeplayOnlineState extends MusicBeatState
 			inst.stop();
 			voices.stop();
 			experimental.online.PlayState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
-			inst.loadUrl("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + experimental.online.PlayState.SONG.song + "/Inst.ogg");
-			if (experimental.online.PlayState.SONG.needsVoices) voices.loadUrl("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + experimental.online.PlayState.SONG.song + "/Voices.ogg");
+			inst.loadUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + experimental.online.PlayState.SONG.song + "/Inst.ogg");
+			if (experimental.online.PlayState.SONG.needsVoices) voices.loadUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + experimental.online.PlayState.SONG.song + "/Voices.ogg");
 			inst.volume = 0.7;
 			voices.volume = 1;
 			inst.play();
