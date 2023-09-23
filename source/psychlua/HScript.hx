@@ -38,12 +38,12 @@ class HScript extends BrewScript
 		}
 		else
 		{
-			hs.doString(code);
+			hs.doScript(code);
 			@:privateAccess
-			if(hs.parsingExceptions != null && hs.parsingExceptions.length > 0)
+			if(hs.parsingException != null && hs.parsingException.length > 0)
 			{
 				@:privateAccess
-				for (e in hs.parsingExceptions)
+				for (e in hs.parsingException)
 					if(e != null)
 						PlayState.instance.addTextToDebug('ERROR ON LOADING (${hs.origin}): ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
 			}
@@ -236,7 +236,7 @@ class HScript extends BrewScript
 			var retVal:BrewCall = null;
 			#if (BrewScript)
 			initHaxeModule(funk);
-			funk.hscript.doString(codeToRun);
+			funk.hscript.doScript(codeToRun);
 			if(varsToBring != null)
 			{
 				for (key in Reflect.fields(varsToBring))
@@ -313,20 +313,10 @@ class HScript extends BrewScript
 		#end
 	}
 
-	#if (BrewScript)
-	override public function destroy()
-	{
-		origin = null;
-		parentLua = null;
-
-		super.destroy();
-	}
-	#else
 	public function destroy()
 	{
 		active = false;
 	}
-	#end
 }
 #end
 
