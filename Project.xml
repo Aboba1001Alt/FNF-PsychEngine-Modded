@@ -116,7 +116,7 @@
 	<haxedef name="openflPos" />
 	<haxedef name="hscriptPos" />
 	<haxelib name="extension-youtubeplayer" />
-	<haxelib name="flixel-window" />
+	<haxelib name="hxthread" />
 
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>

@@ -42,9 +42,9 @@ class ExperimentalOptions extends BaseOptionsMenu {
         );
         addOption(option);
 
-        var option: Option = new Option('Threading Loading',
-            "A test to make game faster, crashes without errors on Spamming Songs",
-            'threadedLoading',
+        var option: Option = new Option('Fast Gaming',
+            "A test to make game faster !still Test!",
+            'fastGaming',
             'bool'
         );
         addOption(option);

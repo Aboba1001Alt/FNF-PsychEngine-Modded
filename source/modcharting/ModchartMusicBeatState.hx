@@ -2,7 +2,6 @@ package modcharting;
 
 import flixel.addons.ui.FlxUIState;
 import modcharting.*;
-import flixelwindow.Window;
 
 class ModchartMusicBeatState extends FlxUIState
 {

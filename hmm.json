@@ -84,7 +84,7 @@
       "url": "https://github.com/Hiho2950/extension-youtubeplayer"
     },
     {
-      "name": "flixel-window",
+      "name": "hxthread",
       "type": "haxelib",
       "version": null
     }

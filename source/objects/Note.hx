@@ -446,7 +446,7 @@ class Note extends FlxSkewedSprite
 
 	public function destroyNote()
 	{
-		if (ClientPrefs.data.threadedLoading) {
+		if (ClientPrefs.data.fastGaming) {
 			active = false;
 			visible = false;
 		} else {
