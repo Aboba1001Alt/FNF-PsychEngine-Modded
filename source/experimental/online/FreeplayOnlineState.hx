@@ -26,6 +26,10 @@ import substates.ResetScoreSubState;
 
 import experimental.backend.InternetLoader;
 
+import openfl.utils.ByteArray;
+import openfl.media.Sound;
+import haxe.io.Bytes;
+
 using StringTools;
 
 class FreeplayOnlineState extends MusicBeatState
@@ -134,7 +138,7 @@ class FreeplayOnlineState extends MusicBeatState
 			experimental.online.PlayState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
 			experimental.online.PlayState.isStoryMode = false;
 
-			var http = new haxe.Http("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + curSong + "/Inst.ogg");
+			var http = new haxe.Http("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + experimental.online.PlayState.SONG.song + "/Inst.ogg");
 
 			http.onBytes = function(data:Bytes) {
 				experimental.online.PlayState.modinst = new Sound();
@@ -148,7 +152,7 @@ class FreeplayOnlineState extends MusicBeatState
 			http.request(false);
 
             if (experimental.online.PlayState.SONG.needsVoices) {
-			var http = new haxe.Http("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + curSong + "/Voices.ogg");
+			var http = new haxe.Http("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + experimental.online.PlayState.SONG.song + "/Voices.ogg");
 
 			http.onBytes = function(data:Bytes) {
 				experimental.online.PlayState.modvocals = new Sound();
