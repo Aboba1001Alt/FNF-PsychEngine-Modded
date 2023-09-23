@@ -40,12 +40,9 @@ class HScript extends BrewScript
 		{
 			hs.doScript(code);
 			@:privateAccess
-			if(hs.parsingException != null && hs.parsingException.length > 0)
+			if(hs.parsingException != null)
 			{
-				@:privateAccess
-				for (e in hs.parsingException)
-					if(e != null)
-						PlayState.instance.addTextToDebug('ERROR ON LOADING (${hs.origin}): ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
+				PlayState.instance.addTextToDebug('ERROR ON LOADING (${hs.origin}): ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
 			}
 		}
 		#end
