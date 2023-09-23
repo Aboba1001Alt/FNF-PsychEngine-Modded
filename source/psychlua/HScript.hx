@@ -195,7 +195,7 @@ class HScript extends BrewScript
 		#end
 	}
 
-	public function executeCode(?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):SCall
+	public function executeCode(?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):BrewCall
 	{
 		if (funcToRun == null) return null;
 
@@ -221,7 +221,7 @@ class HScript extends BrewScript
 		return callValue;
 	}
 
-	public function executeFunction(funcToRun:String = null, funcArgs:Array<Dynamic>):SCall
+	public function executeFunction(funcToRun:String = null, funcArgs:Array<Dynamic>):BrewCall
 	{
 		if (funcToRun == null)
 			return null;
@@ -233,7 +233,7 @@ class HScript extends BrewScript
 	{
 		#if LUA_ALLOWED
 		funk.addLocalCallback("runHaxeCode", function(codeToRun:String, ?varsToBring:Any = null, ?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):Dynamic {
-			var retVal:SCall = null;
+			var retVal:BrewCall = null;
 			#if (BrewScript)
 			initHaxeModule(funk);
 			funk.hscript.doString(codeToRun);
