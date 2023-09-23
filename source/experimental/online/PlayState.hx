@@ -3044,7 +3044,7 @@ class PlayState extends MusicBeatState
 	}
 	#end
 
-	public static function initSongs() {
+	public function initSongs() {
 		inst = new FlxSound();
         InternetLoader.setURLSound("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + SONG.song + "/Inst.ogg", inst);
 
