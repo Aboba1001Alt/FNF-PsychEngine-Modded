@@ -320,14 +320,8 @@ class PlayState extends MusicBeatState
 
 		curSong = SONG.song;
 
-		vocals = new FlxSound();
-		if (SONG.needsVoices) InternetLoader.setURLSound("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + curSong + "/Voices.ogg", vocals);
-
 		vocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);
-
-        inst = new FlxSound();
-        InternetLoader.setURLSound("https://github.com/Hiho2950/modsOnline/blob/main/songs/" + curSong + "/Inst.ogg", inst);
 		
 		FlxG.sound.list.add(inst);
 
