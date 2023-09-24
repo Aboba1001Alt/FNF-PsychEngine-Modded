@@ -25,10 +25,10 @@ class OnlineScript extends BrewScript
 		super(null, false, false);
 		var http = new haxe.Http(url);
 
-        http.onData = function (data:String)
+        http.onData = function(data:String)
         {
-            doScript(data);
 			preset();
+            doScript(data);
 			try {
 				execute();
 				if (exists("onCreate")) call("onCreate");
