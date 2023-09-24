@@ -32,7 +32,7 @@ class OnlineScript extends BrewScript
 			try {
 				execute();
 				if (exists("onCreate")) call("onCreate");
-				experimental.online.PlayState.instance.hscriptArray.push(this);
+				experimental.online.PlayOnlineState.instance.hscriptArray.push(this);
 			} catch(e) {
 				destroy();
 				Application.current.window.alert(e.toString(), "Error!");
@@ -55,7 +55,7 @@ class OnlineScript extends BrewScript
 		set('FlxTween', flixel.tweens.FlxTween);
 		set('FlxEase', flixel.tweens.FlxEase);
 		set('FlxColor', CustomFlxColor.instance);
-		set('PlayState', PlayState);
+		set('PlayOnlineState', PlayOnlineState);
 		set('Paths', Paths);
 		set('Conductor', Conductor);
 		set('ClientPrefs', ClientPrefs);
@@ -74,26 +74,26 @@ class OnlineScript extends BrewScript
 		// Functions & Variables
 		set('setVar', function(name:String, value:Dynamic)
 		{
-			experimental.online.PlayState.instance.variables.set(name, value);
+			experimental.online.PlayOnlineState.instance.variables.set(name, value);
 		});
 		set('getVar', function(name:String)
 		{
 			var result:Dynamic = null;
-			if(experimental.online.PlayState.instance.variables.exists(name)) result = experimental.online.PlayState.instance.variables.get(name);
+			if(experimental.online.PlayOnlineState.instance.variables.exists(name)) result = experimental.online.PlayOnlineState.instance.variables.get(name);
 			return result;
 		});
 		set('removeVar', function(name:String)
 		{
-			if(experimental.online.PlayState.instance.variables.exists(name))
+			if(experimental.online.PlayOnlineState.instance.variables.exists(name))
 			{
-				experimental.online.PlayState.instance.variables.remove(name);
+				experimental.online.PlayOnlineState.instance.variables.remove(name);
 				return true;
 			}
 			return false;
 		});
 		set('debugPrint', function(text:String, ?color:FlxColor = null) {
 			if(color == null) color = FlxColor.WHITE;
-			experimental.online.PlayState.instance.addTextToDebug(text, color);
+			experimental.online.PlayOnlineState.instance.addTextToDebug(text, color);
 		});
 
         set("setSpriteImage", function(sprite:FlxSprite, image:String) {
@@ -121,7 +121,7 @@ class OnlineScript extends BrewScript
 		});
 
 		set('this', this);
-		set('game', experimental.online.PlayState.instance);
+		set('game', experimental.online.PlayOnlineState.instance);
 		set('buildTarget', FunkinLua.getBuildTarget());
 		set('customSubstate', CustomSubstate.instance);
 		set('customSubstateName', CustomSubstate.name);
@@ -132,12 +132,12 @@ class OnlineScript extends BrewScript
 		set('Function_StopHScript', FunkinLua.Function_StopHScript);
 		set('Function_StopAll', FunkinLua.Function_StopAll);
 		
-		set('add', function(obj:FlxBasic) experimental.online.PlayState.instance.add(obj));
-		set('addBehindGF', function(obj:FlxBasic) experimental.online.PlayState.instance.addBehindGF(obj));
-		set('addBehindDad', function(obj:FlxBasic) experimental.online.PlayState.instance.addBehindDad(obj));
-		set('addBehindBF', function(obj:FlxBasic) experimental.online.PlayState.instance.addBehindBF(obj));
-		set('insert', function(pos:Int, obj:FlxBasic) experimental.online.PlayState.instance.insert(pos, obj));
-		set('remove', function(obj:FlxBasic, splice:Bool = false) experimental.online.PlayState.instance.remove(obj, splice));
+		set('add', function(obj:FlxBasic) experimental.online.PlayOnlineState.instance.add(obj));
+		set('addBehindGF', function(obj:FlxBasic) experimental.online.PlayOnlineState.instance.addBehindGF(obj));
+		set('addBehindDad', function(obj:FlxBasic) experimental.online.PlayOnlineState.instance.addBehindDad(obj));
+		set('addBehindBF', function(obj:FlxBasic) experimental.online.PlayOnlineState.instance.addBehindBF(obj));
+		set('insert', function(pos:Int, obj:FlxBasic) experimental.online.PlayOnlineState.instance.insert(pos, obj));
+		set('remove', function(obj:FlxBasic, splice:Bool = false) experimental.online.PlayOnlineState.instance.remove(obj, splice));
 		#end
 	}
 

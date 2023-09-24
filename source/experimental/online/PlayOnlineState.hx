@@ -1,10 +1,10 @@
 package experimental.online;
 
 // If you want to add your stage to the game, copy states/stages/Template.hx,
-// and put your stage code there, then, on PlayState, search for
+// and put your stage code there, then, on PlayOnlineState, search for
 // "switch (curStage)", and add your stage to that list.
 
-// If you want to code Events, you can either code it on a Stage file or on PlayState, if you're doing the latter, search for:
+// If you want to code Events, you can either code it on a Stage file or on PlayOnlineState, if you're doing the latter, search for:
 // "function eventPushed" - Only called *one time* when the game loads, use it for precaching events that use the same assets, no matter the values
 // "function eventPushedUnique" - Called one time per event, use it for precaching events that uses different assets based on its values
 // "function eventEarlyTrigger" - Used for making your event start a few MILLISECONDS earlier
@@ -99,7 +99,7 @@ import flixel.group.FlxGroup;
 
 using StringTools;
 
-class PlayState extends MusicBeatState
+class PlayOnlineState extends MusicBeatState
 {
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
@@ -282,7 +282,7 @@ class PlayState extends MusicBeatState
 	var boyfriendIdled:Bool = false;
 
 	// Lua shit
-	public static var instance:PlayState;
+	public static var instance:PlayOnlineState;
 	public var introSoundsSuffix:String = '';
 
 	// Less laggy controls
@@ -367,7 +367,7 @@ class PlayState extends MusicBeatState
 
 		Conductor.mapBPMChanges(SONG);
 		Conductor.bpm = SONG.bpm;
-		states.PlayState.SONG = SONG;
+		states.PlayOnlineState.SONG = SONG;
 
 		#if desktop
 		storyDifficultyText = Difficulty.getString();
@@ -971,7 +971,7 @@ class PlayState extends MusicBeatState
 		spr.scrollFactor.set();
 		spr.updateHitbox();
 
-		if (PlayState.isPixelStage)
+		if (PlayOnlineState.isPixelStage)
 			spr.setGraphicSize(Std.int(spr.width * daPixelZoom));
 
 		spr.screenCenter();
@@ -1138,7 +1138,7 @@ class PlayState extends MusicBeatState
 	private function generateSong(dataPath:String):Void
 	{
 		// FlxG.log.add(ChartParser.parse());
-		songSpeed = PlayState.SONG.speed;
+		songSpeed = PlayOnlineState.SONG.speed;
 		songSpeedType = ClientPrefs.getGameplaySetting('scrolltype');
 		switch(songSpeedType)
 		{
@@ -1259,7 +1259,7 @@ class PlayState extends MusicBeatState
 						unspawnNotes.push(sustainNote);
 						
 						sustainNote.correctionOffset = swagNote.height / 2;
-						if(!PlayState.isPixelStage)
+						if(!PlayOnlineState.isPixelStage)
 						{
 							if(oldNote.isSustainNote)
 							{
@@ -2263,7 +2263,7 @@ class PlayState extends MusicBeatState
 		if (stageUI != "normal")
 		{
 			uiPrefix = '${stageUI}UI/';
-			if (PlayState.isPixelStage) uiSuffix = '-pixel';
+			if (PlayOnlineState.isPixelStage) uiSuffix = '-pixel';
 		}
 
 		for (rating in ratingsData)
@@ -2310,7 +2310,7 @@ class PlayState extends MusicBeatState
 		if (stageUI != "normal")
 		{
 			uiPrefix = '${stageUI}UI/';
-			if (PlayState.isPixelStage) uiSuffix = '-pixel';
+			if (PlayOnlineState.isPixelStage) uiSuffix = '-pixel';
 			antialias = !isPixelStage;
 		}
         if (!ClientPrefs.data.lessLag) {
@@ -2348,7 +2348,7 @@ class PlayState extends MusicBeatState
 			lastRating = rating;
 		}
 
-		if (!PlayState.isPixelStage)
+		if (!PlayOnlineState.isPixelStage)
 		{
 			rating.setGraphicSize(Std.int(rating.width * 0.7));
 			comboSpr.setGraphicSize(Std.int(comboSpr.width * 0.7));
@@ -2401,7 +2401,7 @@ class PlayState extends MusicBeatState
 			if (!ClientPrefs.data.comboStacking)
 				lastScore.push(numScore);
 
-			if (!PlayState.isPixelStage) numScore.setGraphicSize(Std.int(numScore.width * 0.5));
+			if (!PlayOnlineState.isPixelStage) numScore.setGraphicSize(Std.int(numScore.width * 0.5));
 			else numScore.setGraphicSize(Std.int(numScore.width * daPixelZoom));
 			numScore.updateHitbox();
 
@@ -3320,17 +3320,38 @@ class StageData {
 					if (Object.alpha != null)
 						Sprite.alpha = Object.alpha;
 
-					PlayState.instance.modchartSprites.set(Object.name, Sprite);
+					PlayOnlineState.instance.modchartSprites.set(Object.name, Sprite);
 
 					if(Object.front != null && Object.front)
-						psychlua.LuaUtils.getTargetInstance().add(Sprite);
+						PlayOnlineState.add(Sprite);
 					else
-						PlayState.instance.insert(PlayState.instance.members.indexOf(psychlua.LuaUtils.getLowestCharacterGroup()), Sprite);
+						PlayOnlineState.instance.insert(PlayOnlineState.instance.members.indexOf(getLowestCharacterGroup()), Sprite);
 				}
 			}
 			return stage_Data;
 		}
 		return null;
+	}
+
+	public static inline function getLowestCharacterGroup():FlxSpriteGroup
+	{
+		var group:FlxSpriteGroup = PlayOnlineState.instance.gfGroup;
+		var pos:Int = PlayOnlineState.instance.members.indexOf(group);
+
+		var newPos:Int = PlayOnlineState.instance.members.indexOf(PlayOnlineState.instance.boyfriendGroup);
+		if(newPos < pos)
+		{
+			group = PlayOnlineState.instance.boyfriendGroup;
+			pos = newPos;
+		}
+		
+		newPos = PlayOnlineState.instance.members.indexOf(PlayOnlineState.instance.dadGroup);
+		if(newPos < pos)
+		{
+			group = PlayOnlineState.instance.dadGroup;
+			pos = newPos;
+		}
+		return group;
 	}
 
 	public static function dummy():AddedStageData

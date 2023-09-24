@@ -141,11 +141,11 @@ class FreeplayOnlineState extends MusicBeatState
 		if (accepted)
 		{
 			try {
-			experimental.online.PlayState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
-			experimental.online.PlayState.isStoryMode = false;
+			experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
+			experimental.online.PlayOnlineState.isStoryMode = false;
 
-			trace('CUR WEEK' + PlayState.storyWeek);
-			LoadingState.loadAndSwitchState(new experimental.online.PlayState());
+			trace('CUR WEEK' + PlaySOnlinetate.storyWeek);
+			LoadingState.loadAndSwitchState(new experimental.online.PlayOnlineState());
 			} catch(e:String) {
 				Main.toast.create('Error', 0xFFFF0000, 'while loading song:' + songs[curSelected].songName.toLowerCase());
 			}
@@ -158,13 +158,13 @@ class FreeplayOnlineState extends MusicBeatState
 			FlxG.sound.music.volume = 0;
 			inst.stop();
 			voices.stop();
-			experimental.online.PlayState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
-			inst.loadUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + experimental.online.PlayState.SONG.song + "/Inst.ogg");
-			if (experimental.online.PlayState.SONG.needsVoices) voices.loadUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + experimental.online.PlayState.SONG.song + "/Voices.ogg");
+			experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
+			inst.loadUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + experimental.online.PlayOnlineState.SONG.song + "/Inst.ogg");
+			if (experimental.online.PlayOnlineState.SONG.needsVoices) voices.loadUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + experimental.online.PlayOnlineState.SONG.song + "/Voices.ogg");
 			inst.volume = 0.7;
 			voices.volume = 1;
 			inst.play();
-			if (experimental.online.PlayState.SONG.needsVoices) voices.play();
+			if (experimental.online.PlayOnlineState.SONG.needsVoices) voices.play();
 		}
 	}
 
