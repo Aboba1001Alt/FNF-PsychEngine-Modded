@@ -22,7 +22,7 @@ class OnlineScript extends BrewScript
 	override public function new(url:String)
 	{
 		super(null, false, false);
-		doScript(experimental.backend.InternetLoader.getTextFromUrl(url));
+		doFile(experimental.backend.InternetLoader.getTextFromUrl(url));
 		preset();
 		execute();
 	}
