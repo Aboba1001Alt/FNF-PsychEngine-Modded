@@ -1,4 +1,4 @@
-package experimental.online;
+package experimental.online.objects;
 
 import animateatlas.AtlasFrameMaker;
 import openfl.display.BitmapData;

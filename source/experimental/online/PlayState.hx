@@ -81,8 +81,8 @@ import openfl.utils.ByteArray;
 import openfl.media.Sound;
 import haxe.io.Bytes;
 
-import experimental.online.CharacterOnline;
-import experimental.online.OnlineHealthIcon;
+import experimental.online.objects.CharacterOnline;
+import experimental.online.objects.OnlineHealthIcon;
 
 class PlayState extends MusicBeatState
 {

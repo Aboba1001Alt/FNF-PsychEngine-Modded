@@ -1,4 +1,4 @@
-package experimental.online;
+package experimental.online.objects;
 
 import flixel.FlxSprite;
 import openfl.utils.Assets as OpenFlAssets;
@@ -47,7 +47,7 @@ class OnlineHealthIcon extends FlxSprite
 
             var file:Dynamic = null;
 
-			var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + name + ".png");
+			var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/icons/icon-" + char + ".png");
 
 			http.onBytes = function(data:Bytes)
 			{
