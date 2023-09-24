@@ -41,8 +41,8 @@ import states.FreeplayState;
 import states.editors.ChartingState;
 import states.editors.CharacterEditorState;
 
-import substates.PauseSubState;
-import substates.GameOverSubstate;
+import experimental.online.substates.PauseSubState;
+import experimental.online.substates.GameOverSubstate;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
