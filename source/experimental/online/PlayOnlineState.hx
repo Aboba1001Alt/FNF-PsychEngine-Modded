@@ -3334,7 +3334,7 @@ class StageData {
 		return null;
 	}
 
-	public static inline function getLowestCharacterGroup():FlxSpriteGroup
+	public static function getLowestCharacterGroup():FlxSpriteGroup
 	{
 		var group:FlxSpriteGroup = PlayOnlineState.instance.gfGroup;
 		var pos:Int = PlayOnlineState.instance.members.indexOf(group);
