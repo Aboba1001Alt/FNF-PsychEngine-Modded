@@ -26,6 +26,8 @@ class OnlineScript extends BrewScript
 		preset();
 		try {
 			execute();
+			if (exists("onCreate")) call("onCreate");
+			experimental.online.PlayState.instance.hscriptArray.pu
 		} catch(e) {
 			Application.current.window.alert(e.toString(), "Error!");
 		}
