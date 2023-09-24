@@ -14,6 +14,7 @@ import haxe.io.Bytes;
 import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.display.BitmapData;
 import flixel.FlxSprite;
+import lime.app.Application;
 
 #if (HSCRIPT_ALLOWED && BrewScript)
 import brew.BrewScript;
