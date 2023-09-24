@@ -384,11 +384,11 @@ class PlayState extends MusicBeatState
 		GameOverSubstate.resetVariables();
 		songName = Paths.formatToSongPath(SONG.song);
 		if(SONG.stage == null || SONG.stage.length < 1) {
-			SONG.stage = StageData.vanillaSongStage(songName);
+			SONG.stage = "stage";
 		}
 		curStage = SONG.stage;
 
-		var stageData:StageFile = StageData.getStageFile(curStage);
+		var stageData:StageFile = StageData.updateStage(curStage);
 		if(stageData == null) { //Stage couldn't be found, create a dummy stage for preventing a crash
 			stageData = StageData.dummy();
 		}
@@ -3230,4 +3230,181 @@ class PlayState extends MusicBeatState
 		return false;
 	}
 	#end
+}
+
+class StageData {
+	public var stage:String = "";
+
+	private var stage_Data:AddedStageData;
+
+	public var stage_Objects:Array<Array<Dynamic>> = [];
+
+	public static function updateStage(?newStage:String) {
+		if (newStage != null)
+			stage = newStage;
+
+		if (stage != "") {
+			var JSON_Data:String = "";
+
+			JSON_Data = experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/stages/" + stage + ".json");
+			stage_Data = cast Json.parse(JSON_Data);
+		}
+
+		if (stage != "") {
+			switch (stage) {
+				// CUSTOM SHIT
+				default:
+					{
+						if (stage_Data != null) {
+							var null_Object_Name_Loop:Int = 0;
+
+							for (Object in stage_Data.objects) {
+								var Sprite = new psychlua.ModchartSprite(Object.position[0], Object.position[1]);
+
+								if (Object.color != null && Object.color != [])
+									Sprite.color = FlxColor.fromRGB(Object.color[0], Object.color[1], Object.color[2]);
+
+								Sprite.antialiasing = Object.antialiased;
+								Sprite.scrollFactor.set(Object.scroll_Factor[0], Object.scroll_Factor[1]);
+
+								if (Object.name != null && Object.name != "")
+									stage_Objects.push([Object.name, Sprite, Object]);
+								else {
+									stage_Objects.push(["undefinedSprite" + null_Object_Name_Loop, Sprite, Object]);
+									null_Object_Name_Loop++;
+								}
+
+								if (Object.is_Animated) {
+									var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + stage + "/" + Object.file_Name + ".png");
+
+									http.onBytes = function(data:Bytes)
+									{
+										var imageData:BitmapData = BitmapData.fromBytes(data);
+										Sprite.frames = FlxAtlasFrames.fromSparrow(imageData, experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + stage + "/" + Object.file_Name + ".xml"));
+									};
+
+									http.request(false);
+
+									for (Animation in Object.animations) {
+										var Anim_Name = Animation.name;
+
+										if (Animation.indices == null) {
+											Sprite.animation.addByPrefix(Anim_Name, Animation.animation_name, Animation.fps, Animation.looped);
+										} else if (Animation.indices.length == 0) {
+											Sprite.animation.addByPrefix(Anim_Name, Animation.animation_name, Animation.fps, Animation.looped);
+										} else {
+											Sprite.animation.addByIndices(Anim_Name, Animation.animation_name, Animation.indices, "", Animation.fps,
+												Animation.looped);
+										}
+									}
+
+									if (Object.start_Animation != "" && Object.start_Animation != null && Object.start_Animation != "null")
+										Sprite.animation.play(Object.start_Animation);
+								} else {
+									var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + stage + "/" + Object.file_Name + ".png");
+
+									http.onBytes = function(data:Bytes)
+									{
+										var imageData:BitmapData = BitmapData.fromBytes(data);
+										Sprite.loadGraphic(imageData);
+									};
+
+									http.request(false);
+								}
+
+								if (Object.uses_Frame_Width)
+									Sprite.setGraphicSize(Std.int(Sprite.frameWidth * Object.scale));
+								else
+									Sprite.setGraphicSize(Std.int(Sprite.width * Object.scale));
+
+								if (Object.updateHitbox || Object.updateHitbox == null)
+									Sprite.updateHitbox();
+
+								if (Object.alpha != null)
+									Sprite.alpha = Object.alpha;
+
+                                PlayState.instance.modchartSprites.set(Object.name, Sprite);
+
+								if(Object.front != null && Object.front)
+                                    psychlua.LuaUtils.getTargetInstance().add(Sprite);
+                                else
+                                    PlayState.instance.insert(PlayState.instance.members.indexOf(psychlua.LuaUtils.getLowestCharacterGroup()), Sprite);
+							}
+						}
+					}
+			}
+		}
+	}
+
+	public static function dummy():AddedStageData
+	{
+		return {
+			objects: [],
+
+			directory: "",
+			defaultZoom: 0.9,
+			isPixelStage: false,
+			stageUI: "normal",
+
+			boyfriend: [770, 100],
+			girlfriend: [400, 130],
+			opponent: [100, 100],
+			hide_girlfriend: false,
+
+			camera_boyfriend: [0, 0],
+			camera_opponent: [0, 0],
+			camera_girlfriend: [0, 0],
+			camera_speed: 1
+		};
+	}
+}
+
+typedef AddedStageData = {
+	var objects:Array<StageObject>;
+
+	var directory:String;
+	var defaultZoom:Float;
+	var isPixelStage:Bool;
+	var stageUI:String;
+
+	var boyfriend:Array<Dynamic>;
+	var girlfriend:Array<Dynamic>;
+	var opponent:Array<Dynamic>;
+	var hide_girlfriend:Bool;
+
+	var camera_boyfriend:Array<Float>;
+	var camera_opponent:Array<Float>;
+	var camera_girlfriend:Array<Float>;
+	var camera_speed:Null<Float>;
+}
+
+typedef StageObject = {
+	// General Sprite Object Data //
+    var name:String;
+	var position:Array<Float>;
+	var scale:Float;
+	var antialiased:Bool;
+	var scroll_Factor:Array<Float>;
+
+	var color:Array<Int>;
+	var uses_Frame_Width:Bool;
+	var layer:Null<String>;
+	var alpha:Null<Float>;
+    var front:Null<Bool>;
+	var updateHitbox:Null<Bool>;
+	// Image Info //
+	var file_Name:String;
+	var is_Animated:Bool;
+	// Animations //
+	var animations:Array<CharacterAnimation>;
+	var start_Animation:String;
+}
+
+typedef CharacterAnimation =
+{
+	var name:String;
+	var animation_name:String;
+	var indices:Null<Array<Int>>;
+	var fps:Int;
+	var looped:Bool;
 }
