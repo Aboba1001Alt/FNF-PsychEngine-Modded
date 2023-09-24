@@ -93,7 +93,7 @@ class HScript extends BrewScript
 		});
 
         set("setAnimatedSpriteImage", function(sprite:FlxSprite, image:String) {
-            var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + imageFile + ".png");
+            var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + image + ".png");
 
             http.onBytes = function(data:Bytes)
             {

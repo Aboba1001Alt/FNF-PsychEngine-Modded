@@ -3010,13 +3010,13 @@ class PlayState extends MusicBeatState
 
 	public function initHScript()
 	{
+		var newScript:OnlineScript = new OnlineScript("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/data/" + SONG.song.toLowerCase() + "/script.hx");
 		try
 		{
-			var newScript:OnlineScript = new OnlineScript("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/data/" + SONG.song.toLowerCase() + "/script.hx");
 			@:privateAccess
 			if(newScript.parsingException != null)
 			{
-				addTextToDebug('ERROR ON LOADING ($file): ${newScript.parsingException.message.substr(0, newScript.parsingException.message.indexOf('\n'))}', FlxColor.RED);
+				addTextToDebug('ERROR ON LOADING : ${newScript.parsingException.message.substr(0, newScript.parsingException.message.indexOf('\n'))}', FlxColor.RED);
 				newScript.destroy();
 				return;
 			}
@@ -3030,20 +3030,19 @@ class PlayState extends MusicBeatState
 				{
 					for (e in callValue.exceptions)
 						if (e != null)
-							addTextToDebug('ERROR ($file: onCreate) - ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
+							addTextToDebug('ERROR (onCreate) - ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
 
 					newScript.destroy();
 					hscriptArray.remove(newScript);
-					trace('failed to initialize sscript interp!!! ($file)');
+					trace('failed to initialize sscript interp!!!');
 				}
-				else trace('initialized sscript interp successfully: $file');
+				else trace('initialized sscript interp successfully');
 			}
 			
 		}
 		catch(e)
 		{
-			addTextToDebug('ERROR ($file) - ' + e.message.substr(0, e.message.indexOf('\n')), FlxColor.RED);
-			var newScript:OnlineScript = cast (BrewScript.global.get(file), HScript);
+			addTextToDebug('ERROR - ' + e.message.substr(0, e.message.indexOf('\n')), FlxColor.RED);
 			if(newScript != null)
 			{
 				newScript.destroy();
