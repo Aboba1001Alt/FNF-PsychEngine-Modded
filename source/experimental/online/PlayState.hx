@@ -2978,6 +2978,7 @@ class PlayState extends MusicBeatState
 			var myValue:Dynamic = null;
 			try
 			{
+				if (script.exists(funcToCall)) {
 				var callValue = script.call(funcToCall, args);
 				if(!callValue.succeeded)
 				{
@@ -2996,6 +2997,7 @@ class PlayState extends MusicBeatState
 					
 					if(myValue != null && !excludeValues.contains(myValue))
 						returnVal = myValue;
+				}
 				}
 			}
 		}
