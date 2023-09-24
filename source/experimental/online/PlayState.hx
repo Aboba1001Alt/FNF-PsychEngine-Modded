@@ -87,6 +87,17 @@ import experimental.online.scripting.OnlineScript;
 
 import psychlua.*;
 
+import backend.CoolUtil;
+import haxe.Json;
+import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
+import flixel.system.FlxSound;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.group.FlxGroup;
+
+using StringTools;
+
 class PlayState extends MusicBeatState
 {
 	public static var STRUM_X = 42;
@@ -3013,7 +3024,8 @@ class PlayState extends MusicBeatState
 
 	public function initHScript()
 	{
-		var newScript:OnlineScript = new OnlineScript("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/data/" + SONG.song + "/script.hx");
+		var newScript:OnlineScript = new OnlineScript(experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/data/" + SONG.song + "/script.hx"));
+		newScript.setSpecialObject(this);
 	}
 
 	function strumPlayAnim(isDad:Bool, id:Int, time:Float) {
