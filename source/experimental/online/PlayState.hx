@@ -79,6 +79,8 @@ import experimental.backend.AdditionalStageData;
 import openfl.utils.ByteArray;
 import openfl.media.Sound;
 import haxe.io.Bytes;
+import flixel.graphics.frames.FlxAtlasFrames;
+import openfl.display.BitmapData;
 
 import experimental.online.objects.CharacterOnline;
 import experimental.online.objects.OnlineHealthIcon;
