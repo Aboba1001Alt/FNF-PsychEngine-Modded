@@ -3234,9 +3234,9 @@ class PlayState extends MusicBeatState
 class StageData {
 	public static var stage:String = "";
 
-	private var stage_Data:AddedStageData;
+	private static var stage_Data:AddedStageData;
 
-	public var stage_Objects:Array<Array<Dynamic>> = [];
+	public static var stage_Objects:Array<Array<Dynamic>> = [];
 
 	public static function updateStage(?newStage:String) {
 		if (newStage != null)
