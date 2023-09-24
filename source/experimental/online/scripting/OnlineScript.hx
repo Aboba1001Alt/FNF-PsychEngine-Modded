@@ -34,6 +34,7 @@ class OnlineScript extends BrewScript
 				if (exists("onCreate")) call("onCreate");
 				experimental.online.PlayState.instance.hscriptArray.push(this);
 			} catch(e) {
+				destroy();
 				Application.current.window.alert(e.toString(), "Error!");
 			}
         }
@@ -68,6 +69,7 @@ class OnlineScript extends BrewScript
 		#end
 		set('ShaderFilter', openfl.filters.ShaderFilter);
 		set('StringTools', StringTools);
+		set('FlxSpriteGroup',flixel.group.FlxSpriteGroup);
 
 		// Functions & Variables
 		set('setVar', function(name:String, value:Dynamic)
