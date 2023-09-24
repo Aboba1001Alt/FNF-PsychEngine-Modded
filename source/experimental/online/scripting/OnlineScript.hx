@@ -17,7 +17,7 @@ import flixel.FlxSprite;
 
 #if (HSCRIPT_ALLOWED && BrewScript)
 import brew.BrewScript;
-class HScript extends BrewScript
+class OnlineScript extends BrewScript
 {
 	override public function new(url:String)
 	{
