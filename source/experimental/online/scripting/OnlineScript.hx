@@ -21,9 +21,6 @@ class HScript extends BrewScript
 {
 	override public function new(url:String)
 	{
-		if (file == null)
-			file = '';
-			
 		super(null, false, false);
 		doScript(experimental.backend.InternetLoader.getTextFromUrl(url));
 		preset();
@@ -101,7 +98,7 @@ class HScript extends BrewScript
             http.onBytes = function(data:Bytes)
             {
                 var imageData:BitmapData = BitmapData.fromBytes(data);
-                frames = FlxAtlasFrames.fromSparrow(imageData, experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + imageFile + ".xml"));
+                sprite.frames = FlxAtlasFrames.fromSparrow(imageData, experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + image + ".xml"));
             };
 
             http.request(false);

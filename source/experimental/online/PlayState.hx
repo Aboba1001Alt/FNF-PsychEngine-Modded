@@ -85,6 +85,8 @@ import experimental.online.objects.CharacterOnline;
 import experimental.online.objects.OnlineHealthIcon;
 import experimental.online.scripting.OnlineScript;
 
+import psychlua.*;
+
 class PlayState extends MusicBeatState
 {
 	public static var STRUM_X = 42;
