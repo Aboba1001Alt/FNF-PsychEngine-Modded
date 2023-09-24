@@ -27,7 +27,7 @@ class OnlineScript extends BrewScript
 
         http.onData = function (data:String)
         {
-            doScript(url);
+            doScript(data);
 			preset();
 			try {
 				execute();
@@ -37,7 +37,7 @@ class OnlineScript extends BrewScript
 				Application.current.window.alert(e.toString(), "Error!");
 			}
         }
-		
+
         http.request(false);
 	}
 
