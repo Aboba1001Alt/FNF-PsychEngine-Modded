@@ -5,6 +5,10 @@ import openfl.utils.Assets as OpenFlAssets;
 import backend.ClientPrefs;
 import backend.Paths;
 
+import openfl.display.BitmapData;
+import openfl.utils.ByteArray;
+import haxe.io.Bytes;
+
 using StringTools;
 
 class OnlineHealthIcon extends FlxSprite
