@@ -37,12 +37,12 @@ class PauseSubState extends MusicBeatSubstate
 		super();
 		if(Difficulty.list.length < 2) menuItemsOG.remove('Change Difficulty'); //No need to change difficulty if there is only one!
 
-		if(PlayState.chartingMode)
+		if(PlayOnlineState.chartingMode)
 		{
 			menuItemsOG.insert(2, 'Leave Charting Mode');
 			
 			var num:Int = 0;
-			if(!PlayState.instance.startingSong)
+			if(!PlayOnlineState.instance.startingSong)
 			{
 				num = 1;
 				menuItemsOG.insert(3, 'Skip Time');
@@ -76,13 +76,13 @@ class PauseSubState extends MusicBeatSubstate
 		bg.scrollFactor.set();
 		add(bg);
 
-		var levelInfo:FlxText = new FlxText(20, 15, 0, experimental.online.PlayState.SONG.song, 32);
+		var levelInfo:FlxText = new FlxText(20, 15, 0, experimental.online.PlayOnlineState.SONG.song, 32);
 		levelInfo.scrollFactor.set();
 		levelInfo.setFormat(Paths.font("vcr.ttf"), 32);
 		levelInfo.updateHitbox();
 		add(levelInfo);
 
-		var blueballedTxt:FlxText = new FlxText(20, 15 + 64, 0, "Blueballed: " + PlayState.deathCounter, 32);
+		var blueballedTxt:FlxText = new FlxText(20, 15 + 64, 0, "Blueballed: " + PlayOnlineState.deathCounter, 32);
 		blueballedTxt.scrollFactor.set();
 		blueballedTxt.setFormat(Paths.font('vcr.ttf'), 32);
 		blueballedTxt.updateHitbox();
@@ -113,7 +113,7 @@ class PauseSubState extends MusicBeatSubstate
 		add(missingText);
 
 		#if mobile
-		if (PlayState.chartingMode){
+		if (PlayOnlineState.chartingMode){
 			addVirtualPad(FULL, A);
 		}else{
 			addVirtualPad(UP_DOWN, A);
@@ -187,13 +187,13 @@ class PauseSubState extends MusicBeatSubstate
 				try{
 					if(menuItems.length - 1 != curSelected && difficultyChoices.contains(daSelected)) {
 
-						var name:String = PlayState.SONG.song;
-						experimental.online.PlayState.SONG = Song.loadJsonFromUrl(name);
-						experimental.online.PlayState.storyDifficulty = curSelected;
+						var name:String = PlayOnlineState.SONG.song;
+						experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(name);
+						experimental.online.PlayOnlineState.storyDifficulty = curSelected;
 						MusicBeatState.resetState();
 						FlxG.sound.music.volume = 0;
-						experimental.online.PlayState.changedDifficulty = true;
-						experimental.online.PlayState.chartingMode = false;
+						experimental.online.PlayOnlineState.changedDifficulty = true;
+						experimental.online.PlayOnlineState.chartingMode = false;
 						return;
 					}					
 				}catch(e:Dynamic){
@@ -221,54 +221,54 @@ class PauseSubState extends MusicBeatSubstate
 				case "Resume":
 					close();
 				case 'Toggle Practice Mode':
-					PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
-					PlayState.changedDifficulty = true;
-					practiceText.visible = PlayState.instance.practiceMode;
+					PlayOnlineState.instance.practiceMode = !PlayOnlineState.instance.practiceMode;
+					PlayOnlineState.changedDifficulty = true;
+					practiceText.visible = PlayOnlineState.instance.practiceMode;
 				case "Restart Song":
 					restartSong();
 				case "Leave Charting Mode":
 					restartSong();
-					PlayState.chartingMode = false;
+					PlayOnlineState.chartingMode = false;
 				case 'Skip Time':
 					if(curTime < Conductor.songPosition)
 					{
-						PlayState.startOnTime = curTime;
+						PlayOnlineState.startOnTime = curTime;
 						restartSong(true);
 					}
 					else
 					{
 						if (curTime != Conductor.songPosition)
 						{
-							PlayState.instance.clearNotesBefore(curTime);
-							PlayState.instance.setSongTime(curTime);
+							PlayOnlineState.instance.clearNotesBefore(curTime);
+							PlayOnlineState.instance.setSongTime(curTime);
 						}
 						close();
 					}
 				case 'End Song':
 					close();
-					experimental.online.PlayState.instance.notes.clear();
-					experimental.online.PlayState.instance.unspawnNotes = [];
-					experimental.online.PlayState.instance.finishSong(true);
+					experimental.online.PlayOnlineState.instance.notes.clear();
+					experimental.online.PlayOnlineState.instance.unspawnNotes = [];
+					experimental.online.PlayOnlineState.instance.finishSong(true);
 				case 'Toggle Botplay':
-					experimental.online.PlayState.instance.cpuControlled = !experimental.online.PlayState.instance.cpuControlled;
-					experimental.online.PlayState.changedDifficulty = true;
-					experimental.online.PlayState.instance.botplayTxt.visible = experimental.online.PlayState.instance.cpuControlled;
-					experimental.online.PlayState.instance.botplayTxt.alpha = 1;
-					experimental.online.PlayState.instance.botplaySine = 0;
+					experimental.online.PlayOnlineState.instance.cpuControlled = !experimental.online.PlayOnlineState.instance.cpuControlled;
+					experimental.online.PlayOnlineState.changedDifficulty = true;
+					experimental.online.PlayOnlineState.instance.botplayTxt.visible = experimental.online.PlayOnlineState.instance.cpuControlled;
+					experimental.online.PlayOnlineState.instance.botplayTxt.alpha = 1;
+					experimental.online.PlayOnlineState.instance.botplaySine = 0;
 				case "Exit to menu":
 					#if desktop DiscordClient.resetClientID(); #end
-					experimental.online.PlayState.deathCounter = 0;
-					experimental.online.PlayState.seenCutscene = false;
+					experimental.online.PlayOnlineState.deathCounter = 0;
+					experimental.online.PlayOnlineState.seenCutscene = false;
 
-					if(PlayState.isStoryMode) {
+					if(PlayOnlineState.isStoryMode) {
 						MusicBeatState.switchState(new StoryMenuState());
 					} else {
 						MusicBeatState.switchState(new FreeplayOnlineState());
 					}
-					PlayState.cancelMusicFadeTween();
+					PlayOnlineState.cancelMusicFadeTween();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
-					experimental.online.PlayState.changedDifficulty = false;
-					experimental.online.PlayState.chartingMode = false;
+					experimental.online.PlayOnlineState.changedDifficulty = false;
+					experimental.online.PlayOnlineState.chartingMode = false;
 					FlxG.camera.followLerp = 0;
 			}
 		}
@@ -288,9 +288,9 @@ class PauseSubState extends MusicBeatSubstate
 
 	public static function restartSong(noTrans:Bool = false)
 	{
-		PlayState.instance.paused = true; // For lua
+		PlayOnlineState.instance.paused = true; // For lua
 		FlxG.sound.music.volume = 0;
-		PlayState.instance.vocals.volume = 0;
+		PlayOnlineState.instance.vocals.volume = 0;
 
 		if(noTrans)
 		{

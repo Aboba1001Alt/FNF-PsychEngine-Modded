@@ -32,7 +32,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		loopSoundName = 'gameOver';
 		endSoundName = 'gameOverEnd';
 
-		var _song = PlayState.SONG;
+		var _song = PlayOnlineState.SONG;
 		if(_song != null)
 		{
 			if(_song.gameOverChar != null && _song.gameOverChar.trim().length > 0) characterName = _song.gameOverChar;
@@ -92,11 +92,11 @@ class GameOverSubstate extends MusicBeatSubstate
 		{
 			#if desktop DiscordClient.resetClientID(); #end
 			FlxG.sound.music.stop();
-			experimental.online.PlayState.deathCounter = 0;
-			experimental.online.PlayState.seenCutscene = false;
-			experimental.online.PlayState.chartingMode = false;
+			experimental.online.PlayOnlineState.deathCounter = 0;
+			experimental.online.PlayOnlineState.seenCutscene = false;
+			experimental.online.PlayOnlineState.chartingMode = false;
 
-			if (PlayState.isStoryMode)
+			if (PlayOnlineState.isStoryMode)
 				MusicBeatState.switchState(new StoryMenuState());
 			else
 				MusicBeatState.switchState(new FreeplayOnlineState());
@@ -121,7 +121,7 @@ class GameOverSubstate extends MusicBeatSubstate
 				if (boyfriend.animation.curAnim.finished && !playingDeathSound)
 				{
 					startedDeath = true;
-					if (PlayState.SONG.stage == 'tank')
+					if (PlayOnlineState.SONG.stage == 'tank')
 					{
 						playingDeathSound = true;
 						coolStartDeath(0.2);

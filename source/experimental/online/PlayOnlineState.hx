@@ -367,7 +367,7 @@ class PlayOnlineState extends MusicBeatState
 
 		Conductor.mapBPMChanges(SONG);
 		Conductor.bpm = SONG.bpm;
-		states.PlayOnlineState.SONG = SONG;
+		states.PlayState.SONG = SONG;
 
 		#if desktop
 		storyDifficultyText = Difficulty.getString();
@@ -3248,7 +3248,8 @@ class StageData {
 			var JSON_Data:String = "";
 
 			JSON_Data = experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/stages/" + stage + ".json");
-			stage_Data = cast Json.parse(JSON_Data);
+			if (JSON_Data != "") stage_Data = cast Json.parse(JSON_Data);
+			else stage_Data = null;
 		}
 
 		if (stage != "") {
@@ -3323,7 +3324,7 @@ class StageData {
 					PlayOnlineState.instance.modchartSprites.set(Object.name, Sprite);
 
 					if(Object.front != null && Object.front)
-						PlayOnlineState.add(Sprite);
+						PlayOnlineState.instance.add(Sprite);
 					else
 						PlayOnlineState.instance.insert(PlayOnlineState.instance.members.indexOf(getLowestCharacterGroup()), Sprite);
 				}
