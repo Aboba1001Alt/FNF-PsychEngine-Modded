@@ -12,7 +12,6 @@ package experimental.online;
 
 import backend.Achievements;
 import backend.Highscore;
-import backend.StageData;
 import backend.WeekData;
 import backend.Song;
 import backend.Section;
@@ -388,7 +387,7 @@ class PlayState extends MusicBeatState
 		}
 		curStage = SONG.stage;
 
-		var stageData:StageFile = StageData.updateStage(curStage);
+		var stageData:AddedStageData = StageData.updateStage(curStage);
 		if(stageData == null) { //Stage couldn't be found, create a dummy stage for preventing a crash
 			stageData = StageData.dummy();
 		}
@@ -3233,7 +3232,7 @@ class PlayState extends MusicBeatState
 }
 
 class StageData {
-	public var stage:String = "";
+	public static var stage:String = "";
 
 	private var stage_Data:AddedStageData;
 
@@ -3251,89 +3250,85 @@ class StageData {
 		}
 
 		if (stage != "") {
-			switch (stage) {
-				// CUSTOM SHIT
-				default:
-					{
-						if (stage_Data != null) {
-							var null_Object_Name_Loop:Int = 0;
+			if (stage_Data != null) {
+				var null_Object_Name_Loop:Int = 0;
 
-							for (Object in stage_Data.objects) {
-								var Sprite = new psychlua.ModchartSprite(Object.position[0], Object.position[1]);
+				for (Object in stage_Data.objects) {
+					var Sprite = new psychlua.ModchartSprite(Object.position[0], Object.position[1]);
 
-								if (Object.color != null && Object.color != [])
-									Sprite.color = FlxColor.fromRGB(Object.color[0], Object.color[1], Object.color[2]);
+					if (Object.color != null && Object.color != [])
+						Sprite.color = FlxColor.fromRGB(Object.color[0], Object.color[1], Object.color[2]);
 
-								Sprite.antialiasing = Object.antialiased;
-								Sprite.scrollFactor.set(Object.scroll_Factor[0], Object.scroll_Factor[1]);
+					Sprite.antialiasing = Object.antialiased;
+					Sprite.scrollFactor.set(Object.scroll_Factor[0], Object.scroll_Factor[1]);
 
-								if (Object.name != null && Object.name != "")
-									stage_Objects.push([Object.name, Sprite, Object]);
-								else {
-									stage_Objects.push(["undefinedSprite" + null_Object_Name_Loop, Sprite, Object]);
-									null_Object_Name_Loop++;
-								}
+					if (Object.name != null && Object.name != "")
+						stage_Objects.push([Object.name, Sprite, Object]);
+					else {
+						stage_Objects.push(["undefinedSprite" + null_Object_Name_Loop, Sprite, Object]);
+						null_Object_Name_Loop++;
+					}
 
-								if (Object.is_Animated) {
-									var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + stage + "/" + Object.file_Name + ".png");
+					if (Object.is_Animated) {
+						var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + stage + "/" + Object.file_Name + ".png");
 
-									http.onBytes = function(data:Bytes)
-									{
-										var imageData:BitmapData = BitmapData.fromBytes(data);
-										Sprite.frames = FlxAtlasFrames.fromSparrow(imageData, experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + stage + "/" + Object.file_Name + ".xml"));
-									};
+						http.onBytes = function(data:Bytes)
+						{
+							var imageData:BitmapData = BitmapData.fromBytes(data);
+							Sprite.frames = FlxAtlasFrames.fromSparrow(imageData, experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + stage + "/" + Object.file_Name + ".xml"));
+						};
 
-									http.request(false);
+						http.request(false);
 
-									for (Animation in Object.animations) {
-										var Anim_Name = Animation.name;
+						for (Animation in Object.animations) {
+							var Anim_Name = Animation.name;
 
-										if (Animation.indices == null) {
-											Sprite.animation.addByPrefix(Anim_Name, Animation.animation_name, Animation.fps, Animation.looped);
-										} else if (Animation.indices.length == 0) {
-											Sprite.animation.addByPrefix(Anim_Name, Animation.animation_name, Animation.fps, Animation.looped);
-										} else {
-											Sprite.animation.addByIndices(Anim_Name, Animation.animation_name, Animation.indices, "", Animation.fps,
-												Animation.looped);
-										}
-									}
-
-									if (Object.start_Animation != "" && Object.start_Animation != null && Object.start_Animation != "null")
-										Sprite.animation.play(Object.start_Animation);
-								} else {
-									var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + stage + "/" + Object.file_Name + ".png");
-
-									http.onBytes = function(data:Bytes)
-									{
-										var imageData:BitmapData = BitmapData.fromBytes(data);
-										Sprite.loadGraphic(imageData);
-									};
-
-									http.request(false);
-								}
-
-								if (Object.uses_Frame_Width)
-									Sprite.setGraphicSize(Std.int(Sprite.frameWidth * Object.scale));
-								else
-									Sprite.setGraphicSize(Std.int(Sprite.width * Object.scale));
-
-								if (Object.updateHitbox || Object.updateHitbox == null)
-									Sprite.updateHitbox();
-
-								if (Object.alpha != null)
-									Sprite.alpha = Object.alpha;
-
-                                PlayState.instance.modchartSprites.set(Object.name, Sprite);
-
-								if(Object.front != null && Object.front)
-                                    psychlua.LuaUtils.getTargetInstance().add(Sprite);
-                                else
-                                    PlayState.instance.insert(PlayState.instance.members.indexOf(psychlua.LuaUtils.getLowestCharacterGroup()), Sprite);
+							if (Animation.indices == null) {
+								Sprite.animation.addByPrefix(Anim_Name, Animation.animation_name, Animation.fps, Animation.looped);
+							} else if (Animation.indices.length == 0) {
+								Sprite.animation.addByPrefix(Anim_Name, Animation.animation_name, Animation.fps, Animation.looped);
+							} else {
+								Sprite.animation.addByIndices(Anim_Name, Animation.animation_name, Animation.indices, "", Animation.fps,
+									Animation.looped);
 							}
 						}
+
+						if (Object.start_Animation != "" && Object.start_Animation != null && Object.start_Animation != "null")
+							Sprite.animation.play(Object.start_Animation);
+					} else {
+						var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + stage + "/" + Object.file_Name + ".png");
+
+						http.onBytes = function(data:Bytes)
+						{
+							var imageData:BitmapData = BitmapData.fromBytes(data);
+							Sprite.loadGraphic(imageData);
+						};
+
+						http.request(false);
 					}
+
+					if (Object.uses_Frame_Width)
+						Sprite.setGraphicSize(Std.int(Sprite.frameWidth * Object.scale));
+					else
+						Sprite.setGraphicSize(Std.int(Sprite.width * Object.scale));
+
+					if (Object.updateHitbox || Object.updateHitbox == null)
+						Sprite.updateHitbox();
+
+					if (Object.alpha != null)
+						Sprite.alpha = Object.alpha;
+
+					PlayState.instance.modchartSprites.set(Object.name, Sprite);
+
+					if(Object.front != null && Object.front)
+						psychlua.LuaUtils.getTargetInstance().add(Sprite);
+					else
+						PlayState.instance.insert(PlayState.instance.members.indexOf(psychlua.LuaUtils.getLowestCharacterGroup()), Sprite);
+				}
 			}
+			return stage_Data;
 		}
+		return null;
 	}
 
 	public static function dummy():AddedStageData
