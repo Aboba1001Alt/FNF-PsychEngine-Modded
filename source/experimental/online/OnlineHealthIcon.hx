@@ -1,4 +1,4 @@
-package objects;
+package experimental.online;
 
 import flixel.FlxSprite;
 import openfl.utils.Assets as OpenFlAssets;
@@ -7,7 +7,7 @@ import backend.Paths;
 
 using StringTools;
 
-class HealthIcon extends FlxSprite
+class OnlineHealthIcon extends FlxSprite
 {
 	public var sprTracker:FlxSprite;
 	private var isOldIcon:Bool = false;

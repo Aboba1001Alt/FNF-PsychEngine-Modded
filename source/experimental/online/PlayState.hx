@@ -82,6 +82,7 @@ import openfl.media.Sound;
 import haxe.io.Bytes;
 
 import experimental.online.CharacterOnline;
+import experimental.online.OnlineHealthIcon;
 
 class PlayState extends MusicBeatState
 {
@@ -202,8 +203,8 @@ class PlayState extends MusicBeatState
 	public var botplaySine:Float = 0;
 	public var botplayTxt:FlxText;
 
-	public var iconP1:HealthIcon;
-	public var iconP2:HealthIcon;
+	public var iconP1:OnlineHealthIcon;
+	public var iconP2:OnlineHealthIcon;
 	public var camHUD:FlxCamera;
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
@@ -517,13 +518,13 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 		add(healthBar);
 
-		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
+		iconP1 = new OnlineHealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.data.hideHud;
 		iconP1.alpha = ClientPrefs.data.healthBarAlpha;
 		add(iconP1);
 
-		iconP2 = new HealthIcon(dad.healthIcon, false);
+		iconP2 = new OnlineHealthIcon(dad.healthIcon, false);
 		iconP2.y = healthBar.y - 75;
 		iconP2.visible = !ClientPrefs.data.hideHud;
 		iconP2.alpha = ClientPrefs.data.healthBarAlpha;
