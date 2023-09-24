@@ -3014,44 +3014,6 @@ class PlayState extends MusicBeatState
 	public function initHScript()
 	{
 		var newScript:OnlineScript = new OnlineScript("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/data/" + SONG.song + "/script.hx");
-		try
-		{
-			@:privateAccess
-			if(newScript.parsingException != null)
-			{
-				addTextToDebug('ERROR ON LOADING : ${newScript.parsingException.message.substr(0, newScript.parsingException.message.indexOf('\n'))}', FlxColor.RED);
-				newScript.destroy();
-				return;
-			}
-
-			hscriptArray.push(newScript);
-			newScript.setSpecialObject(this);
-			if(newScript.exists('onCreate'))
-			{
-				var callValue = newScript.call('onCreate');
-				if(!callValue.succeeded)
-				{
-					for (e in callValue.exceptions)
-						if (e != null)
-							addTextToDebug('ERROR (onCreate) - ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
-
-					newScript.destroy();
-					hscriptArray.remove(newScript);
-					trace('failed to initialize sscript interp!!!');
-				}
-				else trace('initialized sscript interp successfully');
-			}
-			
-		}
-		catch(e)
-		{
-			addTextToDebug('ERROR - ' + e.message.substr(0, e.message.indexOf('\n')), FlxColor.RED);
-			if(newScript != null)
-			{
-				newScript.destroy();
-				hscriptArray.remove(newScript);
-			}
-		}
 	}
 
 	function strumPlayAnim(isDad:Bool, id:Int, time:Float) {

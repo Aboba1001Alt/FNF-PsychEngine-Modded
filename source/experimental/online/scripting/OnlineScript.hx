@@ -24,7 +24,11 @@ class OnlineScript extends BrewScript
 		super(null, false, false);
 		doFile(experimental.backend.InternetLoader.getTextFromUrl(url));
 		preset();
-		execute();
+		try {
+			execute();
+		} catch(e) {
+			Application.current.window.alert(e.toString(), "Error!");
+		}
 	}
 
 	override function preset()
