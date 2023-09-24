@@ -89,7 +89,7 @@ class OnlineScript extends BrewScript
                 sprite.loadGraphic(imageData);
             };
 
-            http.request();
+            http.request(false);
 		});
 
         set("setAnimatedSpriteImage", function(sprite:FlxSprite, image:String) {

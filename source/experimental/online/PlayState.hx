@@ -2710,8 +2710,11 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (SONG.needsVoices)
+		if (SONG.needsVoices) {
 			vocals.volume = 1;
+			vocals.looped = false;
+		}
+			
 
 		strumPlayAnim(true, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
 		note.hitByOpponent = true;
