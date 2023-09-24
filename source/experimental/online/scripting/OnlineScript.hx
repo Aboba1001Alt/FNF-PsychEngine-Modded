@@ -23,15 +23,22 @@ class OnlineScript extends BrewScript
 	override public function new(url:String)
 	{
 		super(null, false, false);
-		doFile(experimental.backend.InternetLoader.getTextFromUrl(url));
-		preset();
-		try {
-			execute();
-			if (exists("onCreate")) call("onCreate");
-			experimental.online.PlayState.instance.hscriptArray.push(this);
-		} catch(e) {
-			Application.current.window.alert(e.toString(), "Error!");
-		}
+		var http = new haxe.Http(url);
+
+        http.onData = function (data:String)
+        {
+            doScript(url);
+			preset();
+			try {
+				execute();
+				if (exists("onCreate")) call("onCreate");
+				experimental.online.PlayState.instance.hscriptArray.push(this);
+			} catch(e) {
+				Application.current.window.alert(e.toString(), "Error!");
+			}
+        }
+		
+        http.request(false);
 	}
 
 	override function preset()

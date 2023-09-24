@@ -3024,7 +3024,7 @@ class PlayState extends MusicBeatState
 
 	public function initHScript()
 	{
-		var newScript:OnlineScript = new OnlineScript(experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/data/" + SONG.song + "/script.hx"));
+		var newScript:OnlineScript = new OnlineScript("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/data/" + SONG.song + "/script.hx");
 		newScript.setSpecialObject(this);
 	}
 
