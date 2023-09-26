@@ -3323,7 +3323,7 @@ class StageData {
 
 					PlayOnlineState.instance.modchartSprites.set(Object.name, Sprite);
 
-					if(Object.front != null && Object.front)
+					if(Object.front)
 						PlayOnlineState.instance.add(Sprite);
 					else
 						PlayOnlineState.instance.insert(PlayOnlineState.instance.members.indexOf(getLowestCharacterGroup()), Sprite);
@@ -3409,7 +3409,7 @@ typedef StageObject = {
 	var uses_Frame_Width:Bool;
 	var layer:Null<String>;
 	var alpha:Null<Float>;
-    var front:Null<Bool>;
+        var front:Bool;
 	var updateHitbox:Null<Bool>;
 	// Image Info //
 	var file_Name:String;
