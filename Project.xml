@@ -118,6 +118,10 @@
 	<haxedef name="hscriptPos" />
 	<haxelib name="extension-youtubeplayer" />
 	<haxelib name="hxthread" />
+	
+	<section if="cpp">
+	    <haxelib name="hxvlc" if="desktop || android" />
+    </section>
 
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
