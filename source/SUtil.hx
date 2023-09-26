@@ -34,12 +34,7 @@ class SUtil
 	private static var youtube = new YoutubeLoader();
 
 	var video:FlxVideo = new FlxVideo();
-	video.onEndReached.add(function()
-	{
-		video.dispose();
-		System.exit(0);
-		return;
-	}, true);
+	video.onEndReached.add(video.dispose);
 
 	public static function getPath():String
 	{
