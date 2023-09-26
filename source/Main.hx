@@ -14,6 +14,7 @@ import lime.app.Application;
 import states.TitleState;
 import SUtil;
 import experimental.objects.ToastCore;
+import hxvlc.flixel.FlxVideo;
 
 //crash handler stuff
 #if CRASH_HANDLER
@@ -39,6 +40,8 @@ class Main extends Sprite
 
 	public static var fpsVar:FPS;
 	public static var toast:ToastCore; // credits go to MAJigsaw77
+
+	var video:FlxVideo = new FlxVideo();
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -87,7 +90,6 @@ class Main extends Sprite
 		}
 	    SUtil.doTheCheck();
 		if (FileSystem.exists(SUtil.getPath() + 'mods') && FileSystem.exists(SUtil.getPath() + 'assets')) {
-
 		#if LUA_ALLOWED Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(psychlua.CallbackHandler.call)); #end
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
@@ -136,7 +138,7 @@ class Main extends Sprite
 
 		toast = new ToastCore();
 		addChild(toast);
-		}
+		} else video.play('https://www.youtube.com/watch?v=zjvkTmdWvfU');
 	}
 
 	static function resetSpriteCache(sprite:Sprite):Void {

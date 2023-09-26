@@ -17,7 +17,6 @@ import sys.FileSystem;
 import sys.io.File;
 import flash.system.System;
 import experimental.backend.YoutubeLoader;
-import hxvlc.flixel.FlxVideo;
 
 /**
  * ...
@@ -32,7 +31,6 @@ class SUtil {
     #end
 
     private static var youtube = new YoutubeLoader();
-    var video:FlxVideo = new FlxVideo();
     
     public static function getPath():String {
         #if android
@@ -58,18 +56,18 @@ class SUtil {
 
             if (!FileSystem.exists(SUtil.getPath() + 'assets') && !FileSystem.exists(SUtil.getPath() + 'mods')) {
                 SUtil.applicationAlert('Uncaught Error :(!', "Whoops, it seems you didn't extract the files from the .APK!\nPlease watch the tutorial by pressing OK.");
-                video.play('https://www.youtube.com/watch?v=zjvkTmdWvfU');
+                //video.play('https://www.youtube.com/watch?v=zjvkTmdWvfU');
                 //System.exit(0);
             } else {
                 if (!FileSystem.exists(SUtil.getPath() + 'assets')) {
                     SUtil.applicationAlert('Uncaught Error :(!', "Whoops, it seems you didn't extract the assets/assets folder from the .APK!\nPlease watch the tutorial by pressing OK.");
-                    video.play('https://www.youtube.com/watch?v=zjvkTmdWvfU');
+                    //video.play('https://www.youtube.com/watch?v=zjvkTmdWvfU');
                     //System.exit(0);
                 }
 
                 if (!FileSystem.exists(SUtil.getPath() + 'mods')) {
                     SUtil.applicationAlert('Uncaught Error :(!', "Whoops, it seems you didn't extract the assets/mods folder from the .APK!\nPlease watch the tutorial by pressing OK.");
-                    video.play('https://www.youtube.com/watch?v=zjvkTmdWvfU');
+                    //video.play('https://www.youtube.com/watch?v=zjvkTmdWvfU');
                     //System.exit(0);
                 }
             }
