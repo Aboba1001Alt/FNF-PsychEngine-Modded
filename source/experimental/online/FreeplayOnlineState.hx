@@ -163,7 +163,7 @@ class FreeplayOnlineState extends MusicBeatState
 			if (experimental.online.PlayOnlineState.SONG.needsVoices) voices.loadUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + experimental.online.PlayOnlineState.SONG.song + "/Voices.ogg");
 			inst.volume = 0.7;
 			voices.volume = 1;
-			FlxG.sound.playMusic(inst._sound,0,7);
+			FlxG.sound.playMusic(inst._sound,0.7);
 			if (experimental.online.PlayOnlineState.SONG.needsVoices) voices.play();
 		}
 	}
