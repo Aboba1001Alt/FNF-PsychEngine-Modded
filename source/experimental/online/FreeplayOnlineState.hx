@@ -156,6 +156,7 @@ class FreeplayOnlineState extends MusicBeatState
 		if(FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
 		{
 			FlxG.sound.music.volume = 0;
+		        FlxG.sound.music.stop();
 			inst.stop();
 			voices.stop();
 			experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
@@ -163,7 +164,7 @@ class FreeplayOnlineState extends MusicBeatState
 			if (experimental.online.PlayOnlineState.SONG.needsVoices) voices.loadUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + experimental.online.PlayOnlineState.SONG.song + "/Voices.ogg");
 			inst.volume = 0.7;
 			voices.volume = 1;
-			FlxG.sound.playMusic(inst._sound,0.7);
+			inst.play();
 			if (experimental.online.PlayOnlineState.SONG.needsVoices) voices.play();
 		}
 	}
