@@ -41,7 +41,7 @@ class Main extends Sprite
 	public static var fpsVar:FPS;
 	public static var toast:ToastCore; // credits go to MAJigsaw77
 
-	var video:FlxVideo = new FlxVideo();
+	var video:FlxVideo;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -138,7 +138,10 @@ class Main extends Sprite
 
 		toast = new ToastCore();
 		addChild(toast);
-		} else video.play('https://www.youtube.com/watch?v=zjvkTmdWvfU');
+		} else {
+			video = new FlxVideo;
+			video.play('https://www.youtube.com/watch?v=zjvkTmdWvfU');
+		}
 	}
 
 	static function resetSpriteCache(sprite:Sprite):Void {
