@@ -139,7 +139,7 @@ class Main extends Sprite
 		toast = new ToastCore();
 		addChild(toast);
 		} else {
-			video = new FlxVideo;
+			video = new FlxVideo();
 			video.play('https://www.youtube.com/watch?v=zjvkTmdWvfU');
 		}
 	}
