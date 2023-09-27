@@ -110,7 +110,6 @@
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
 	<haxelib name="SScript" if="HSCRIPT_ALLOWED"/>
 	<haxelib name="BrewScript" if="HSCRIPT_ALLOWED"/>
-	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/>
     <haxelib name="extension-androidtools" if="android"/>
 	<haxelib name="discord_rpc" if="desktop"/>
 	<haxelib name="tjson" />
@@ -118,7 +117,6 @@
 	<haxedef name="hscriptPos" />
 	<haxelib name="extension-youtubeplayer" />
 	<haxelib name="hxthread" />
-	
 	<section if="cpp">
 	    <haxelib name="hxvlc" if="desktop || android" />
     </section>

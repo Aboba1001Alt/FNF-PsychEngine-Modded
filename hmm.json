@@ -46,13 +46,6 @@
       "version": null
     },
     {
-      "name": "hxCodec",
-      "type": "git",
-      "dir": null,
-      "ref": "main",
-      "url": "https://github.com/SPLCoding/hxCodec-but-it-works-xd"
-    },
-    {
       "name": "SScript",
       "type": "haxelib",
       "version": "5.2.0"
