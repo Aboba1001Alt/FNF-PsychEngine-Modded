@@ -350,13 +350,13 @@ class PlayOnlineState extends MusicBeatState
 		curSong = SONG.song;
 
 	    vocals = new FlxSound();
-		if (SONG.needsVoices) vocals.loadUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + SONG.song + "/Voices.ogg");
+		if (SONG.needsVoices) vocals.loadUrl(OnlineConfig.url + OnlineConfig.curMod + "/songs/" + SONG.song + "/Voices.ogg");
 
 		vocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);
 
         inst = new FlxSound();
-		inst.loadUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + SONG.song + "/Inst.ogg");
+		inst.loadUrl(OnlineConfig.url + OnlineConfig.curMod + "/songs/" + SONG.song + "/Inst.ogg");
 		FlxG.sound.list.add(inst);
 
 		persistentUpdate = true;
@@ -3014,7 +3014,7 @@ class PlayOnlineState extends MusicBeatState
 
 	public function initHScript()
 	{
-		var newScript:OnlineScript = new OnlineScript("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/data/" + SONG.song + "/script.hx");
+		var newScript:OnlineScript = new OnlineScript(OnlineConfig.url + OnlineConfig.curMod + "/data/" + SONG.song + "/script.hx");
 		newScript.setSpecialObject(this);
 	}
 
@@ -3234,7 +3234,7 @@ class StageData {
 		if (stage != "") {
 			var JSON_Data:String = "";
 
-			JSON_Data = experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/stages/" + stage + ".json");
+			JSON_Data = experimental.backend.InternetLoader.getTextFromUrl(OnlineConfig.url + OnlineConfig.curMod + "/stages/" + stage + ".json");
 			if (JSON_Data != "") stage_Data = cast Json.parse(JSON_Data);
 			else stage_Data = null;
 		}
@@ -3260,12 +3260,12 @@ class StageData {
 					}
 
 					if (Object.is_Animated) {
-						var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + stage + "/" + Object.file_Name + ".png");
+						var http = new haxe.Http(OnlineConfig.url + OnlineConfig.curMod + "/images/" + stage + "/" + Object.file_Name + ".png");
 
 						http.onBytes = function(data:Bytes)
 						{
 							var imageData:BitmapData = BitmapData.fromBytes(data);
-							Sprite.frames = FlxAtlasFrames.fromSparrow(imageData, experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + stage + "/" + Object.file_Name + ".xml"));
+							Sprite.frames = FlxAtlasFrames.fromSparrow(imageData, experimental.backend.InternetLoader.getTextFromUrl(OnlineConfig.url + OnlineConfig.curMod + "/images/" + stage + "/" + Object.file_Name + ".xml"));
 						};
 
 						http.request(false);
@@ -3286,7 +3286,7 @@ class StageData {
 						if (Object.start_Animation != "" && Object.start_Animation != null && Object.start_Animation != "null")
 							Sprite.animation.play(Object.start_Animation);
 					} else {
-						var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + stage + "/" + Object.file_Name + ".png");
+						var http = new haxe.Http(OnlineConfig.url + OnlineConfig.curMod + "/images/" + stage + "/" + Object.file_Name + ".png");
 
 						http.onBytes = function(data:Bytes)
 						{

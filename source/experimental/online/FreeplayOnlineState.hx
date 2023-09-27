@@ -55,11 +55,15 @@ class FreeplayOnlineState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
-		var initSonglist = CoolUtil.listFromString(InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/MusicList.txt"));
+		var initModslist = CoolUtil.listFromString(InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/MusicList.txt"));
 
-		for (i in 0...initSonglist.length)
-		{
-			songs.push(new SongMetadata(initSonglist[i]));
+		for (mod in initModsList) {
+			var initSonglist = CoolUtil.listFromString(InternetLoader.getTextFromUrl(OnlineConfig.url + mod + "/MusicList.txt"));
+
+			for (i in 0...initSonglist.length)
+			{
+				songs.push(new SongMetadata(initSonglist[i], mod));
+			}
 		}
 
 		if (FlxG.sound.music != null)
@@ -103,9 +107,9 @@ class FreeplayOnlineState extends MusicBeatState
 		super.create();
 	}
 
-	public function addSong(songName:String)
+	public function addSong(songName:String, modName:String)
 	{
-		songs.push(new SongMetadata(songName));
+		songs.push(new SongMetadata(songName, modName));
 	}
 
 	override function update(elapsed:Float)
@@ -141,10 +145,11 @@ class FreeplayOnlineState extends MusicBeatState
 		if (accepted)
 		{
 			try {
-			experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
+			experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase(), songs[curSelected].modName);
 			experimental.online.PlayOnlineState.isStoryMode = false;
 
 			trace('CUR WEEK' + PlayOnlineState.storyWeek);
+			OnlineConfig.setMod(songs[curSelected].modName);
 			LoadingState.loadAndSwitchState(new experimental.online.PlayOnlineState());
 			} catch(e:String) {
 				Main.toast.create('Error', 0xFFFF0000, 'while loading song:' + songs[curSelected].songName.toLowerCase());
@@ -160,15 +165,14 @@ class FreeplayOnlineState extends MusicBeatState
 			inst.stop();
 			voices.stop();
 			experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
-			inst.loadUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + experimental.online.PlayOnlineState.SONG.song + "/Inst.ogg");
-			if (experimental.online.PlayOnlineState.SONG.needsVoices) voices.loadUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/songs/" + experimental.online.PlayOnlineState.SONG.song + "/Voices.ogg");
+			inst.loadUrl(OnlineConfig.url + songs[curSelected].modName + "/songs/" + experimental.online.PlayOnlineState.SONG.song + "/Inst.ogg");
+			if (experimental.online.PlayOnlineState.SONG.needsVoices) voices.loadUrl(OnlineConfig.url + songs[curSelected].modName + "/songs/" + experimental.online.PlayOnlineState.SONG.song + "/Voices.ogg");
 			inst.volume = 0.7;
 			voices.volume = 1;
 			inst.play();
 			if (experimental.online.PlayOnlineState.SONG.needsVoices) voices.play();
 		}
 	}
-
 
 	function changeSelection(change:Int = 0)
 	{
@@ -208,9 +212,11 @@ class FreeplayOnlineState extends MusicBeatState
 class SongMetadata
 {
 	public var songName:String = "";
+	public var modName:String = "";
 
-	public function new(song:String)
+	public function new(song:String, modName:String)
 	{
 		this.songName = song;
+		this.modName = modName;
 	}
 }

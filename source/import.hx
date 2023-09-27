@@ -22,6 +22,8 @@ import backend.BaseStage;
 import backend.Difficulty;
 import backend.Mods;
 
+import experimental.online.OnlineConfig;
+
 import objects.Alphabet;
 import objects.BGSprite;
 
