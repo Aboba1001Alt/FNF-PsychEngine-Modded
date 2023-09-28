@@ -188,7 +188,7 @@ class PauseSubState extends MusicBeatSubstate
 					if(menuItems.length - 1 != curSelected && difficultyChoices.contains(daSelected)) {
 
 						var name:String = PlayOnlineState.SONG.song;
-						experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(name);
+						experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(name, OnlineConfig.curMod);
 						experimental.online.PlayOnlineState.storyDifficulty = curSelected;
 						MusicBeatState.resetState();
 						FlxG.sound.music.volume = 0;
