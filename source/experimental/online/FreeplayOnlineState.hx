@@ -57,7 +57,7 @@ class FreeplayOnlineState extends MusicBeatState
 
 		var initModslist = CoolUtil.listFromString(InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/MusicList.txt"));
 
-		for (mod in initModsList) {
+		for (mod in initModslist) {
 			var initSonglist = CoolUtil.listFromString(InternetLoader.getTextFromUrl(OnlineConfig.url + mod + "/MusicList.txt"));
 
 			for (i in 0...initSonglist.length)
