@@ -1538,7 +1538,7 @@ class FunkinLua {
 		});
 
 		#if desktop DiscordClient.addLuaCallbacks(lua); #end
-		#if (SScript >= "3.0.0") HScript.implement(this); #end
+		HScript.implement(this);
 		ReflectionFunctions.implement(this);
 		TextFunctions.implement(this);
 		ExtraFunctions.implement(this);
@@ -1638,16 +1638,11 @@ class FunkinLua {
 		}
 		Lua.close(lua);
 		lua = null;
-		#if (SScript >= "3.0.0")
 		if(hscript != null)
 		{
 			hscript.active = false;
-			#if (SScript >= "3.0.3")
-			hscript.destroy();
-			#end
 			hscript = null;
 		}
-		#end
 		#end
 	}
 
