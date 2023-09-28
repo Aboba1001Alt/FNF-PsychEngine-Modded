@@ -14,7 +14,7 @@ class OnlineConfig {
         curMod = mod;
     }
 
-    public static function getModsList():String {
+    public static function getModsList():Array<String> {
         var rawlist:String = InternetLoader.getTextFromUrl(url + "ModsList.txt");
         return CoolUtil.listFromString(rawlist);
     }
