@@ -264,4 +264,7 @@ class CustomModifierScript extends brew.BrewScript
             lime.app.Application.current.window.alert(e.message, 'Error on custom mod .hx!');
         }
     }
+    public function destroy() {
+	    active = false;
+    }
 }
