@@ -164,7 +164,7 @@ class FreeplayOnlineState extends MusicBeatState
 		        FlxG.sound.music.stop();
 			inst.stop();
 			voices.stop();
-			experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase());
+			experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase(), songs[curSelected].modName);
 			inst.loadUrl(OnlineConfig.url + songs[curSelected].modName + "/songs/" + experimental.online.PlayOnlineState.SONG.song + "/Inst.ogg");
 			if (experimental.online.PlayOnlineState.SONG.needsVoices) voices.loadUrl(OnlineConfig.url + songs[curSelected].modName + "/songs/" + experimental.online.PlayOnlineState.SONG.song + "/Voices.ogg");
 			inst.volume = 0.7;
