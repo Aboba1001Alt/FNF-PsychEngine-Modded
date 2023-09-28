@@ -202,7 +202,7 @@ class ModchartFile
     }
 }
 
-class CustomModifierScript extends tea.SScript
+class CustomModifierScript extends brew.BrewScript
 {
     public function new(file:String)
     {
@@ -214,7 +214,7 @@ class CustomModifierScript extends tea.SScript
 		    super(null, false, false);
             doFile(file);
 
-            init();
+            preset();
             execute();
         }
         catch(e)
@@ -223,8 +223,9 @@ class CustomModifierScript extends tea.SScript
             return;
         }
     }
-    private function init()
+    override function preset()
     {
+        super.preset();
         set('Math', Math);
         set('PlayfieldRenderer', PlayfieldRenderer);
         set('ModchartUtil', ModchartUtil);
