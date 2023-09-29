@@ -2,8 +2,7 @@ package experimental.online.scripting;
 
 import flixel.FlxBasic;
 import objects.Character;
-import psychlua.CustomSubstate;
-import psychlua.FunkinLua;
+import psychlua.*;
 
 import experimental.online.PlayOnlineState;
 
