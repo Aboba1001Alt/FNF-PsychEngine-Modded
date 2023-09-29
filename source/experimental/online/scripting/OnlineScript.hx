@@ -5,6 +5,8 @@ import objects.Character;
 import psychlua.CustomSubstate;
 import psychlua.FunkinLua;
 
+import experimental.online.PlayOnlineState;
+
 #if sys
 import sys.FileSystem;
 import sys.io.File;
@@ -32,7 +34,6 @@ class OnlineScript extends BrewScript
 			try {
 				execute();
 				if (exists("onCreate")) call("onCreate");
-				experimental.online.PlayOnlineState.instance.hscriptArray.push(this);
 			} catch(e) {
 				destroy();
 				Application.current.window.alert(e.toString(), "Error!");
@@ -55,7 +56,7 @@ class OnlineScript extends BrewScript
 		set('FlxTween', flixel.tweens.FlxTween);
 		set('FlxEase', flixel.tweens.FlxEase);
 		set('FlxColor', CustomFlxColor.instance);
-		set('PlayState', experimental.online.PlayOnlineState);
+		set('PlayState', PlayOnlineState);
 		set('Paths', Paths);
 		set('Conductor', Conductor);
 		set('ClientPrefs', ClientPrefs);
@@ -74,54 +75,58 @@ class OnlineScript extends BrewScript
 		// Functions & Variables
 		set('setVar', function(name:String, value:Dynamic)
 		{
-			experimental.online.PlayOnlineState.instance.variables.set(name, value);
+			PlayOnlineState.instance.variables.set(name, value);
 		});
 		set('getVar', function(name:String)
 		{
 			var result:Dynamic = null;
-			if(experimental.online.PlayOnlineState.instance.variables.exists(name)) result = experimental.online.PlayOnlineState.instance.variables.get(name);
+			if(PlayOnlineState.instance.variables.exists(name)) result = PlayOnlineState.instance.variables.get(name);
 			return result;
 		});
 		set('removeVar', function(name:String)
 		{
-			if(experimental.online.PlayOnlineState.instance.variables.exists(name))
+			if(PlayOnlineState.instance.variables.exists(name))
 			{
-				experimental.online.PlayOnlineState.instance.variables.remove(name);
+				PlayOnlineState.instance.variables.remove(name);
 				return true;
 			}
 			return false;
 		});
 		set('debugPrint', function(text:String, ?color:FlxColor = null) {
 			if(color == null) color = FlxColor.WHITE;
-			experimental.online.PlayOnlineState.instance.addTextToDebug(text, color);
+			PlayOnlineState.instance.addTextToDebug(text, color);
 		});
 
-        set("setSpriteImage", function(sprite:FlxSprite, image:String) {
+        set("addSprite", function(tag:String, image:String, x:Float, y:Float) {
             var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/image/" + image + ".png");
 
             http.onBytes = function(data:Bytes)
             {
                 var imageData:BitmapData = BitmapData.fromBytes(data);
+				var sprite:ModchartSprite = new ModchartSprite(x,y);
                 sprite.loadGraphic(imageData);
+				PlayOnlineState.instance.modchartSprites.set(tag,sprite);
             };
 
             http.request(false);
 		});
 
-        set("setAnimatedSpriteImage", function(sprite:FlxSprite, image:String) {
+        set("addAnimatedSprite", function(tag:String, image:String, x:Float, y:Float) {
             var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + image + ".png");
 
             http.onBytes = function(data:Bytes)
             {
                 var imageData:BitmapData = BitmapData.fromBytes(data);
+				var sprite:ModchartSprite = new ModchartSprite(x,y);
                 sprite.frames = FlxAtlasFrames.fromSparrow(imageData, experimental.backend.InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + image + ".xml"));
+				PlayOnlineState.instance.modchartSprites.set(tag,sprite);
             };
 
             http.request(false);
 		});
 
 		set('this', this);
-		set('game', experimental.online.PlayOnlineState.instance);
+		set('game', PlayOnlineState.instance);
 		set('buildTarget', FunkinLua.getBuildTarget());
 		set('customSubstate', CustomSubstate.instance);
 		set('customSubstateName', CustomSubstate.name);
@@ -132,12 +137,12 @@ class OnlineScript extends BrewScript
 		set('Function_StopHScript', FunkinLua.Function_StopHScript);
 		set('Function_StopAll', FunkinLua.Function_StopAll);
 		
-		set('add', function(obj:FlxBasic) experimental.online.PlayOnlineState.instance.add(obj));
-		set('addBehindGF', function(obj:FlxBasic) experimental.online.PlayOnlineState.instance.addBehindGF(obj));
-		set('addBehindDad', function(obj:FlxBasic) experimental.online.PlayOnlineState.instance.addBehindDad(obj));
-		set('addBehindBF', function(obj:FlxBasic) experimental.online.PlayOnlineState.instance.addBehindBF(obj));
-		set('insert', function(pos:Int, obj:FlxBasic) experimental.online.PlayOnlineState.instance.insert(pos, obj));
-		set('remove', function(obj:FlxBasic, splice:Bool = false) experimental.online.PlayOnlineState.instance.remove(obj, splice));
+		set('add', function(obj:FlxBasic) PlayOnlineState.instance.add(obj));
+		set('addBehindGF', function(obj:FlxBasic) PlayOnlineState.instance.addBehindGF(obj));
+		set('addBehindDad', function(obj:FlxBasic) PlayOnlineState.instance.addBehindDad(obj));
+		set('addBehindBF', function(obj:FlxBasic) PlayOnlineState.instance.addBehindBF(obj));
+		set('insert', function(pos:Int, obj:FlxBasic) PlayOnlineState.instance.insert(pos, obj));
+		set('remove', function(obj:FlxBasic, splice:Bool = false) PlayOnlineState.instance.remove(obj, splice));
 		#end
 	}
 

@@ -138,6 +138,8 @@ class PlayOnlineState extends MusicBeatState
 	#end
 	#end
 
+	private var luaDebugGroup:FlxTypedGroup<DebugLuaText>;
+
 	#if !flash
     public var shader_chromatic_abberation:ChromaticAberrationEffect;
 	public var shaderUpdates:Array<Float->Void> = [];
@@ -439,6 +441,10 @@ class PlayOnlineState extends MusicBeatState
 		add(gfGroup);
 		add(dadGroup);
 		add(boyfriendGroup);
+
+		luaDebugGroup = new FlxTypedGroup<DebugLuaText>();
+		luaDebugGroup.cameras = [camOther];
+		add(luaDebugGroup);
 
 		initHScript();
 
@@ -2999,6 +3005,7 @@ class PlayOnlineState extends MusicBeatState
 	{
 		var newScript:OnlineScript = new OnlineScript(OnlineConfig.url + OnlineConfig.curMod + "/data/" + SONG.song + "/script.hx");
 		newScript.setSpecialObject(this);
+		hscriptArray.push(newScript);
 	}
 
 	function strumPlayAnim(isDad:Bool, id:Int, time:Float) {
