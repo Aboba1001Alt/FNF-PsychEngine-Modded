@@ -2959,9 +2959,9 @@ class PlayOnlineState extends MusicBeatState
 				var callValue = script.call(funcToCall, args);
 				if(!callValue.succeeded)
 				{
-					var e = callValue.exceptions[0];
-					if(e != null)
-					    addTextToDebug("ERROR (" + funcToCall + ") - " + e.message.substr(0, e.message.indexOf('\n')), FlxColor.RED);
+					var error = callValue.exceptions[0];
+					if(error != null)
+					    addTextToDebug("ERROR (" + funcToCall + ") - " + error.message, FlxColor.RED);
 				}
 				else
 				{
