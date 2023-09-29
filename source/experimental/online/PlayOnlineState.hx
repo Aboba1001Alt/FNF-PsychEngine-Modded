@@ -57,7 +57,7 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED 
-import hxvlc.flixel.FlxVideo as VideoHandler;
+import hxcodec.openfl.Video as VideoHandler;
 #end
 
 import objects.Note.EventNote;
@@ -3298,10 +3298,10 @@ class StageData {
 
 					PlayOnlineState.instance.modchartSprites.set(Object.name, Sprite);
 
-					if(Object.front)
-						PlayOnlineState.instance.add(Sprite);
+					if(!Object.front)
+					    PlayOnlineState.instance.insert(PlayOnlineState.instance.members.indexOf(getLowestCharacterGroup()), Sprite);
 					else
-						PlayOnlineState.instance.insert(PlayOnlineState.instance.members.indexOf(getLowestCharacterGroup()), Sprite);
+						PlayOnlineState.instance.add(Sprite);
 				}
 			}
 			return stage_Data;

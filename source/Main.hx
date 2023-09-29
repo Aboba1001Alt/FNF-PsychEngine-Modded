@@ -14,7 +14,7 @@ import lime.app.Application;
 import states.TitleState;
 import SUtil;
 import experimental.objects.ToastCore;
-import hxvlc.flixel.FlxVideo;
+import hxcodec.openfl.Video;
 
 //crash handler stuff
 #if CRASH_HANDLER
@@ -41,7 +41,7 @@ class Main extends Sprite
 	public static var fpsVar:FPS;
 	public static var toast:ToastCore; // credits go to MAJigsaw77
 
-	var video:FlxVideo;
+	var video:Video;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -139,7 +139,7 @@ class Main extends Sprite
 		toast = new ToastCore();
 		addChild(toast);
 		} else {
-			video = new FlxVideo();
+			video = new Video();
 			video.play('https://www.youtube.com/watch?v=zjvkTmdWvfU');
 		}
 	}

@@ -58,7 +58,7 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED 
-import hxvlc.flixel.FlxVideo as VideoHandler;
+import hxcodec.openfl.Video as VideoHandler;
 #end
 
 import objects.Note.EventNote;
