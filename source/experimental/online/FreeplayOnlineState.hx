@@ -10,22 +10,16 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
-
 import backend.WeekData;
 import backend.Highscore;
 import backend.Song;
-
 import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
-
 import objects.HealthIcon;
 import states.editors.ChartingState;
-
 import substates.GameplayChangersSubstate;
 import substates.ResetScoreSubState;
-
 import experimental.backend.InternetLoader;
-
 import openfl.utils.ByteArray;
 import openfl.media.Sound;
 import haxe.io.Bytes;
@@ -55,9 +49,10 @@ class FreeplayOnlineState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
-		var initModslist = CoolUtil.listFromString(InternetLoader.getTextFromUrl("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/MusicList.txt"));
+		var initModslist = CoolUtil.listFromString(InternetLoader.getTextFromUrl(OnlineConfig.url + "ModsList.txt"));
 
-		for (mod in initModslist) {
+		for (mod in initModslist)
+		{
 			var initSonglist = CoolUtil.listFromString(InternetLoader.getTextFromUrl(OnlineConfig.url + mod + "/MusicList.txt"));
 
 			for (i in 0...initSonglist.length)
@@ -144,33 +139,41 @@ class FreeplayOnlineState extends MusicBeatState
 
 		if (accepted)
 		{
-			try {
-			experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase(), songs[curSelected].modName);
-			experimental.online.PlayOnlineState.isStoryMode = false;
+			try
+			{
+				experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase(), songs[curSelected].modName);
+				experimental.online.PlayOnlineState.isStoryMode = false;
 
-			trace('CUR WEEK' + PlayOnlineState.storyWeek);
-			OnlineConfig.setMod(songs[curSelected].modName);
-			LoadingState.loadAndSwitchState(new experimental.online.PlayOnlineState());
-			} catch(e:String) {
+				trace('CUR WEEK' + PlayOnlineState.storyWeek);
+				OnlineConfig.setMod(songs[curSelected].modName);
+				LoadingState.loadAndSwitchState(new experimental.online.PlayOnlineState());
+			}
+			catch (e:String)
+			{
 				Main.toast.create('Error', 0xFFFF0000, 'while loading song:' + songs[curSelected].songName.toLowerCase());
 			}
 			inst.stop();
 			voices.stop();
 			FlxG.sound.music.volume = 0;
 		}
-		if(FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
+		if (FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
 		{
 			FlxG.sound.music.volume = 0;
-		        FlxG.sound.music.stop();
+			FlxG.sound.music.stop();
 			inst.stop();
 			voices.stop();
 			experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase(), songs[curSelected].modName);
 			inst.loadUrl(OnlineConfig.url + songs[curSelected].modName + "/songs/" + experimental.online.PlayOnlineState.SONG.song + "/Inst.ogg");
-			if (experimental.online.PlayOnlineState.SONG.needsVoices) voices.loadUrl(OnlineConfig.url + songs[curSelected].modName + "/songs/" + experimental.online.PlayOnlineState.SONG.song + "/Voices.ogg");
+			if (experimental.online.PlayOnlineState.SONG.needsVoices)
+				voices.loadUrl(OnlineConfig.url + songs[curSelected].modName
+					+ "/songs/"
+					+ experimental.online.PlayOnlineState.SONG.song
+					+ "/Voices.ogg");
 			inst.volume = 0.7;
 			voices.volume = 1;
 			inst.play();
-			if (experimental.online.PlayOnlineState.SONG.needsVoices) voices.play();
+			if (experimental.online.PlayOnlineState.SONG.needsVoices)
+				voices.play();
 		}
 	}
 
@@ -190,7 +193,6 @@ class FreeplayOnlineState extends MusicBeatState
 		// lerpScore = 0;
 
 		var bullShit:Int = 0;
-
 
 		for (item in grpSongs.members)
 		{
