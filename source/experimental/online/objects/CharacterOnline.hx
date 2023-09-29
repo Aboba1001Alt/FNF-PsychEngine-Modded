@@ -92,19 +92,18 @@ class CharacterOnline extends FlxSprite
 			default:
 				var characterPath:String = 'characters/' + curCharacter + '.json';
 
-				var rawJson:String = experimental.backend.InternetLoader.getTextFromUrl(OnlineConfig.url + songs[curSelected].modName
-					+ characterPath);
+				var rawJson:String = experimental.backend.InternetLoader.getTextFromUrl(OnlineConfig.url + OnlineConfig.curMod + "/" + characterPath);
 
 				var json:CharacterFile = cast Json.parse(rawJson);
 				imageFile = json.image;
 
-				var http = new haxe.Http(OnlineConfig.url + songs[curSelected].modName + "images/" + imageFile + ".png");
+				var http = new haxe.Http(OnlineConfig.url + OnlineConfig.curMod + "/images/" + imageFile + ".png");
 
 				http.onBytes = function(data:Bytes)
 				{
 					var imageData:BitmapData = BitmapData.fromBytes(data);
 					frames = FlxAtlasFrames.fromSparrow(imageData,
-						experimental.backend.InternetLoader.getTextFromUrl(OnlineConfig.url + songs[curSelected].modName + "images/" + imageFile + ".xml"));
+						experimental.backend.InternetLoader.getTextFromUrl(OnlineConfig.url + OnlineConfig.curMod + "/images/" + imageFile + ".xml"));
 				};
 
 				http.request(false);
