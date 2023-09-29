@@ -681,7 +681,21 @@ class PlayOnlineState extends MusicBeatState
 		return value;
 	}
 
-	public function addTextToDebug(text:String, color:FlxColor) {}
+	public function addTextToDebug(text:String, color:FlxColor) {
+		#if LUA_ALLOWED
+		var newText:DebugLuaText = luaDebugGroup.recycle(DebugLuaText);
+		newText.text = text;
+		newText.color = color;
+		newText.disableTime = 6;
+		newText.alpha = 1;
+		newText.setPosition(10, 8 - newText.height);
+
+		luaDebugGroup.forEachAlive(function(spr:DebugLuaText) {
+			spr.y += newText.height + 2;
+		});
+		luaDebugGroup.add(newText);
+		#end
+	}
 
 	public function reloadHealthBarColors() {
 		healthBar.setColors(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
@@ -1171,38 +1185,6 @@ class PlayOnlineState extends MusicBeatState
 				var daStrumTime:Float = songNotes[0];
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
 				var daogNoteData:Int = Std.int(songNotes[1] % 4);
-				if (ClientPrefs.data.experimental) {
-				if (!ClientPrefs.getGameplaySetting('randomMode') && !ClientPrefs.getGameplaySetting('flip') && !ClientPrefs.getGameplaySetting('stairmode') && !ClientPrefs.getGameplaySetting('wavemode'))
-				{
-				daNoteData = Std.int(songNotes[1] % 4);
-				}
-				if (ClientPrefs.getGameplaySetting('randomMode')) {
-				daNoteData = FlxG.random.int(0, 3);
-				}
-				if (ClientPrefs.getGameplaySetting('flip')) {
-				daNoteData = Std.int(Math.abs((songNotes[1] % 4) - 3));
-				}
-				if (ClientPrefs.getGameplaySetting('stairmode') && !ClientPrefs.getGameplaySetting('wavemode')) {
-				daNoteData = stair % 4;
-				stair++;
-				}
-				if (ClientPrefs.getGameplaySetting('wavemode')) {
-						switch (stair % 6)
-							{
-								case 0 | 1 | 2 | 3:
-									daNoteData = stair % 6;
-								case 4:
-									daNoteData = 2;
-								case 5:
-									daNoteData = 1;
-							}
-				stair++;
-				}
-				if (ClientPrefs.getGameplaySetting('onekey'))
-				{
-				daNoteData = 2;
-				}
-				}
 				var gottaHitNote:Bool = section.mustHitSection;
 
 				if (songNotes[1] > 3)
@@ -1221,6 +1203,7 @@ class PlayOnlineState extends MusicBeatState
 				swagNote.sustainLength = songNotes[2];
 				swagNote.gfNote = (section.gfSection && (songNotes[1]<4));
 				swagNote.noteType = songNotes[3];
+
 				if(!Std.isOfType(songNotes[3], String)) swagNote.noteType = ChartingState.noteTypeList[songNotes[3]]; //Backward compatibility + compatibility with Week 7 charts
 
 				swagNote.scrollFactor.set();
@@ -2972,7 +2955,7 @@ class PlayOnlineState extends MusicBeatState
 				{
 					var e = callValue.exceptions[0];
 					if(e != null)
-						FunkinLua.luaTrace('ERROR (${callValue.calledFunction}) - ' + e.message.substr(0, e.message.indexOf('\n')), true, false, FlxColor.RED);
+					    addTextToDebug('ERROR (${callValue.calledFunction}) - ' + e.message.substr(0, e.message.indexOf('\n')), FlxColor.RED)
 				}
 				else
 				{

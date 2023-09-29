@@ -55,7 +55,7 @@ class OnlineScript extends BrewScript
 		set('FlxTween', flixel.tweens.FlxTween);
 		set('FlxEase', flixel.tweens.FlxEase);
 		set('FlxColor', CustomFlxColor.instance);
-		set('PlayOnlineState', PlayOnlineState);
+		set('PlayState', experimental.online.PlayOnlineState);
 		set('Paths', Paths);
 		set('Conductor', Conductor);
 		set('ClientPrefs', ClientPrefs);
