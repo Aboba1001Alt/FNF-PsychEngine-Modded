@@ -57,7 +57,7 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED 
-import hxcodec.openfl.Video as VideoHandler;
+import VideoHandler;
 #end
 
 import objects.Note.EventNote;
@@ -779,14 +779,13 @@ class PlayOnlineState extends MusicBeatState
 		}
 
 		var video:VideoHandler = new VideoHandler();
-		// Recent versions
-		video.play(filepath);
-		video.onEndReached.add(function()
+		video.finishCallback = function()
 		{
 			video.dispose();
 			startAndEnd();
 			return;
-		}, true);
+		}
+		video.playVideo(filepath);
 		#else
 		FlxG.log.warn('Platform not supported!');
 		startAndEnd();
