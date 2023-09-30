@@ -1242,7 +1242,7 @@ class PlayOnlineState extends MusicBeatState
 						{
 							if(oldNote.isSustainNote)
 							{
-								oldNote.scale.y *= Note.SUSTAIN_SIZE / oldNote.frameHeight;
+								oldNote.scale.y *= Note.SUSTAIN_SIZE / (oldNote.frameHeight / 2);
 								oldNote.scale.y /= playbackRate;
 								oldNote.updateHitbox();
 							}

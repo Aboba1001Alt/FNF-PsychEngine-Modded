@@ -130,7 +130,7 @@ class OnlineScript extends BrewScript
 		});
 
 		set("addSprite", function(tag:String) {
-			PlayOnlineState.add(PlayOnlineState.instance.modchartSprites.get(tag));
+			PlayOnlineState.instance.add(PlayOnlineState.instance.modchartSprites.get(tag));
 		});
 
 		set('this', this);
