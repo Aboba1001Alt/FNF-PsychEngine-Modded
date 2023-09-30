@@ -97,7 +97,7 @@ class OnlineScript extends BrewScript
 		});
 
         set("addSprite", function(tag:String, image:String, x:Float, y:Float) {
-            var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/image/" + image + ".png");
+            var http = new haxe.Http(OnlineConfig.url + OnlineConfig.curMod + "/images/" + image + ".png");
 
             http.onBytes = function(data:Bytes)
             {
@@ -111,7 +111,7 @@ class OnlineScript extends BrewScript
 		});
 
         set("addAnimatedSprite", function(tag:String, image:String, x:Float, y:Float) {
-            var http = new haxe.Http("https://raw.githubusercontent.com/Hiho2950/modsOnline/main/images/" + image + ".png");
+            var http = new haxe.Http(OnlineConfig.url + OnlineConfig.curMod + "/images/" + image + ".png");
 
             http.onBytes = function(data:Bytes)
             {
@@ -122,6 +122,15 @@ class OnlineScript extends BrewScript
             };
 
             http.request(false);
+		});
+
+		set("addnullSprite", function(tag:String, image:String, x:Float, y:Float) {
+			var sprite:ModchartSprite = new ModchartSprite(x,y);
+			PlayOnlineState.instance.modchartSprites.set(tag,sprite);
+		});
+
+		set("addSprite", function(tag:String) {
+			PlayOnlineState.add(PlayOnlineState.instance.modchartSprites.get(tag));
 		});
 
 		set('this', this);
