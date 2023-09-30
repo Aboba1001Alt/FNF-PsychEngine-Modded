@@ -136,7 +136,6 @@ class Main extends Sprite
 		toast = new ToastCore();
 		addChild(toast);
 		}
-		}
 	}
 
 	static function resetSpriteCache(sprite:Sprite):Void {
