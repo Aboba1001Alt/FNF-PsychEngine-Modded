@@ -82,7 +82,7 @@
       "url": "https://github.com/Hiho2950/extension-youtubeplayer"
     },
     {
-      "name": "hxthread",
+      "name": "extension-networking",
       "type": "haxelib",
       "version": null
     },

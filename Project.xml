@@ -115,8 +115,8 @@
 	<haxedef name="openflPos" />
 	<haxedef name="hscriptPos" />
 	<haxelib name="extension-youtubeplayer" />
-	<haxelib name="hxthread" />
     <haxelib name="hxCodec" if="desktop || android" />
+	<haxelib name="extension-networking" />
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
 	<haxedef name="HXC_LIBVLC_LOGGING" if="VIDEOS_ALLOWED debug" />
