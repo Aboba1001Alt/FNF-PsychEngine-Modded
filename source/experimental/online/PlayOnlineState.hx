@@ -909,7 +909,7 @@ class PlayOnlineState extends MusicBeatState
 						FlxG.sound.music.pause();
 						vocals.pause();
 					}
-				} else continue;
+				}
 			}
 		});
 		}
