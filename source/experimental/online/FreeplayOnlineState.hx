@@ -139,10 +139,13 @@ class FreeplayOnlineState extends MusicBeatState
 
 		if (accepted)
 		{
+			openSubState(new experimental.online.ConnectSubState(function(mode:String, ?ip = "") {
 			try
 			{
 				experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase(), songs[curSelected].modName);
 				experimental.online.PlayOnlineState.isStoryMode = false;
+				experimental.online.PlayOnlineState.playMode = mode;
+				experimental.online.PlayOnlineState.ip_server = ip;
 
 				trace('CUR WEEK' + PlayOnlineState.storyWeek);
 				OnlineConfig.setMod(songs[curSelected].modName);
@@ -155,6 +158,8 @@ class FreeplayOnlineState extends MusicBeatState
 			inst.stop();
 			voices.stop();
 			FlxG.sound.music.volume = 0;
+
+			}));
 		}
 		if (FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
 		{

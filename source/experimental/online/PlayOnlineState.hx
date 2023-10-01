@@ -98,6 +98,9 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 
+import networking.Network;
+import networking.utils.NetworkMode;
+
 using StringTools;
 
 class PlayOnlineState extends MusicBeatState
@@ -182,6 +185,9 @@ class PlayOnlineState extends MusicBeatState
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
+
+	public static var ip_server:String = "";
+	public static var playMode:String = "";
 
 	public var spawnTime:Float = 2000;
 
@@ -298,8 +304,18 @@ class PlayOnlineState extends MusicBeatState
 	public var startCallback:Void->Void = null;
 	public var endCallback:Void->Void = null;
 
+	public var client:Dynamic;
+
 	override public function create()
 	{
+		if (playMode == "multi") {
+			client = Network.registerSession(NetworkMode.CLIENT, {
+			    ip: ip_server,
+			    port: 8888
+			});
+			client.start();
+		}
+
 		//trace('Playback Rate: ' + playbackRate);
 		if (!ClientPrefs.data.noDataClear) Paths.clearStoredMemory();
 
@@ -879,6 +895,23 @@ class PlayOnlineState extends MusicBeatState
 
 		seenCutscene = true;
 		inCutscene = false;
+		if (playMode == "multi") {
+		client.send({verb: "conncted"});
+		client.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e: NetworkEvent) {
+			if (e.data.verb == "connectStatus") {
+				if (e.data.connectedClients != 2) {
+					FlxG.camera.followLerp = 0;
+					persistentUpdate = false;
+				    persistentDraw = true;
+					.paused = true;
+					if(FlxG.sound.music != null) {
+						FlxG.sound.music.pause();
+						vocals.pause();
+					}
+				} else continue;
+			}
+		});
+		}
 		var ret:Dynamic = callOnScripts('onStartCountdown', null, true);
 		if(ret != FunkinLua.Function_Stop) {
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
@@ -1200,6 +1233,8 @@ class PlayOnlineState extends MusicBeatState
 				{
 					gottaHitNote = !section.mustHitSection;
 				}
+
+				if (client.uuid != client.server.clients[0].uuid)  gottaHitNote = !gottaHitNote;
 
 				var oldNote:Note;
 				if (unspawnNotes.length > 0)
@@ -1663,25 +1698,50 @@ class PlayOnlineState extends MusicBeatState
 							var strum:StrumNote = strumGroup.members[daNote.noteData];
 							daNote.followStrumNote(strum, fakeCrochet, songSpeed / playbackRate);
 
-							if(daNote.mustPress)
-							{
-								if(cpuControlled && !daNote.blockHit && daNote.canBeHit && (daNote.isSustainNote || daNote.strumTime <= Conductor.songPosition)) {
-									goodNoteHit(daNote);
+							if (playMode == "solo") {
+								if(daNote.mustPress)
+								{
+									if(cpuControlled && !daNote.blockHit && daNote.canBeHit && (daNote.isSustainNote || daNote.strumTime <= Conductor.songPosition)) {
+										goodNoteHit(daNote);
+									}
 								}
-							}
-							else if (daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
-								opponentNoteHit(daNote);
+								else if (daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
+									opponentNoteHit(daNote);
 
-							if(daNote.isSustainNote && strum.sustainReduce) daNote.clipToStrumNote(strum);
+								if(daNote.isSustainNote && strum.sustainReduce) daNote.clipToStrumNote(strum);
 
-							// Kill extremely late notes and cause misses
-							if (Conductor.songPosition - daNote.strumTime > noteKillOffset)
-							{
-								if (daNote.mustPress && !cpuControlled &&!daNote.ignoreNote && !endingSong && (daNote.tooLate || !daNote.wasGoodHit))
-									noteMiss(daNote);
+								// Kill extremely late notes and cause misses
+								if (Conductor.songPosition - daNote.strumTime > noteKillOffset)
+								{
+									if (daNote.mustPress && !cpuControlled &&!daNote.ignoreNote && !endingSong && (daNote.tooLate || !daNote.wasGoodHit))
+										noteMiss(daNote);
 
-								notes.remove(daNote, true);
-								daNote.destroyNote();
+									notes.remove(daNote, true);
+									daNote.destroyNote();
+								}
+							} else if (playMode == "multi") {
+								if(daNote.mustPress)
+								{
+									if(cpuControlled && !daNote.blockHit && daNote.canBeHit && (daNote.isSustainNote || daNote.strumTime <= Conductor.songPosition)) {
+										goodNoteHit(daNote);
+										client.send({verb: 'noteHit', note: daNote});
+									}
+								}
+								client.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e: NetworkEvent) {
+									if (e.data.verb == 'noteHit') opponentNoteHit(e.data.note);
+								});
+
+								if(daNote.isSustainNote && strum.sustainReduce) daNote.clipToStrumNote(strum);
+
+								// Kill extremely late notes and cause misses
+								if (Conductor.songPosition - daNote.strumTime > noteKillOffset)
+								{
+									if (daNote.mustPress && !cpuControlled &&!daNote.ignoreNote && !endingSong && (daNote.tooLate || !daNote.wasGoodHit))
+										noteMiss(daNote);
+
+									notes.remove(daNote, true);
+									daNote.destroyNote();
+								}
 							}
 						});
 					}
@@ -2489,6 +2549,7 @@ class PlayOnlineState extends MusicBeatState
 						// eee jack detection before was not super good
 						if (!notesStopped) {
 							goodNoteHit(epicNote);
+							if (playMode == "multi") client.send({verb: 'noteHit', note: epicNote});
 							pressNotes.push(epicNote);
 						}
 
@@ -2600,6 +2661,7 @@ class PlayOnlineState extends MusicBeatState
 					if (strumsBlocked[daNote.noteData] != true && daNote.isSustainNote && holdArray[daNote.noteData] && daNote.canBeHit
 					&& daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && !daNote.blockHit) {
 						goodNoteHit(daNote);
+						if (playMode == "multi") client.send({verb: 'noteHit', note: daNote});
 					}
 				});
 			}
