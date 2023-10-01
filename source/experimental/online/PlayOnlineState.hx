@@ -100,6 +100,7 @@ import flixel.group.FlxGroup;
 
 import networking.Network;
 import networking.utils.NetworkMode;
+import networking.utils.NetworkEvent;
 
 using StringTools;
 
