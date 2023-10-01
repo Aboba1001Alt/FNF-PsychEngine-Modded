@@ -1,10 +1,9 @@
 package experimental.online;
 
-import flixel.FlxButton;
+import flixel.ui.FlxButton;
 import flixel.FlxG;
-import flixel.FlxSubState;
 import flixel.text.FlxText;
-import flixel.ui.FlxInputText;
+import flixel.addons.ui.FlxInputText;
 
 class ConnectSubState extends MusicBeatSubstate {
     private var connectButton: FlxButton;

@@ -903,7 +903,7 @@ class PlayOnlineState extends MusicBeatState
 					FlxG.camera.followLerp = 0;
 					persistentUpdate = false;
 				    persistentDraw = true;
-					.paused = true;
+					paused = true;
 					if(FlxG.sound.music != null) {
 						FlxG.sound.music.pause();
 						vocals.pause();
