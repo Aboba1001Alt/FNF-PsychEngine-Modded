@@ -10,9 +10,9 @@ class ConnectSubState extends MusicBeatSubstate {
     private var soloModeButton: FlxButton;
     private var ipInput: FlxInputText;
 
-    private var onCloseCallback: Dynamic -> Void;
+    private var onCloseCallback: (Dynamic, String) -> Void;
 
-    public function new(onCloseCallback: Dynamic -> Void) {
+    public function new(onCloseCallback: (Dynamic, String) -> Void) {
         super();
         this.onCloseCallback = onCloseCallback;
     }
