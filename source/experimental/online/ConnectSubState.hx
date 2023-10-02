@@ -34,6 +34,7 @@ class ConnectSubState extends MusicBeatSubstate {
         add(connectButton);
         add(soloModeButton);
         add(ipInput);
+        add(createButton);
     }
 
     private function onConnectButtonClick():Void {
