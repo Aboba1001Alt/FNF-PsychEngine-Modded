@@ -934,7 +934,7 @@ class PlayOnlineState extends MusicBeatState
 			}
 			client.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e: NetworkEvent) {
 				if (e.data.verb == "connected") {
-					client.send({verb: "connectStatus, e.data.start: true});
+					client.send({verb: "connectStatus, start: true});
 					if (paused)
 					{
 						if (FlxG.sound.music != null && !startingSong)
