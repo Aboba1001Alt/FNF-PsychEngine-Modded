@@ -907,57 +907,57 @@ class PlayOnlineState extends MusicBeatState
 		seenCutscene = true;
 		inCutscene = false;
 		if (playMode == "multi") {
-		if (playerMode == "opp") {
-			client.send({verb: "conncted"});
-			client.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e: NetworkEvent) {
-				if (e.data.verb == "connectStatus") {
-					if (e.data.start != true) {
-						FlxG.camera.followLerp = 0;
-						persistentUpdate = false;
-						persistentDraw = true;
-						paused = true;
-						if(FlxG.sound.music != null) {
-							FlxG.sound.music.pause();
-							vocals.pause();
+			if (playerMode == "opp") {
+				client.send({verb: "conncted"});
+				client.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e: NetworkEvent) {
+					if (e.data.verb == "connectStatus") {
+						if (e.data.start != true) {
+							FlxG.camera.followLerp = 0;
+							persistentUpdate = false;
+							persistentDraw = true;
+							paused = true;
+							if(FlxG.sound.music != null) {
+								FlxG.sound.music.pause();
+								vocals.pause();
+							}
 						}
 					}
+				});
+		    } else {
+				FlxG.camera.followLerp = 0;
+				persistentUpdate = false;
+				persistentDraw = true;
+				paused = true;
+				if(FlxG.sound.music != null) {
+					FlxG.sound.music.pause();
+					vocals.pause();
 				}
-			});
-		} else {
-			FlxG.camera.followLerp = 0;
-			persistentUpdate = false;
-			persistentDraw = true;
-			paused = true;
-			if(FlxG.sound.music != null) {
-				FlxG.sound.music.pause();
-				vocals.pause();
-			}
-			client.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e: NetworkEvent) {
-				if (e.data.verb == "connected") {
-					client.send({verb: "connectStatus, start: true});
-					if (paused)
-					{
-						if (FlxG.sound.music != null && !startingSong)
+				client.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e: NetworkEvent) {
+					if (e.data.verb == "connected") {
+						client.send({verb: "connectStatus, start: true});
+						if (paused)
 						{
-							resyncVocals();
+							if (FlxG.sound.music != null && !startingSong)
+							{
+								resyncVocals();
+							}
+
+							if (startTimer != null && !startTimer.finished) startTimer.active = true;
+							if (finishTimer != null && !finishTimer.finished) finishTimer.active = true;
+							if (songSpeedTween != null) songSpeedTween.active = true;
+
+							var chars:Array<CharacterOnline> = [boyfriend, gf, dad];
+							for (char in chars)
+								if(char != null && char.colorTween != null)
+									char.colorTween.active = true;
+
+							paused = false;
 						}
-
-						if (startTimer != null && !startTimer.finished) startTimer.active = true;
-						if (finishTimer != null && !finishTimer.finished) finishTimer.active = true;
-						if (songSpeedTween != null) songSpeedTween.active = true;
-
-						var chars:Array<CharacterOnline> = [boyfriend, gf, dad];
-						for (char in chars)
-							if(char != null && char.colorTween != null)
-								char.colorTween.active = true;
-
-						paused = false;
 					}
-				}
-			});
+				});
+			}
 		}
-		}
-		while (paused) {}
+
 		var ret:Dynamic = callOnScripts('onStartCountdown', null, true);
 		if(ret != FunkinLua.Function_Stop) {
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
