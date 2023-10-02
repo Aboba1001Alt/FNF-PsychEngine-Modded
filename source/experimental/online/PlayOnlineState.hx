@@ -1235,7 +1235,9 @@ class PlayOnlineState extends MusicBeatState
 					gottaHitNote = !section.mustHitSection;
 				}
 
-				if (client.uuid != client.server.clients[0].uuid && playMode == "multi")  gottaHitNote = !gottaHitNote;
+				if (playMode == "multi") {
+					if (client.uuid != client.server.clients[0].uuid) gottaHitNote = !gottaHitNote;
+				}
 
 				var oldNote:Note;
 				if (unspawnNotes.length > 0)
