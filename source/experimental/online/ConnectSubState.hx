@@ -8,6 +8,7 @@ import flixel.addons.ui.FlxInputText;
 class ConnectSubState extends MusicBeatSubstate {
     private var connectButton: FlxButton;
     private var soloModeButton: FlxButton;
+    private var createButton: FlxButton;
     private var ipInput: FlxInputText;
 
     private var onCloseCallback: (Dynamic, String) -> Void;
