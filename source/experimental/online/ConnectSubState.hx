@@ -39,6 +39,6 @@ class ConnectSubState extends MusicBeatSubstate {
     }
 
     private function onSoloModeButtonClick():Void {
-        onCloseCallback("solo");
+        onCloseCallback("solo", "");
     }
 }
