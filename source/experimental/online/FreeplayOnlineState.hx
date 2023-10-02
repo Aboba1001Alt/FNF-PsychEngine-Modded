@@ -139,7 +139,7 @@ class FreeplayOnlineState extends MusicBeatState
 
 		if (accepted)
 		{
-			openSubState(new experimental.online.ConnectSubState(function(mode:Dynamic, ?ip:String = "") {
+			openSubState(new experimental.online.ConnectSubState(function(mode:Dynamic, ip:String = "") {
 			try
 			{
 				experimental.online.PlayOnlineState.SONG = Song.loadJsonFromUrl(songs[curSelected].songName.toLowerCase(), songs[curSelected].modName);
