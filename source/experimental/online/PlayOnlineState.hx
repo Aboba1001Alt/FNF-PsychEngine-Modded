@@ -911,7 +911,7 @@ class PlayOnlineState extends MusicBeatState
 				client.send({verb: "conncted"});
 				client.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e: NetworkEvent) {
 					if (e.data.verb == "connectStatus") {
-						if (e.data.start != "true") {
+						if (e.data.start != true) {
 							FlxG.camera.followLerp = 0;
 							persistentUpdate = false;
 							persistentDraw = true;
@@ -934,7 +934,7 @@ class PlayOnlineState extends MusicBeatState
 				}
 				client.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e: NetworkEvent) {
 					if (e.data.verb == "connected") {
-						client.send({verb: "connectStatus, start: "true"});
+						client.send({verb: "connectStatus", start: true});
 						if (paused)
 						{
 							if (FlxG.sound.music != null && !startingSong)
