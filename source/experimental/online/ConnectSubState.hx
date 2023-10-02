@@ -25,21 +25,9 @@ class ConnectSubState extends MusicBeatSubstate {
         connectButton = new FlxButton(100, 250, "Connect", onConnectButtonClick);
         soloModeButton = new FlxButton(100, 400, "Solo Mode", onSoloModeButtonClick);
         createButton = new FlxButton(100, 600, "Create Server", onCreateButtonClick);
-        connectButton.scale.set(2,2);
-        createButton.scale.set(2,2);
-        soloModeButton.scale.set(2,2);
-        soloModeButton.updateHitbox();
-        createButton.updateHitbox();
-        connectButton.updateHitbox();
-        connectButton.screenCenter(X);
-        soloModeButton.screenCenter(X);
-        createButton.screenCenter(X);
 
         // Create text field input
         ipInput = new FlxInputText(100, 100, 200, "Enter IP");
-        ipInput.scale.set(2,2);
-        ipInput.updateHitbox();
-        ipInput.screenCenter(X);
 
 
         // Add buttons and text field input to the substate
